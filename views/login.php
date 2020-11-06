@@ -20,7 +20,7 @@
 
       <input type="submit" name="Login" value="Login">
 
-      <input type="text" name="cancel" value="Cancel">
+      <input type="submit" name="cancel" value="Cancel">
 
     </form>
 
@@ -28,6 +28,25 @@
 
     if (isset($_POST['Login'])) {
 
+      $email = $_POST['email'];
+      $password = $_POST['pass'];
+
+      // TODO: Change password of database for security
+      $db_link = mysqli_connect("localhost", "root", '', "retire");
+
+      if ($db_link == false) {
+
+        die("ERROR: Could not login must be incorrect email or passowrd" . mysqli_connect_error());
+      }
+
+      $sql = "SELECT email, password
+              FROM users
+              WHERE email = '$email' AND password = '$password' ";
+
+      if (mysqli_query($db_link, $sql)) header('Location: http://localhost/Retire-Inspired/views/home.html');
+      else echo "ERROR: Could exectute" . mysqli_error($db_link);
+
+      mysqli_close($db_link);
 
 
     }
