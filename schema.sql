@@ -1,5 +1,10 @@
+CREATE DATABASE IF NOT EXISTS  `retire`
+USE `retire`;
 
 
+DROP TABLE IF EXISTS roles;
+DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS patients_info
 
 
 CREATE TABLE roles (
@@ -9,7 +14,7 @@ role_name varchar(100),
 PRIMARY KEY (id)
 )
 
-CREATE TABLE user (
+CREATE TABLE users (
 id integer NOT NULL AUTO_INCREMENT,
 Fname varchar(100) NOT NULL,
 Lname varchar(100) NOT NULL,
