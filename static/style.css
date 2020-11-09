@@ -1,0 +1,6 @@
+form.register {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+}

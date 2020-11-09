@@ -24,6 +24,8 @@
 
     </form>
 
+    <p>Need to create an account? <a href="http://localhost:8080/Retire-Inspired/views/register.php">Register here</a>.</p>
+
     <?php
 
     if (isset($_POST['Login'])) {
