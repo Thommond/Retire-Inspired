@@ -77,7 +77,7 @@
         }
 
 
-      else echo "ERROR: Could exectute" . mysqli_error($db_link);
+      else echo "ERROR: Could not execute" . mysqli_error($db_link);
 
       mysqli_close($db_link);
     }

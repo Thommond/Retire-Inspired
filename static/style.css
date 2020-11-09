@@ -23,6 +23,24 @@ a:hover {
   color: purple;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  padding: 1rem;
+  background: tan;
+}
+
+input {
+  margin: 5px;
+  border: 3px solid black;
+}
+
+label {
+  color: black;
+  font-weight: bold;
+}
+
 section {
   display: flex;
   align-items: center;

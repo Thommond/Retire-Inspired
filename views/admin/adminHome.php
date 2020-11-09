@@ -6,12 +6,16 @@
     <link rel="stylesheet" href="../../static/style.css">
   </head>
   <body>
-    <p>Welcome Home Admin!</p>
+
+
 
     <section class='links'>
 
-      <a href="Retire-Inspired">Create Roles</a>
+      <h1>Welcome Home Admin!</h1>
 
+      <a href="createRoles.php">Create Roles</a>
+      
     </section>
+
   </body>
 </html>
