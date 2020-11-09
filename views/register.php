@@ -15,9 +15,9 @@
 
       <label>Role
         <select name="role">
-          <option value="patient">Patient</option>
-          <option value="doctor">Doctor</option>
-          <option value="caretaker">Caretaker</option>
+          <option value=5>Patient</option>
+          <option value=3>Doctor</option>
+          <option value=4>Caretaker</option>
         </select>
       </label>
 
@@ -60,6 +60,26 @@
       $phone = $_POST['phone'];
       $email = $_POST['email'];
       $password = $_POST['password'];
+      $bday = $_POST['birth_date'];
+
+      $link = mysqli_connect("localhost", "root", "", "retire");
+
+      if ($link == false) {
+        die("ERROR: Could not connect. " . mysqli_connect_error());
+      }
+
+      $sql = "INSERT INTO users (Fname, Lname, Role_id, email, phone, Birth_date, password)
+      VALUES ('$f_name', '$l_name', '$role', '$email', '$phone', '$bday', '$password')";
+
+      if (mysqli_query($link, $sql)) {
+        echo "Registration Submitted Successfully";
+        header("Location:all.php");
+      } else {
+        echo "ERROR: Registration failed" . mysqli_error($link);
+      }
+
+      mysqli_close($link);
+
     }
     ?>
   </body>
