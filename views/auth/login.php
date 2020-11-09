@@ -80,6 +80,13 @@
       else echo "ERROR: Could not execute" . mysqli_error($db_link);
 
       mysqli_close($db_link);
+
+
+      session_start();
+
+      $_SESSION['email'] = $email;
+      $_SESSION['pass'] = $password;
+
     }
     ?>
 
