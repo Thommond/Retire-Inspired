@@ -1,0 +1,30 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *::before *::after {
+ box-sizing: inherit;
+}
+
+body, section {
+  background-color: darkblue;
+  color: white;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+  padding: 5px;
+  font-weight: bolder;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: purple;
+}
+
+section {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
