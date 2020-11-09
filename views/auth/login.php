@@ -50,7 +50,7 @@
 
         switch ($result[0]) {
           case '1':
-            header('Location: http://localhost/Retire-Inspired/views/home/adminHome.php ');
+            header('Location: http://localhost/Retire-Inspired/views/admin/adminHome.php ');
             break;
 
           case '2':

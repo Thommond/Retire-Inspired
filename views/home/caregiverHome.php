@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Caregiver Home</title>
+    <link rel="stylesheet" href="../static/style.css">
   </head>
   <body>
     <p>Welcome Home Caregiver!</p>

@@ -7,5 +7,11 @@
   </head>
   <body>
     <p>Welcome Home Admin!</p>
+
+    <section class='links'>
+
+      <a href="Retire-Inspired">Create Roles</a>
+
+    </section>
   </body>
 </html>
