@@ -12,9 +12,7 @@
     check_session(1);
     ?>
 
-
     <section>
-
         <table>
           <tr>
               <th>Access Level</th>
@@ -40,9 +38,8 @@
           mysqli_close($db_link);
 
           ?>
-          
-        <table>
-      </ul>
+
+        </table>
     </section>
 
 
