@@ -8,9 +8,8 @@
   <body>
 
     <?php
-    // if(!isset($_SESSION['email'])) {
-    //   header('Location: http://localhost/Retire-Inspired/views/errors/forbidden.php');
-    // }
+    include ('../../common-functions.php');
+    check_session(4);
     ?>
 
     <p>Welcome Home Caregiver!</p>

@@ -7,13 +7,12 @@
   </head>
   <body>
 
-    <p>Welcome Home Family Member!</p>
-
     <?php
-    // if(!isset($_SESSION['email'])) {
-    //   header('Location: http://localhost/Retire-Inspired/views/errors/forbidden.php');
-    // }
+    include ('../../common-functions.php');
+    check_session(6);
     ?>
+
+    <p>Welcome Home Family Member!</p>
 
   </body>
 </html>

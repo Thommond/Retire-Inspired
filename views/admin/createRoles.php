@@ -8,10 +8,43 @@
   <body>
 
     <?php
-    // if(!isset($_SESSION['email'])) {
-    //   header('Location: http://localhost/Retire-Inspired/views/errors/forbidden.php');
-    // }
+    include ('../../common-functions.php');
+    check_session(1);
     ?>
+
+
+    <section>
+
+        <table>
+          <tr>
+              <th>Access Level</th>
+              <th>Role Name</th>
+          </tr>
+
+          <?php
+          $db_link = mysqli_connect("localhost", "root", "", "retire");
+
+          if ($db_link == false) {
+            die("ERROR: Could not connect. " . mysqli_connect_error());
+          }
+
+          $result = mysqli_query($db_link, "SELECT DISTINCT access_level, role_name FROM roles");
+
+          while ($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<td>" . $row['access_level'] . "</td>";
+            echo "<td>" . $row['role_name'] . "</td>";
+            echo "</tr>";
+          }
+
+          mysqli_close($db_link);
+
+          ?>
+          
+        <table>
+      </ul>
+    </section>
+
 
     <section>
 

@@ -9,7 +9,7 @@
 
     <?php
     include ('../../common-functions.php');
-    check_session('1');
+    check_session(1);
     ?>
 
 
