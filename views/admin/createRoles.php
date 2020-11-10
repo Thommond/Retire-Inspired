@@ -7,6 +7,12 @@
   </head>
   <body>
 
+    <?php
+    // if(!isset($_SESSION['email'])) {
+    //   header('Location: http://localhost/Retire-Inspired/views/errors/forbidden.php');
+    // }
+    ?>
+
     <section>
 
       <a class='back' href="adminHome.php">Back</a>
@@ -21,7 +27,8 @@
           <input type="text" name="access_level">
         </label>
 
-          <input type="submit" name="createRole" value="Submit">
+        <input type="submit" name="createRole" value="Submit">
+
       </form>
 
       <?php

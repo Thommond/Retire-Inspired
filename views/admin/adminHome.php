@@ -7,11 +7,15 @@
   </head>
   <body>
 
-    <?php
-    if ($_SESSION['email'] != $email OR $_SESSION['pass'] != $password) {
-      header()
-    }
-    ?>
+    <!-- <?php
+    // session_start();
+    //
+    // if (isset($_SESSION)){
+    //
+    //   if($_SESSION['id'])
+    //   header('Location: http://localhost/Retire-Inspired/views/errors/forbidden.php ');
+    // }
+    ?> -->
 
 
     <form class="exit" action="adminHome.php" method="post">
@@ -19,9 +23,12 @@
     </form>
 
     <?php
+    session_start();
+    print_r($_SESSION);
 
     if(isset($_POST['logout'])) {
-      session_write_close();
+      session_start();
+      session_destroy();
       header('Location: http://localhost/Retire-Inspired/views/auth/login.php');
       }
 
