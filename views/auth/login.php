@@ -4,7 +4,7 @@
 
     <meta charset="utf-8">
     <title>Login Page</title>
-    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="../../static/style.css">
 
   </head>
 
@@ -23,6 +23,8 @@
       <input type="submit" name="cancel" value="Cancel">
 
     </form>
+
+    <p>Need to create an account? <a href="http://localhost:8080/Retire-Inspired/views/auth/register.php">Register here</a></p>
 
     <?php
 
