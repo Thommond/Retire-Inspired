@@ -7,15 +7,10 @@
   </head>
   <body>
 
-    <!-- <?php
-    // session_start();
-    //
-    // if (isset($_SESSION)){
-    //
-    //   if($_SESSION['id'])
-    //   header('Location: http://localhost/Retire-Inspired/views/errors/forbidden.php ');
-    // }
-    ?> -->
+    <?php
+    include ('../../common-functions.php');
+    check_session('1');
+    ?>
 
 
     <form class="exit" action="adminHome.php" method="post">
@@ -23,8 +18,6 @@
     </form>
 
     <?php
-    session_start();
-    print_r($_SESSION);
 
     if(isset($_POST['logout'])) {
       session_start();

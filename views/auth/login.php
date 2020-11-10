@@ -43,7 +43,7 @@
         die("ERROR: Could not login must be incorrect email or passowrd" . mysqli_connect_error());
       }
 
-      $sql = "SELECT Role_id, Fname, Lname
+      $sql = "SELECT Role_id, Fname, Lname, id
               FROM users
               WHERE email = '$email' AND password = '$password'";
 
@@ -60,7 +60,9 @@
         $_SESSION['Role_id'] = $result[0];
         $_SESSION['first_name'] = $result[1];
         $_SESSION['last_name'] = $result[2];
-        $_SESSION['id'] = session_id();
+        $_SESSION['id'] = $result[3];
+
+
 
         switch ($result[0]) {
           case '1':
