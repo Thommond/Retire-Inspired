@@ -4,3 +4,7 @@ form.register {
   flex-direction: column;
   width: fit-content;
 }
+
+.error {
+  color: red;
+}

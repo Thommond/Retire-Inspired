@@ -15,9 +15,21 @@
 
       <label>Role
         <select name="role">
-          <option value=5>Patient</option>
-          <option value=3>Doctor</option>
-          <option value=4>Caretaker</option>
+
+          <?php
+          $link = mysqli_connect("localhost", "root", "", "retire");
+
+          if ($link == false) {
+            die("ERROR: Could not connect. " . mysqli_connect_error());
+          }
+
+          $result = mysqli_query($link, "SELECT * FROM roles");
+          while ($row = $result->fetch_assoc()) {
+            echo "<option value=" . $row['access_level'] . ">" . $row['role_name'] . "</option>";
+          }
+
+          mysqli_close($link);
+          ?>
         </select>
       </label>
 
@@ -42,7 +54,7 @@
       </label>
 
       <label>Date of Birth
-        <input type="text" name="birth_date">
+        <input type="date" name="birth_date">
       </label>
 
       <input type="submit" name="register" value="Submit Registration">
@@ -62,23 +74,29 @@
       $password = $_POST['password'];
       $bday = $_POST['birth_date'];
 
-      $link = mysqli_connect("localhost", "root", "", "retire");
-
-      if ($link == false) {
-        die("ERROR: Could not connect. " . mysqli_connect_error());
+      if (empty($role) || empty($f_name) || empty($l_name) || empty($phone) || empty($email) || empty($password) || empty($bday)){
+        echo "<p class='error'>Please fill in all fields.</p>";
       }
+      else {
 
-      $sql = "INSERT INTO users (Fname, Lname, Role_id, email, phone, Birth_date, password)
-      VALUES ('$f_name', '$l_name', '$role', '$email', '$phone', '$bday', '$password')";
+        $link = mysqli_connect("localhost", "root", "", "retire");
 
-      if (mysqli_query($link, $sql)) {
-        echo "Registration Submitted Successfully";
-        header("Location:all.php");
-      } else {
-        echo "ERROR: Registration failed" . mysqli_error($link);
+        if ($link == false) {
+          die("ERROR: Could not connect. " . mysqli_connect_error());
+        }
+
+        $sql = "INSERT INTO users (Fname, Lname, Role_id, email, phone, Birth_date, password)
+        VALUES ('$f_name', '$l_name', '$role', '$email', '$phone', '$bday', '$password')";
+
+        if (mysqli_query($link, $sql)) {
+          echo "Registration Submitted Successfully";
+          header("Location:login.php");
+        } else {
+          echo "ERROR: Registration failed" . mysqli_error($link);
+        }
+
+        mysqli_close($link);
       }
-
-      mysqli_close($link);
 
     }
     ?>
