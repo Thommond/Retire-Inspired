@@ -5,7 +5,7 @@
 
     <meta charset="utf-8">
     <title>Register</title>
-    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../../static/style.css">
   </head>
   <body>
 
@@ -61,7 +61,7 @@
 
     </form>
 
-    <p>Already registered? <a href="http://localhost:8080/Retire-Inspired/views/login.php">Log In here</a>.</p>
+    <p>Already registered? <a href="http://localhost:8080/Retire-Inspired/views/auth/login.php">Log In here</a></p>
 
     <?php
 

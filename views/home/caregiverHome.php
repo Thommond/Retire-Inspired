@@ -1,15 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-
   <head>
     <meta charset="utf-8">
-    <title>Home</title>
-    <link rel="stylesheet" href="../static/style.css">
+    <title>Caregiver Home</title>
   </head>
-
   <body>
-
-    <p>Welcome Home!</p>
-
+    <p>Welcome Home Caregiver!</p>
   </body>
 </html>
