@@ -47,6 +47,20 @@ section {
   flex-direction: column;
 }
 
+table {
+  color: black;
+  background-color: tan;
+}
+
+tr {
+  background-color: white;
+}
+
+td, th {
+  padding: 5px;
+  border: 1px solid black;
+}
+
 form.register {
   align-items: flex-end;
   display: flex;
