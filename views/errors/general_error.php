@@ -9,11 +9,11 @@
 
     <section>
 
-      <h1>404</h1>
+      <h1>500</h1>
 
-      <p>The page you attempted to access can not be found, sorry for
-      your inconvience press the left arrow on the browser to go back to
-      your most recent page.</p>
+      <p>We had an issue loading or connecting to the page or data you
+        would like to access, sorry for your inconvience press the left
+        arrow on the browser to go back to your most recent page.</p>
 
     </section>
 

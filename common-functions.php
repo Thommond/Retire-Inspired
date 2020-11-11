@@ -4,7 +4,7 @@ function check_session($role, $role2=False, $private=False) {
 
   session_start();
 
-  // checking roles and if session exists also different type of access levels 
+  // checking roles and if session exists also different type of access levels
   if ($_SESSION['id'] == null) {
       header('Location: http://localhost/Retire-Inspired/views/errors/forbidden.php');
   }
@@ -44,7 +44,7 @@ function check_session($role, $role2=False, $private=False) {
 
   $sql = "SELECT id, email
           FROM users
-          WHERE id '$the_id'";
+          WHERE id = '$the_id'";
 
   if (mysqli_query($db_link, $sql)) {
 
@@ -55,11 +55,13 @@ function check_session($role, $role2=False, $private=False) {
         header('Location: http://localhost/Retire-Inspired/views/errors/forbidden.php');
       }
 
-      echo 'bob is cool';
-
-      mysqli_close($db_link);
-
     }
+
+  else {
+    header('Location: http://localhost/Retire-Inspired/views/errors/general_error.php')
+  }
+
+    mysqli_close($db_link);
 }
 
 
