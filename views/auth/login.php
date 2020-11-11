@@ -10,19 +10,23 @@
 
   <body>
 
-    <h1>Login</h1>
+    <section>
 
-    <form class="" action="login.php" method="post">
+      <h1>Login</h1>
 
-      <input type="text" name="email" >
+      <form class="" action="login.php" method="post">
 
-      <input type="text" name="pass" >
+        <input type="text" name="email" >
 
-      <input type="submit" name="Login" value="Login">
+        <input type="text" name="pass" >
 
-      <input type="submit" name="cancel" value="Cancel">
+        <input type="submit" name="Login" value="Login">
 
-    </form>
+        <input type="submit" name="cancel" value="Cancel">
+
+      </form>
+
+    </section>
 
     <p>Need to create an account? <a href="http://localhost:8080/Retire-Inspired/views/auth/register.php">Register here</a></p>
 
@@ -41,7 +45,7 @@
         die("ERROR: Could not login must be incorrect email or passowrd" . mysqli_connect_error());
       }
 
-      $sql = "SELECT Role_id
+      $sql = "SELECT Role_id, Fname, Lname, id
               FROM users
               WHERE email = '$email' AND password = '$password'";
 
@@ -50,9 +54,21 @@
 
         $result = mysqli_fetch_row(mysqli_query($db_link, $sql));
 
+        session_id();
+        session_start();
+
+        $_SESSION['email'] = $email;
+        $_SESSION['pass'] = $password;
+        $_SESSION['Role_id'] = $result[0];
+        $_SESSION['first_name'] = $result[1];
+        $_SESSION['last_name'] = $result[2];
+        $_SESSION['id'] = $result[3];
+
+
+
         switch ($result[0]) {
           case '1':
-            header('Location: http://localhost/Retire-Inspired/views/home/adminHome.php ');
+            header('Location: http://localhost/Retire-Inspired/views/admin/adminHome.php ');
             break;
 
           case '2':
@@ -79,9 +95,15 @@
         }
 
 
-      else echo "ERROR: Could exectute" . mysqli_error($db_link);
+      else echo "ERROR: Could not execute" . mysqli_error($db_link);
 
       mysqli_close($db_link);
+
+    }
+
+    if(isset($_POST['cancel'])) {
+
+      header('Location: http://localhost/Retire-Inspired/views/landing.php');
     }
     ?>
 
