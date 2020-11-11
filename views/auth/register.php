@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <title>Register</title>
     <link rel="stylesheet" href="../../static/style.css">
+    <script defer src="../../static/register.js"></script>
   </head>
   <body>
 

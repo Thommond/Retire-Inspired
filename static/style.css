@@ -50,7 +50,7 @@ section {
 section.patient {
   align-items: flex-end;
   background-color: white;
-  display: flex;
+  display: none;
 }
 
 form.register {
