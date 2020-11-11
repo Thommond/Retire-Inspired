@@ -57,6 +57,21 @@
         <input type="date" name="birth_date">
       </label>
 
+      <section class="patient">
+
+        <label>Family Code
+          <input type="text" name="code">
+        </label>
+
+        <label>Emergency Contact
+          <input type="text" name="contact">
+        </label>
+
+        <label>Relation to Emergency Contact
+          <input type="text" name="relation">
+        </label>
+      </section>
+
       <input type="submit" name="register" value="Submit Registration">
 
     </form>
