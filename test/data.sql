@@ -9,13 +9,13 @@ VALUES (1, 'Admin'),
        (6, 'Family_member');
 
 INSERT INTO users (Fname, Lname, Role_id, email, phone, Birth_date, password, approved)
-VALUES ('Thomas', 'Smith', 1, 'example@gmail.com', '(717)-345-3455', '1988-01-07', 'qwerty', true),
-       ('Brendan', 'Horst', 2, 'qwerty@gmail.com', '(717)-223-2325', '1999-03-19', 'password', true),
-       ('Walter', 'Moore', 3, 'walter@yahoo.com', '(616)-232-9844', '1978-01-04', 'monday1', true),
-       ('Bob', 'Jerry', 4, 'jerry@aol.com', '(612)-233-9889', '1996-03-11', 'whatyousaid', true),
-       ('Arafat', 'Hassan', 5, 'hassan@gmail.com', '(717)-347-2222', '1968-05-25', 'aswdf6', true),
-       ('Sam', 'Hassan', 6, 'sam@gmail.com', '(717)-355-2312', '1988-02-11', 'cooldude', true);
-       ('bob', 'Hassan', 6, 'bob@gmail.com', '(717)-355-2312', '1988-02-11', 'okaybro', false);
+VALUES ('Thomas', 'Smith', 1, 'example@gmail.com', '(717)-345-3455', '1988-01-07', 'qwerty', 2),
+       ('Brendan', 'Horst', 2, 'qwerty@gmail.com', '(717)-223-2325', '1999-03-19', 'password', 2),
+       ('Walter', 'Moore', 3, 'walter@yahoo.com', '(616)-232-9844', '1978-01-04', 'monday1', 2),
+       ('Bob', 'Jerry', 4, 'jerry@aol.com', '(612)-233-9889', '1996-03-11', 'whatyousaid', 2),
+       ('Arafat', 'Hassan', 5, 'hassan@gmail.com', '(717)-347-2222', '1968-05-25', 'aswdf6', 2),
+       ('Sam', 'Hassan', 6, 'sam@gmail.com', '(717)-355-2312', '1988-02-11', 'cooldude', 2);
+       ('bob', 'Hassan', 6, 'bob@gmail.com', '(717)-355-2312', '1988-02-11', 'okaybro', 1);
 
 INSERT INTO patients_info (user_id, family_code, emergency_contact, Relation_Contact, admission_date, a_group, balance_due)
 VALUES (5, '123456', 'Same Hassan', 'son', '2020-11-06', 1, 1000)
