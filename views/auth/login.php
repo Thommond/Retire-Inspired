@@ -16,9 +16,13 @@
 
       <form class="" action="login.php" method="post">
 
-        <input type="text" name="email" >
+        <label>Email
+          <input type="text" name="email" >
+        </label>
 
-        <input type="text" name="pass" >
+        <label>Password
+          <input type="text" name="pass" >
+        </label>
 
         <input type="submit" name="Login" value="Login">
 

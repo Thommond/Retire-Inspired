@@ -70,7 +70,7 @@
             <input type="text" name="contact">
           </label>
 
-          <label>Relation to Emergency Contact
+          <label>Relation to Contact
             <input type="text" name="relation">
           </label>
         </section>
