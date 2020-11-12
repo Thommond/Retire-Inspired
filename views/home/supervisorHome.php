@@ -16,6 +16,16 @@
         <input type="submit" name="logout" value="Logout">
     </form>
 
+    <?php
+
+    if(isset($_POST['logout'])) {
+      session_start();
+      session_destroy();
+      header('Location: http://localhost/Retire-Inspired/views/auth/login.php');
+      }
+
+     ?>
+
     <section class='links'>
 
       <p>Welcome Home Supervisor!</p>

@@ -67,7 +67,7 @@
         $_SESSION['id'] = $result[3];
         $_SESSION['approved'] = $result[4];
 
-        if ($_SESSION['approved'] != 2) {
+        if ($_SESSION['approved'] != 1) {
           header("Location: http://localhost/Retire-Inspired/views/errors/forbidden.php");
         }
 
