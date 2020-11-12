@@ -10,75 +10,78 @@
   </head>
   <body>
 
-    <h1>Register</h1>
+    <section>
 
-    <form class="register" action="register.php" method="post">
+      <h1>Register</h1>
 
-      <label>Role
-        <select name="role">
+      <form class="register" action="register.php" method="post">
 
-          <?php
-          $link = mysqli_connect("localhost", "root", "", "retire");
+        <label>Role
+          <select name="role">
 
-          if ($link == false) {
-            die("ERROR: Could not connect. " . mysqli_connect_error());
-          }
+            <?php
+            $link = mysqli_connect("localhost", "root", "", "retire");
 
-          $result = mysqli_query($link, "SELECT * FROM roles");
-          while ($row = $result->fetch_assoc()) {
-            echo "<option value=" . $row['access_level'] . ">" . $row['role_name'] . "</option>";
-          }
+            if ($link == false) {
+              die("ERROR: Could not connect. " . mysqli_connect_error());
+            }
 
-          mysqli_close($link);
-          ?>
-        </select>
-      </label>
+            $result = mysqli_query($link, "SELECT * FROM roles");
+            while ($row = $result->fetch_assoc()) {
+              echo "<option value=" . $row['access_level'] . ">" . $row['role_name'] . "</option>";
+            }
 
-      <label>First Name
-        <input type="text" name="f_name">
-      </label>
-
-      <label>Last Name
-        <input type="text" name="l_name">
-      </label>
-
-      <label>Email
-        <input type="text" name="email">
-      </label>
-
-      <label>Phone Number
-        <input type="text" name="phone">
-      </label>
-
-      <label>Password
-        <input type="text" name="password">
-      </label>
-
-      <label>Date of Birth
-        <input type="date" name="birth_date">
-      </label>
-
-      <section class="patient">
-
-        <label>Family Code
-          <input type="text" name="code">
+            mysqli_close($link);
+            ?>
+          </select>
         </label>
 
-        <label>Emergency Contact
-          <input type="text" name="contact">
+        <label>First Name
+          <input type="text" name="f_name">
         </label>
 
-        <label>Relation to Emergency Contact
-          <input type="text" name="relation">
+        <label>Last Name
+          <input type="text" name="l_name">
         </label>
-      </section>
 
-      <input type="submit" name="register" value="Submit Registration">
+        <label>Email
+          <input type="text" name="email">
+        </label>
 
-    </form>
+        <label>Phone Number
+          <input type="text" name="phone">
+        </label>
 
-    <p>Already registered? <a href="http://localhost:8080/Retire-Inspired/views/auth/login.php">Log In here</a></p>
+        <label>Password
+          <input type="text" name="password">
+        </label>
 
+        <label>Date of Birth
+          <input type="date" name="birth_date">
+        </label>
+
+        <section class="patient">
+
+          <label>Family Code
+            <input type="text" name="code">
+          </label>
+
+          <label>Emergency Contact
+            <input type="text" name="contact">
+          </label>
+
+          <label>Relation to Emergency Contact
+            <input type="text" name="relation">
+          </label>
+        </section>
+
+        <input type="submit" name="register" value="Submit Registration">
+
+      </form>
+
+      <p>Already registered? <a href="http://localhost:8080/Retire-Inspired/views/auth/login.php">Log In here</a></p>
+
+    </section>
     <?php
 
     if (isset($_POST['register'])) {
