@@ -23,6 +23,7 @@
       ?>
 
       <h1>Registration Approval</h1>
+      <p>Note: All registrations that are selected no will be Permanently deleted.</p>
       <form class="" action="approve.php" method="post">
         <table>
           <tr>
@@ -40,7 +41,7 @@
         }
 
         $sql = "SELECT Fname, Lname, Role_id, id FROM users
-                WHERE approved LIKE 1
+                WHERE approved LIKE 0
                 ORDER BY Fname ASC";
 
         $result = mysqli_query($db_link, $sql);
@@ -72,7 +73,7 @@
 
 
         $sql = "SELECT id FROM users
-                WHERE approved LIKE 1
+                WHERE approved LIKE 0
                 ORDER BY Fname ASC";
 
         $result = mysqli_query($db_link, $sql);
@@ -81,30 +82,28 @@
 
           if($_POST[$row['id']] == 'yes') {
 
+            $id = $row['id'];
+
+            $sql2 = "UPDATE users
+                     SET approved = 1
+                     WHERE id LIKE $id";
+
+            $result = mysqli_query($db_link, $sql2);
           }
 
           else if ($_POST[$row['id']] == 'no') {
 
+            $id = $row['id'];
+
+            $sql2 = "DELETE FROM users
+                     WHERE id LIKE $id";
+
+            $result = mysqli_query($db_link, $sql2);
 
 
           }
 
         }
-
-
-
-
-
-       // Get list of inputs which are "yes"
-        // loop through
-          // updating to status "2" on each row (accepted)
-
-       // Get list of inputs which are "no"
-        // loop through
-          // updating to status "3" on each row (deletion)
-
-       // All labeled status "3" loop though
-        // deleting each row
 
       }
 

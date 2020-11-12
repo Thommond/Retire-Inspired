@@ -28,7 +28,7 @@ CREATE TABLE users (
   phone varchar(100) NOT NULL,
   Birth_date date NOT NULL,
   Password varchar(100) NOT NULL,
-  approved integer NOT NULL,
+  approved boolean NOT NULL,
   PRIMARY KEY (id)
 );
 
