@@ -113,7 +113,9 @@
 
         if (mysqli_query($link, $sql)) {
           echo "Registration Submitted Successfully";
-          header("Location:login.php");
+          if ($role != 5){
+            header("Location:login.php");
+          }
         } else {
           echo "ERROR: Registration failed" . mysqli_error($link);
         }
@@ -127,7 +129,7 @@
           $id = $row['id'];
 
           $sql = "INSERT INTO patients_info (user_id, family_code, emergency_contact, Relation_Contact, admission_date, patient_group, balance_due)
-          VALUES ('$id', '$code', '$contact', '$relation', CURRENT_TIMESTAMP(), FLOOR(1 + (RAND() * 3)), 0)";
+          VALUES ('$id', '$code', '$contact', '$relation', CURRENT_DATE(), FLOOR(1 + (RAND() * 3)), 0)";
 
           if (mysqli_query($link, $sql)) {
             echo "Patient Information Submitted Successfully";
