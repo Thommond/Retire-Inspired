@@ -90,7 +90,11 @@
       $password = $_POST['password'];
       $bday = $_POST['birth_date'];
 
-      if (empty($role) || empty($f_name) || empty($l_name) || empty($phone) || empty($email) || empty($password) || empty($bday)){
+      $code = $_POST['code'];
+      $contact = $_POST['contact'];
+      $relation = $_POST['relation'];
+
+      if (empty($role) || empty($f_name) || empty($l_name) || empty($phone) || empty($email) || empty($password) || empty($bday) || ($role == 5 && (empty($code) || empty($contact) || empty($relation)))){
         echo "<p class='error'>Please fill in all fields.</p>";
       }
       else {
@@ -101,14 +105,34 @@
           die("ERROR: Could not connect. " . mysqli_connect_error());
         }
 
-        $sql = "INSERT INTO users (Fname, Lname, Role_id, email, phone, Birth_date, password)
-        VALUES ('$f_name', '$l_name', '$role', '$email', '$phone', '$bday', '$password')";
+        $sql = "INSERT INTO users (Fname, Lname, Role_id, email, phone, Birth_date, password, approved)
+        VALUES ('$f_name', '$l_name', '$role', '$email', '$phone', '$bday', '$password', False)";
 
         if (mysqli_query($link, $sql)) {
           echo "Registration Submitted Successfully";
           header("Location:login.php");
         } else {
           echo "ERROR: Registration failed" . mysqli_error($link);
+        }
+
+        if ($role == 5) {
+
+          $sql = "SELECT id FROM users WHERE email = '$email'";
+
+          $result = mysqli_query($link, $sql);
+          $row = $result->fetch_assoc();
+          $id = $row['id'];
+
+          $sql = "INSERT INTO patients_info (user_id, family_code, emergency_contact, Relation_Contact, admission_date, patient_group, balance_due)
+          VALUES ('$id', '$code', '$contact', '$relation', CURRENT_TIMESTAMP(), FLOOR(1 + (RAND() * 3)), 0)";
+
+          if (mysqli_query($link, $sql)) {
+            echo "Patient Information Submitted Successfully";
+            header("Location:login.php");
+          } else {
+            echo "ERROR: Registration failed" . mysqli_error($link);
+          }
+
         }
 
         mysqli_close($link);

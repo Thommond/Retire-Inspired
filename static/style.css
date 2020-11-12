@@ -50,6 +50,7 @@ section {
 section.patient {
   align-items: flex-end;
   background-color: white;
+  border: solid black;
   display: none;
 }
 
