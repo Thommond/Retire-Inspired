@@ -12,6 +12,20 @@
     check_session(6);
     ?>
 
+    <form class="exit" action="familyMemberHome.php" method="post">
+        <input type="submit" name="logout" value="Logout">
+    </form>
+
+    <?php
+
+    if(isset($_POST['logout'])) {
+      session_start();
+      session_destroy();
+      header('Location: http://localhost/Retire-Inspired/views/auth/login.php');
+      }
+
+     ?>
+
     <p>Welcome Home Family Member!</p>
 
   </body>

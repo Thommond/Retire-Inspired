@@ -29,8 +29,8 @@
         <input type="submit" name="cancel" value="Cancel">
 
       </form>
-      
-      <p>Need to create an account? <a href="http://localhost:8080/Retire-Inspired/views/auth/register.php">Register here</a></p>
+
+      <p>Need to create an account? <a href="http://localhost/Retire-Inspired/views/auth/register.php">Register here</a></p>
 
     </section>
 
@@ -71,8 +71,10 @@
         $_SESSION['approved'] = $result[4];
 
         if ($_SESSION['approved'] != 1) {
-          header("Location: http://localhost/Retire-Inspired/views/errors/forbidden.php");
+          header("Location: http://localhost/Retire-Inspired/views/errors/notYetApproved.php");
         }
+
+        else {
 
         switch ($result[0]) {
           case '1':
@@ -99,6 +101,8 @@
             header('Location: http://localhost/Retire-Inspired/views/home/familyMemberHome.php ');
             break;
         }
+
+      }
 
         }
 

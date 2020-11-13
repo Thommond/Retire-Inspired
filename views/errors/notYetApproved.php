@@ -9,11 +9,10 @@
 
     <section>
 
-      <h1>403</h1>
+      <h1>Not Approved Yet</h1>
 
-      <p>The page you attempted to access or the action you attempted
-      to perform is forbidden. To go back to your most recent page press
-      left arrow on your browser.</p>
+      <p>You attempted to login with not approved data, please check back
+      in later so a Admin has time to review your infromation.</p>
 
       <h3><a href="../auth/login.php">Or Click here to go to the login page</a></h3>
 

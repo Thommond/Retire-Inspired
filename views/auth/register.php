@@ -26,7 +26,7 @@
               die("ERROR: Could not connect. " . mysqli_connect_error());
             }
 
-            $result = mysqli_query($link, "SELECT * FROM roles");
+            $result = mysqli_query($link, "SELECT DISTINCT access_level, role_name FROM roles");
             while ($row = $result->fetch_assoc()) {
               echo "<option value=" . $row['access_level'] . ">" . $row['role_name'] . "</option>";
             }
@@ -79,7 +79,7 @@
 
       </form>
 
-      <p>Already registered? <a href="http://localhost:8080/Retire-Inspired/views/auth/login.php">Log In here</a></p>
+      <p>Already registered? <a href="http://localhost/Retire-Inspired/views/auth/login.php">Log In here</a></p>
 
     </section>
     <?php
