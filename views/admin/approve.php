@@ -24,7 +24,7 @@
 
       <h1>Registration Approval</h1>
       <p>Note: All registrations that are selected no will be Permanently deleted.</p>
-      <form class="" action="approve.php" method="post">
+      <form action="approve.php" method="post">
         <table>
           <tr>
             <th>First Name</th>
