@@ -16,20 +16,23 @@
 
       <form class="" action="login.php" method="post">
 
-        <input type="text" name="email" >
+        <label>Email
+          <input type="text" name="email" >
+        </label>
 
-        <input type="text" name="pass" >
+        <label>Password
+          <input type="text" name="pass" >
+        </label>
 
         <input type="submit" name="Login" value="Login">
 
         <input type="submit" name="cancel" value="Cancel">
 
       </form>
-
-        <p>Need to create an account? <a href="http://localhost:8080/Retire-Inspired/views/auth/register.php">Register here</a></p>
+      
+      <p>Need to create an account? <a href="http://localhost:8080/Retire-Inspired/views/auth/register.php">Register here</a></p>
 
     </section>
-
 
 
     <?php

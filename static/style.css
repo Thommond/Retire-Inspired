@@ -24,6 +24,7 @@ a:hover {
 }
 
 form {
+  align-items: flex-end;
   display: flex;
   flex-direction: column;
   margin: 1rem;
@@ -31,9 +32,13 @@ form {
   background: tan;
 }
 
-input {
+input, select {
   margin: 5px;
   border: 3px solid black;
+}
+
+input[type="submit"] {
+  width: 100%;
 }
 
 label {
@@ -61,12 +66,15 @@ td, th {
   border: 1px solid black;
 }
 
-form.register {
+section.patient {
   align-items: flex-end;
-  display: flex;
-  flex-direction: column;
-  width: fit-content;
+  background-color: white;
+  border: solid black;
+  display: none;
 }
 
 .error {
   color: red;
+  font-weight: bold;
+  text-align: center;
+}
