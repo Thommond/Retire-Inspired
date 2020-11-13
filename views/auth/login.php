@@ -29,10 +29,11 @@
         <input type="submit" name="cancel" value="Cancel">
 
       </form>
-
+      
       <p>Need to create an account? <a href="http://localhost:8080/Retire-Inspired/views/auth/register.php">Register here</a></p>
 
     </section>
+
 
     <?php
 
@@ -49,7 +50,7 @@
         die("ERROR: Could not login must be incorrect email or passowrd" . mysqli_connect_error());
       }
 
-      $sql = "SELECT Role_id, Fname, Lname, id
+      $sql = "SELECT Role_id, Fname, Lname, id, approved
               FROM users
               WHERE email = '$email' AND password = '$password'";
 
@@ -67,8 +68,11 @@
         $_SESSION['first_name'] = $result[1];
         $_SESSION['last_name'] = $result[2];
         $_SESSION['id'] = $result[3];
+        $_SESSION['approved'] = $result[4];
 
-
+        if ($_SESSION['approved'] != 1) {
+          header("Location: http://localhost/Retire-Inspired/views/errors/forbidden.php");
+        }
 
         switch ($result[0]) {
           case '1':

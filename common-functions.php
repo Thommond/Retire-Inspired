@@ -58,7 +58,7 @@ function check_session($role, $role2=False, $private=False) {
     }
 
   else {
-    header('Location: http://localhost/Retire-Inspired/views/errors/general_error.php')
+    header('Location: http://localhost/Retire-Inspired/views/errors/general_error.php');
   }
 
     mysqli_close($db_link);

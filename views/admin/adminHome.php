@@ -33,6 +33,8 @@
 
       <a href="createRoles.php">Create Roles</a>
 
+      <a href="approve.php">Approve Registrations</a>
+
     </section>
 
   </body>

@@ -12,7 +12,30 @@
     check_session(2);
     ?>
 
-    <p>Welcome Home Supervisor!</p>
+    <form class="exit" action="supervisorHome.php" method="post">
+        <input type="submit" name="logout" value="Logout">
+    </form>
+
+    <?php
+
+    if(isset($_POST['logout'])) {
+      session_start();
+      session_destroy();
+      header('Location: http://localhost/Retire-Inspired/views/auth/login.php');
+      }
+
+     ?>
+
+    <section class='links'>
+
+      <p>Welcome Home Supervisor!</p>
+
+      <a href="../admin/approve.php">Approve Registrations</a>
+
+    </section>
+
+
+
 
   </body>
 </html>
