@@ -16,6 +16,12 @@
 
     <section>
 
+      <?php
+      if ($_SESSION['Role_id'] == 1) echo '<a href=' . "adminHome.php" . '>' . 'Back' . '</a>';
+      if ($_SESSION['Role_id'] == 2) echo '<a href=' . "../home/supervisorHome.php" . '>' . 'Back' . '</a>';
+      ?>
+
+
       <h1>New Roster</h1>
 
 

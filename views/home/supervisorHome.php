@@ -32,6 +32,8 @@
 
       <a href="../admin/approve.php">Approve Registrations</a>
 
+      <a href="../admin/newRoster.php">Create New Roster</a>
+
     </section>
 
 
