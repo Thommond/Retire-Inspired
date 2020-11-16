@@ -65,7 +65,7 @@
             $result = mysqli_query($db_link, $sql);
 
             while ($row = $result->fetch_assoc()) {
-              echo "<option value=" .  $row['id'] .  ">" . $row['Fname'] . ' ' . $row['Lname'] . "</option>";
+              echo "<option value=" .  $row['id'] . ">" . $row['Fname'] . ' ' . $row['Lname'] . "</option>";
 
             }
             ?>
@@ -84,7 +84,7 @@
             $result = mysqli_query($db_link, $sql);
 
             while ($row = $result->fetch_assoc()) {
-              echo "<option value=" .  $row['id'] .  ">" . $row['Fname'] . ' ' . $row['Lname'] . "</option>";
+              echo "<option value=" .  $row['id'] . ">" . $row['Fname'] . ' ' . $row['Lname'] . "</option>";
 
             }
             ?>
@@ -97,9 +97,6 @@
           <select name="care2">
 
             <?php
-            $sql = "SELECT Fname, Lname, id FROM users
-                    WHERE Role_id LIKE 4";
-
             $result = mysqli_query($db_link, $sql);
 
             while ($row = $result->fetch_assoc()) {
@@ -117,13 +114,11 @@
           <select name="care3">
 
             <?php
-            $sql = "SELECT Fname, Lname, id FROM users
-                    WHERE Role_id LIKE 4";
 
             $result = mysqli_query($db_link, $sql);
 
             while ($row = $result->fetch_assoc()) {
-              echo "<option value=" .  $row['id'] .  ">" . $row['Fname'] . ' ' . $row['Lname'] . "</option>";
+              echo "<option value=" .  $row['id']  .  ">" . $row['Fname'] . ' ' . $row['Lname'] . "</option>";
 
             }
             ?>
@@ -138,13 +133,10 @@
 
             <?php
 
-            $sql = "SELECT Fname, Lname, id FROM users
-                    WHERE Role_id LIKE 4";
-
             $result = mysqli_query($db_link, $sql);
 
             while ($row = $result->fetch_assoc()) {
-              echo "<option value=" .  $row['id'] .  ">" . $row['Fname'] . ' ' . $row['Lname'] . "</option>";
+              echo "<option value=" .  $row['id'] . ">" . $row['Fname'] . ' ' . $row['Lname'] . "</option>";
 
             }
             ?>
@@ -157,9 +149,38 @@
 
       </form>
 
+      <?php
+
+      if(isset($_POST['newRoster'])) {
+
+        $the_date = $_POST['the_date'];
+        $supervisor = $_POST['supervisors'];
+        $doctor = $_POST['doctors'];
+        $caregiver1 = $_POST['care1'];
+        $caregiver2 = $_POST['care2'];
+        $caregiver3 = $_POST['care3'];
+        $caregiver4 = $_POST['care4'];
+
+        if ($caregiver4 !== $caregiver3 or $caregiver2 or $caregiver1 and $caregiver3 == $caregiver2 or $caregiver1 and $caregiver2 == $caregiver1  ) {
+
+          $sql2 = "INSERT INTO rosters (the_date, supervisor, doctor, caretaker_1, caretaker_2, caretaker_3, caretaker_4)
+                  VALUES ('$the_date', '$supervisor', '$doctor', '$caregiver1', '$caregiver2', '$caregiver3', '$caregiver4')";
+
+          if (mysqli_query($db_link, $sql2)) echo "<p>Roster added successfully!</p>";
+
+          else echo "<p class='error'>Could not add roster check values!</p> " . mysqli_error($db_link);
+
+        }
+
+        else echo "<p class='error'>No duplicate values with caregiver!</p>";
+
+      }
+
+      mysqli_close($db_link);
+
+       ?>
+
     </section>
-
-
 
   </body>
 
