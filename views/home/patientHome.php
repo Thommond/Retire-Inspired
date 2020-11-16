@@ -61,7 +61,7 @@
           <?php
           #establish some variables so that they exist without a POST
           $schedule = [];
-          $caretaker = '';
+          $caretaker_name = '';
 
           if (isset($_POST['search'])) {
             $id = $_SESSION['id'];
@@ -77,13 +77,15 @@
             FROM schedules
             WHERE user_id = '$id' AND day = '$date'";
 
-            $schedule = mysqli_query($link, $sql);
+            $result = mysqli_query($link, $sql);
+            $schedule = $result->fetch_assoc();
 
             #get the group number that the user is in
             $sql = "SELECT patient_group FROM patients_info WHERE user_id = '$id'";
             $result = mysqli_query($link, $sql);
+            $row = $result->fetch_assoc();
 
-            $group = $result['patient_group'];
+            $group = $row['patient_group'];
 
             #get the appropriate caregiver from the roster if there is a roster
             $sql = "SELECT caretaker_1, caretaker_2, caretaker_3, caretaker_4
@@ -91,26 +93,37 @@
             WHERE day = $date";
 
             $result = mysqli_query($link, $sql);
+            $row = $result->fetch_assoc();
 
             if ($group == 1) {
-              $caretaker = $result['caretaker_1'];
+              $caretaker = $row['caretaker_1'];
             }
             elseif ($group == 2) {
-              $caretaker = $result['caretaker_2'];
+              $caretaker = $row['caretaker_2'];
             }
             elseif ($group == 3) {
-              $caretaker = $result['caretaker_3'];
+              $caretaker = $row['caretaker_3'];
             }
             elseif ($group == 4) {
-              $caretaker = $result['caretaker_4'];
+              $caretaker = $row['caretaker_4'];
             }
+
+            #get the caretaker's name
+            $sql = "SELECT Fname, Lname
+            FROM users
+            WHERE id = $caretaker";
+
+            $result = mysqli_query($link, $sql);
+            $row = $result->fetch_assoc()
+
+            $caretaker_name = $row['Fname'] . ' ' . $row['Lname'];
 
             mysqli_close();
           }
 
           echo "<td></td><td></td>" #placeholder
 
-          echo "<td>'$caretaker'</td>"
+          echo "<td>'$caretaker_name'</td>"
 
           if ($schedule) {
             foreach ($schedule as $key => $value) {
