@@ -66,7 +66,7 @@ CREATE TABLE schedules (
   morning_med boolean,
   afternoon_med boolean,
   night_med boolean,
-  the_date date NOT NULL,
+  day date NOT NULL,
   comment varchar(100),
   breakfast boolean,
   lunch boolean,
