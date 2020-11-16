@@ -57,6 +57,7 @@ CREATE TABLE rosters (
   caretaker_2 integer REFERENCES user (id),
   caretaker_3 integer REFERENCES user (id),
   caretaker_4 integer REFERENCES user (id),
+  day date NOT NULL,
   PRIMARY KEY (id)
 );
 

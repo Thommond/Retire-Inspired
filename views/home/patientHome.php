@@ -59,7 +59,9 @@
         <tr>
 
           <?php
+          #establish some variables so that they exist without a POST
           $schedule = [];
+          $caretaker = '';
 
           if (isset($_POST['search'])) {
             $id = $_SESSION['id'];
@@ -77,18 +79,47 @@
 
             $schedule = mysqli_query($link, $sql);
 
+            #get the group number that the user is in
+            $sql = "SELECT patient_group FROM patients_info WHERE user_id = '$id'";
+            $result = mysqli_query($link, $sql);
+
+            $group = $result['patient_group'];
+
+            #get the appropriate caregiver from the roster if there is a roster
+            $sql = "SELECT caretaker_1, caretaker_2, caretaker_3, caretaker_4
+            FROM rosters
+            WHERE day = $date";
+
+            $result = mysqli_query($link, $sql);
+
+            if ($group == 1) {
+              $caretaker = $result['caretaker_1'];
+            }
+            elseif ($group == 2) {
+              $caretaker = $result['caretaker_2'];
+            }
+            elseif ($group == 3) {
+              $caretaker = $result['caretaker_3'];
+            }
+            elseif ($group == 4) {
+              $caretaker = $result['caretaker_4'];
+            }
+
             mysqli_close();
           }
 
+          echo "<td></td><td></td>" #placeholder
+
+          echo "<td>'$caretaker'</td>"
+
           if ($schedule) {
-            echo "<td></td><td></td><td></td>"; #placeholder
             foreach ($schedule as $key => $value) {
               if ($value) echo "<td>&#10003;</td>";
               else echo "<td></td>";
             }
           }
           else {
-            echo "<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>";
+            echo "<td></td><td></td><td></td><td></td><td></td><td></td>";
           }
           ?>
         </tr>
