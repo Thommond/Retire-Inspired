@@ -34,6 +34,8 @@
 
       <a href="../admin/newRoster.php">Create New Roster</a>
 
+      <a href="../admin/roster.php">Look at todays Roster</a>
+
     </section>
 
 

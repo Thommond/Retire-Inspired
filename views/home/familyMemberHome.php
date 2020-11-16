@@ -26,7 +26,13 @@
 
      ?>
 
-    <p>Welcome Home Family Member!</p>
+    <section class='links'>
+
+      <p>Welcome Home Family Member!</p>
+
+      <a href="../admin/roster.php">Look at todays Roster</a>
+
+    </section>
 
   </body>
 </html>

@@ -17,6 +17,15 @@
       check_session(6);
       ?>
 
+      <?php
+      if ($_SESSION['Role_id'] == 1) echo '<a href=' . "adminHome.php" . '>' . 'Back' . '</a>';
+      if ($_SESSION['Role_id'] == 2) echo '<a href=' . "../home/supervisorHome.php" . '>' . 'Back' . '</a>';
+      if ($_SESSION['Role_id'] == 3) echo '<a href=' . "../home/doctorHome.php" . '>' . 'Back' . '</a>';
+      if ($_SESSION['Role_id'] == 4) echo '<a href=' . "../home/caregiverHome.php" . '>' . 'Back' . '</a>';
+      if ($_SESSION['Role_id'] == 5) echo '<a href=' . "../home/patientHome.php" . '>' . 'Back' . '</a>';
+      if ($_SESSION['Role_id'] == 6) echo '<a href=' . "../home/familyMemberHome.php" . '>' . 'Back' . '</a>';
+      ?>
+
       <table>
         <tr>
           <th>Date</th>
