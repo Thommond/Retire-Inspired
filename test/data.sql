@@ -12,6 +12,7 @@ INSERT INTO users (Fname, Lname, Role_id, email, phone, Birth_date, password, ap
 VALUES ('Thomas', 'Smith', 1, 'example@gmail.com', '(717)-345-3455', '1988-01-07', 'qwerty', true),
        ('Brendan', 'Horst', 2, 'qwerty@gmail.com', '(717)-223-2325', '1999-03-19', 'password', true),
        ('Walter', 'Moore', 3, 'walter@yahoo.com', '(616)-232-9844', '1978-01-04', 'monday1', true),
+       ('Joe', 'Pekarek', 3, 'pushupguy@gmail.com', '(443)-224-2398', '1993-03-22', 'nowayjose', true),
        ('Bob', 'Jerry', 4, 'jerry@aol.com', '(612)-347-9879', '1996-03-11', 'whatyousaid', true),
        ('Benhat', 'Mahala', 4, 'mahala@gmail.com', '(717)-233-9889', '1993-04-03', 'whathesaid', true),
        ('Cammy', 'Price', 4, 'cameron@aol.com', '(616)-233-9889', '1999-07-17', 'whatshesaid', true),

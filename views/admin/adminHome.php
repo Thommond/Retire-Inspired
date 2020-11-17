@@ -39,6 +39,8 @@
 
       <a href="roster.php">Look at todays Roster</a>
 
+      <a href="docappt.php">Doctor Appts</a>
+
     </section>
 
   </body>

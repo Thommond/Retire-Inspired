@@ -36,6 +36,8 @@
 
       <a href="../admin/roster.php">Look at todays Roster</a>
 
+      <a href="../admin/docappt.php">Doctor Appts</a>
+
     </section>
 
 
