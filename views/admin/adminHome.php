@@ -35,6 +35,10 @@
 
       <a href="approve.php">Approve Registrations</a>
 
+      <a href="newRoster.php">Create a Roster</a>
+
+      <a href="roster.php">Look at todays Roster</a>
+
     </section>
 
   </body>

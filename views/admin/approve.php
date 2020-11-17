@@ -8,12 +8,13 @@
 
   </head>
 
-  <?php
-  include ('../../common-functions.php');
-  check_session(2);
-  ?>
-
   <body>
+
+    <?php
+    include ('../../common-functions.php');
+    check_session(2);
+    ?>
+
 
     <section>
 
