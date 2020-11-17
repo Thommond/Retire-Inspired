@@ -70,6 +70,8 @@
           #establish some variables so that they exist without a POST
           $schedule = [];
           $caretaker_name = '';
+          $doctor_name = '';
+          $appointment = '';
 
           if (isset($_POST['search'])) {
             $id = $_SESSION['id'];
@@ -119,6 +121,9 @@
                   $caretaker = $row['caretaker_4'];
                 }
 
+                #save the doctor id for later
+                $doctor = $row['doctor'];
+
                 #get the caretaker's name
                 $sql = "SELECT Fname, Lname
                 FROM users
@@ -128,15 +133,27 @@
                 if ($result) $row = $result->fetch_assoc();
 
                 $caretaker_name = $row['Fname'] . ' ' . $row['Lname'];
+
+                #get the doctor's name using the id from earlier
+                $sql = "SELECT Fname, Lname
+                FROM users
+                WHERE id = $doctor";
+
+                $result = mysqli_query($link, $sql);
+                if ($result) $row = $result->fetch_assoc();
+
+                $doctor_name = $row['Fname'] . ' ' . $row['Lname'];
               }
             }
 
             mysqli_close($link);
           }
 
-          echo "<td></td><td></td>"; #placeholder
+          echo "<td>$doctor_name</td>";
 
-          echo "<td>'$caretaker_name'</td>";
+          echo "<td>$appointment</td>";
+
+          echo "<td>$caretaker_name</td>";
 
           if ($schedule) {
             foreach ($schedule as $key => $value) {
