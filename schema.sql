@@ -51,6 +51,7 @@ CREATE TABLE prescriptions (
 
 CREATE TABLE rosters (
   id integer NOT NULL AUTO_INCREMENT,
+  the_date date NOT NULL,
   supervisor integer REFERENCES user (id),
   doctor integer REFERENCES user (id),
   caretaker_1 integer REFERENCES user (id),

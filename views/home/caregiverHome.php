@@ -26,7 +26,13 @@
 
      ?>
 
-    <p>Welcome Home Caregiver!</p>
+    <section class='links'>
+
+      <p>Welcome Home Caregiver!</p>
+
+      <a href="../admin/roster.php">Look at todays Roster</a>
+
+    </section>
 
   </body>
 </html>

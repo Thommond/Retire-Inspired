@@ -26,7 +26,15 @@
 
      ?>
 
-    <p>Welcome Home Patient!</p>
+
+
+    <section class='links'>
+
+      <p>Welcome Home Patient!</p>
+
+      <a href="../admin/roster.php">Look at todays Roster</a>
+
+    </section>
 
     <?php
     echo "<p>Patient Name: " . $_SESSION['first_name'] . " " . $_SESSION['last_name'] . "</p>";
