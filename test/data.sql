@@ -21,4 +21,7 @@ VALUES ('Thomas', 'Smith', 1, 'example@gmail.com', '(717)-345-3455', '1988-01-07
        ('bob', 'Hassan', 6, 'bob@gmail.com', '(717)-355-2312', '1988-02-11', 'okaybro', false);
 
 INSERT INTO patients_info (user_id, family_code, emergency_contact, Relation_Contact, admission_date, patient_group, balance_due)
-VALUES (5, '123456', 'Same Hassan', 'son', '2020-11-06', 1, 1000)
+VALUES (8, '123456', 'Same Hassan', 'son', '2020-11-06', 1, 1000);
+
+INSERT INTO rosters (the_date, supervisor, doctor, caretaker_1, caretaker_2, caretaker_3, caretaker_4)
+VALUES ('2020-11-17', 2, 3, 4, 5, 6, 7);
