@@ -83,7 +83,7 @@
 
             $sql = "SELECT morning_med, afternoon_med, night_med, breakfast, lunch, dinner
             FROM schedules
-            WHERE user_id = '$id' AND day = '$date'";
+            WHERE user_id = '$id' AND the_date = '$date'";
 
             $result = mysqli_query($link, $sql);
             $schedule = $result->fetch_assoc();
@@ -98,7 +98,7 @@
             #get the appropriate caregiver from the roster if there is a roster
             $sql = "SELECT caretaker_1, caretaker_2, caretaker_3, caretaker_4
             FROM rosters
-            WHERE day = $date";
+            WHERE the_date = $date";
 
             $result = mysqli_query($link, $sql);
             $row = $result->fetch_assoc();
