@@ -82,3 +82,9 @@ section.patient {
   font-weight: bold;
   text-align: center;
 }
+
+.success {
+  color: green;
+  font-weight: bolder;
+  text-align: center;
+}

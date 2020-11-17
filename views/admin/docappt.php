@@ -7,7 +7,10 @@
   </head>
   <body>
 
+
+
     <?php
+    // TODO: Add success messages to all needed places in project
     include ('../../common-functions.php');
     check_session(2);
     ?>
@@ -78,16 +81,16 @@
           $sql = "SELECT id FROM rosters
                   WHERE the_date LIKE '$the_date'";
 
-          print_r($mysqli_query($db_link, $sql));
-          
+
           if(mysqli_query($db_link, $sql)) {
             $result = mysqli_fetch_row(mysqli_query($db_link, $sql));
+            $id = $result[0];
           }
 
           else echo "<p class='error'>Could not get patient from database, check your values.</p>";
 
           $sql = "SELECT Fname, Lname, id FROM users
-                  WHERE id LIKE '$result'";
+                  WHERE id LIKE '$id'";
 
           if(mysqli_query($db_link, $sql)) {
             $result2 = mysqli_fetch_row(mysqli_query($db_link, $sql));
@@ -99,6 +102,9 @@
 
            echo "</select>";
            echo "</label>";
+           echo "<input type='text' name='patient' value=" .  $patient .  ">";
+           echo "<input type='text' name='date' value=" . $the_date . ">";
+           echo "<input type='text' name='doc' value=" . $id . ">";
            echo "<input type='submit' name='press' value='Submit'>";
            echo "</form>";
         }
@@ -110,8 +116,29 @@
       </label>
 
       <?php
+
         if(isset($_POST['press'])) {
-          echo 'hello';
+
+          $patient = $_POST['patient'];
+          $id = $_POST['doc'];
+          $the_date = $_POST['date'];
+
+          $db_link = mysqli_connect("localhost", "root", "", "retire");
+
+          if ($db_link == false) {
+            die("ERROR: Could not connect. " . mysqli_connect_error());
+          }
+
+          $sql = "INSERT INTO appointments (patient_id, doctor_id, the_date)
+                  VALUES ('$patient', '$id', '$the_date')";
+
+
+          if(mysqli_query($db_link, $sql)) {
+            echo "<p class='success'>Added appointment to the database successfully!</p>";
+          }
+
+          else echo "<p class='error'>Could not add appointment to database, check your values.</p>";
+
         }
        ?>
 
