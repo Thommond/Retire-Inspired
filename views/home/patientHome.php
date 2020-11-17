@@ -71,42 +71,52 @@
           $schedule = [];
           $caretaker_name = '';
           $doctor_name = '';
-          $appointment = '';
+          $appointment = false;
 
+          #use the submitted date or default to today
           if (isset($_POST['search'])) {
-            $id = $_SESSION['id'];
             $date = $_POST['date'];
+          }
+          else {
+            $date = date('Y-m-d');
+          }
 
-            $link = mysqli_connect("localhost", "root", "", "retire");
+          $id = $_SESSION['id'];
 
-            if ($link == false) {
-              die("ERROR: Could not connect. " . mysqli_connect_error());
-            }
+          $link = mysqli_connect("localhost", "root", "", "retire");
 
-            $sql = "SELECT morning_med, afternoon_med, night_med, breakfast, lunch, dinner
-            FROM schedules
-            WHERE user_id = '$id' AND the_date = '$date'";
+          if ($link == false) {
+            die("ERROR: Could not connect. " . mysqli_connect_error());
+          }
+
+          #get today's schedule
+          $sql = "SELECT morning_med, afternoon_med, night_med, breakfast, lunch, dinner
+          FROM schedules
+          WHERE user_id = '$id' AND the_date = '$date'";
+
+          $result = mysqli_query($link, $sql);
+          if ($result) $schedule = $result->fetch_assoc();
+
+          #get the group number that the user is in
+          $sql = "SELECT patient_group FROM patients_info WHERE user_id = '$id'";
+          $result = mysqli_query($link, $sql);
+          if ($result) {
+            $row = $result->fetch_assoc();
+
+            $group = $row['patient_group'];
+
+            #get the appropriate caregiver from the roster if there is a roster
+            $sql = "SELECT doctor, caretaker_1, caretaker_2, caretaker_3, caretaker_4
+            FROM rosters
+            WHERE the_date = '$date'";
 
             $result = mysqli_query($link, $sql);
-            if ($result) $schedule = $result->fetch_assoc();
 
-            #get the group number that the user is in
-            $sql = "SELECT patient_group FROM patients_info WHERE user_id = '$id'";
-            $result = mysqli_query($link, $sql);
             if ($result) {
+
               $row = $result->fetch_assoc();
 
-              $group = $row['patient_group'];
-
-              #get the appropriate caregiver from the roster if there is a roster
-              $sql = "SELECT doctor, caretaker_1, caretaker_2, caretaker_3, caretaker_4
-              FROM rosters
-              WHERE the_date = '$date'";
-
-              $result = mysqli_query($link, $sql);
-
-              if ($result) {
-                $row = $result->fetch_assoc();
+              if($row) {
 
                 if ($group == 1) {
                   $caretaker = $row['caretaker_1'];
@@ -145,16 +155,26 @@
                 $doctor_name = $row['Fname'] . ' ' . $row['Lname'];
               }
             }
-
-            mysqli_close($link);
           }
+
+          #check if there is an appointment today
+          $sql = "SELECT * FROM appointments
+          WHERE the_date = '$date' AND patient_id = '$id'";
+
+          $result = mysqli_query($link, $sql);
+          if ($result->fetch_assoc()) $appointment = true;
+
+          mysqli_close($link);
 
           echo "<td>$doctor_name</td>";
 
-          echo "<td>$appointment</td>";
+          #if there is an appointment put a checkmark in the field
+          if ($appointment) echo "<td>&#10003;</td>";
+          else echo "<td></td>";
 
           echo "<td>$caretaker_name</td>";
 
+          #if there is a schedule check each value and put a checkmark for every true
           if ($schedule) {
             foreach ($schedule as $key => $value) {
               if ($value) echo "<td>&#10003;</td>";
