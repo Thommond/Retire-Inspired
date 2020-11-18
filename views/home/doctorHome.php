@@ -27,14 +27,36 @@
      ?>
     <section class='links'>
 
-      <p>Welcome Home Doctor!</p>
+      <p>Welcome home <?php echo $_SESSION['first_name'] . ' ' . $_SESSION['last_name']?>!</p>
 
       <a href="../admin/roster.php">Look at todays Roster</a>
+
+    </section>
+
+
+    <section>
+
+      <?php
+
+      // Get all previous appts from the schedules table
+        // display name, date, morning_med, afternoon_med, and night_med
+        // Have option from each attribute that user can search data to find
+          // specific row.
+
+      // label which has appointments
+        // input which date can be entered
+
+      // submit button
+
+
+      // Once submited
+        // then the new appointments will show up until submited date
+       ?>
+
 
 
 
     </section>
-
 
 
 
