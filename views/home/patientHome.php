@@ -190,7 +190,7 @@
           echo "<td>$doctor_name</td>";
 
           #if there is an appointment put a checkmark in the field
-          if ($appointment) echo "<td>&#10003;</td>";
+          if ($appointment) echo "<td class='check'>&#10003;</td>";
           else echo "<td></td>";
 
           echo "<td>$caretaker_name</td>";
@@ -198,7 +198,7 @@
           #if there is a schedule check each value and put a checkmark for every true
           if ($schedule) {
             foreach ($schedule as $key => $value) {
-              if ($value) echo "<td>&#10003;</td>";
+              if ($value) echo "<td class='check'>&#10003;</td>";
               else echo "<td></td>";
             }
           }

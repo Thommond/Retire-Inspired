@@ -97,3 +97,8 @@ div.info {
   font-weight: bolder;
   text-align: center;
 }
+
+.check {
+  color: darkgreen;
+  text-align: center;
+}

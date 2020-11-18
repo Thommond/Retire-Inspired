@@ -26,3 +26,6 @@ VALUES (8, '123456', 'Same Hassan', 'son', '2020-11-06', 1, 1000);
 
 INSERT INTO rosters (the_date, supervisor, doctor, caretaker_1, caretaker_2, caretaker_3, caretaker_4)
 VALUES ('2020-11-17', 2, 3, 4, 5, 6, 7);
+
+INSERT INTO appointments (patient_id, doctor_id, the_date)
+VALUES (8, 3, '2020-11-17');
