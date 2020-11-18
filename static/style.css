@@ -37,6 +37,10 @@ input, select {
   border: 3px solid black;
 }
 
+.display_only {
+  color: white;
+}
+
 input[type="submit"] {
   width: 100%;
 }
@@ -76,5 +80,11 @@ section.patient {
 .error {
   color: red;
   font-weight: bold;
+  text-align: center;
+}
+
+.success {
+  color: green;
+  font-weight: bolder;
   text-align: center;
 }
