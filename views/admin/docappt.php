@@ -27,11 +27,11 @@
 
       <form  action="docappt.php" method="post">
 
-        <label for="patient_id">Patient ID:
-        <input type="text" name="patient_id">
+        <label>Patient ID:
+          <input type="text" name="patient_id">
         </label>
 
-        <label for="the_date">Date:
+        <label>Date:
           <input type="date" name="the_date">
         </label>
 
@@ -56,9 +56,17 @@
                 WHERE id LIKE '$patient'";
 
         if(mysqli_query($db_link, $sql)) {
+
           $result = mysqli_fetch_row(mysqli_query($db_link, $sql));
 
-          $patient_name =  $result[0] . ' ' . $result[1];
+          if (empty($result)) {
+            echo "<p class='error'>Couldn not get patient from database.<p>";
+          }
+
+          else {
+            $patient_name =  $result[0] . ' ' . $result[1];
+          }
+
         }
 
         else echo "<p class='error'>Could not get patient from database, check your values.</p>";
@@ -74,23 +82,31 @@
        <?php
         if(isset($_POST['submit'])) {
 
-           echo "<form  action='docappt.php' method='post'>";
-           echo "<label for='Doctor'>Doctor:";
-           echo "<select  name='Doctor'>";
-
           $sql = "SELECT id FROM rosters
                   WHERE the_date LIKE '$the_date'";
 
 
           if(mysqli_query($db_link, $sql)) {
             $result = mysqli_fetch_row(mysqli_query($db_link, $sql));
-            $id = $result[0];
+
+            if (empty($result)) {
+              echo "<p class='error'>There is no roster for selected date.</p>";
+            }
+
+            else {
+              $id = $result[0];
+            }
+
           }
 
           else echo "<p class='error'>Could not get patient from database, check your values.</p>";
 
           $sql = "SELECT Fname, Lname, id FROM users
                   WHERE id LIKE '$id'";
+
+          echo "<form  action='docappt.php' method='post'>";
+          echo "<label for='Doctor'>Doctor:";
+          echo "<select  name='Doctor'>";
 
           if(mysqli_query($db_link, $sql)) {
             $result2 = mysqli_fetch_row(mysqli_query($db_link, $sql));
