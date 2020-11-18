@@ -35,7 +35,36 @@
 
 
     <section>
+      <p>If you would like to filter the results fill in one or more fields.</p>
 
+      <form  action="doctorHome.php" method="post">
+
+        <label>Date:
+          <input type="text" name="date">
+        </label>
+
+        <label>First Name:
+          <input type="text" name="Fname">
+        </label>
+
+        <label>Last Name:
+          <input type="text" name="Lname">
+        </label>
+
+        <label>Morning Medication:
+          <input type="text" name="mmed">
+        </label>
+
+        <label>Afternoon Medication
+          <input type="text" name="amed">
+        </label>
+
+        <label>Night Medication
+          <input type="text" name="nmed">
+        </label>
+
+      </form>
+      
       <?php
 
       // Get all previous appts from the schedules table
