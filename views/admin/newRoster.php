@@ -172,7 +172,7 @@
           $sql2 = "INSERT INTO rosters (the_date, supervisor, doctor, caretaker_1, caretaker_2, caretaker_3, caretaker_4)
                   VALUES ('$the_date', '$supervisor', '$doctor', '$caregiver1', '$caregiver2', '$caregiver3', '$caregiver4')";
 
-          if (mysqli_query($db_link, $sql2)) echo "<p>Roster added successfully!</p>";
+          if (mysqli_query($db_link, $sql2)) echo "<p class='success'>Roster added successfully!</p>";
 
           else echo "<p class='error'>Could not add roster check values!</p> " . mysqli_error($db_link);
 

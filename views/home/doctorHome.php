@@ -30,13 +30,8 @@
       <p>Welcome Home Doctor!</p>
 
       <a href="../admin/roster.php">Look at todays Roster</a>
-
-
-
+      
     </section>
-
-
-
 
   </body>
 </html>

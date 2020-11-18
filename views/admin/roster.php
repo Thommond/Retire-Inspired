@@ -51,7 +51,11 @@
 
         if(mysqli_query($db_link, $sql)) {
 
+          if (empty($result)) {
+            echo "<p class='error'>No Roster for today yet!</p>";
+          }
 
+          else {
           $result = mysqli_query($db_link, $sql);
 
           $row = $result->fetch_assoc();
@@ -72,9 +76,12 @@
                     WHERE id LIKE $id";
 
             $result = mysqli_query($db_link, $sql);
-            $row = $result->fetch_assoc();
-            $query = $row['Fname'] . ' ' . $row['Lname'];
-            array_push($display, $query);
+
+            if ($result) {
+              $row = $result->fetch_assoc();
+              $query = $row['Fname'] . ' ' . $row['Lname'];
+              array_push($display, $query);
+            }
 
           }
 
@@ -87,8 +94,8 @@
 
           echo '</tr>';
 
-
           }
+        }
 
         else echo "<p class='error'>No Roster for today yet!</p>";
 
