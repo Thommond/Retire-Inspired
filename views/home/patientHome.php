@@ -36,16 +36,19 @@
 
     </section>
 
-    <?php
-    echo "<p>Patient Name: " . $_SESSION['first_name'] . " " . $_SESSION['last_name'] . "</p>";
-    echo "<p>Patient ID: " . $_SESSION['id'] . "</p>";
-    ?>
-
     <section class="schedule">
+
+      <div class="info">
+        <?php
+        echo "<p>Patient Name: " . $_SESSION['first_name'] . " " . $_SESSION['last_name'] . "</p>";
+        echo "<p>Patient ID: " . $_SESSION['id'] . "</p>";
+        ?>
+      </div>
+
       <form class="date" action="patientHome.php" method="post">
 
         <label>Date:
-          <input type="date" name="date" value="<?php echo date('Y-m-d') ?>">
+          <input type="date" name="date" value="<?php if (isset($_POST)) echo $_POST['date']; else echo date('Y-m-d'); ?>">
         </label>
 
         <input type="submit" name="search" value="Load Date">
@@ -140,9 +143,15 @@
                 WHERE id = $caretaker";
 
                 $result = mysqli_query($link, $sql);
-                if ($result) $row = $result->fetch_assoc();
+                if ($result) {
 
-                $caretaker_name = $row['Fname'] . ' ' . $row['Lname'];
+                  $row = $result->fetch_assoc();
+
+                  if ($row) $caretaker_name = $row['Fname'] . ' ' . $row['Lname'];
+                }
+                else {
+                  echo "ERROR: Unable to establish connection to database";
+                }
 
                 #get the doctor's name using the id from earlier
                 $sql = "SELECT Fname, Lname
@@ -150,11 +159,23 @@
                 WHERE id = $doctor";
 
                 $result = mysqli_query($link, $sql);
-                if ($result) $row = $result->fetch_assoc();
+                if ($result) {
 
-                $doctor_name = $row['Fname'] . ' ' . $row['Lname'];
+                  $row = $result->fetch_assoc();
+
+                  if ($row) $doctor_name = $row['Fname'] . ' ' . $row['Lname'];
+                }
+                else {
+                  echo "ERROR: Unable to establish connection to database";
+                }
               }
             }
+            else {
+              echo "ERROR: Unable to establish connection to database";
+            }
+          }
+          else {
+            echo "ERROR: Unable to establish connection to database";
           }
 
           #check if there is an appointment today

@@ -73,6 +73,15 @@ section.patient {
   display: none;
 }
 
+div.info {
+  background-color: white;
+  border: 5px solid tan;
+  color: black;
+  margin-top: 1rem;
+  padding: 1rem;
+  width: 15rem;
+}
+
 .error {
   color: red;
   font-weight: bold;
