@@ -27,9 +27,9 @@
 
       <form  action="newRoster.php" method="post">
 
-        <label for="the_date">Date:
+        <label for="day">Date:
 
-        <input type="date" name="the_date">
+        <input type="date" name="day">
 
         </label>
 
@@ -159,7 +159,7 @@
 
       if(isset($_POST['newRoster'])) {
 
-        $the_date = $_POST['the_date'];
+        $day = $_POST['day'];
         $supervisor = $_POST['supervisors'];
         $doctor = $_POST['doctors'];
         $caregiver1 = $_POST['care1'];
@@ -169,8 +169,8 @@
 
         if ($caregiver4 !== $caregiver3 or $caregiver2 or $caregiver1 and $caregiver3 == $caregiver2 or $caregiver1 and $caregiver2 == $caregiver1  ) {
 
-          $sql2 = "INSERT INTO rosters (the_date, supervisor, doctor, caretaker_1, caretaker_2, caretaker_3, caretaker_4)
-                  VALUES ('$the_date', '$supervisor', '$doctor', '$caregiver1', '$caregiver2', '$caregiver3', '$caregiver4')";
+          $sql2 = "INSERT INTO rosters (day, supervisor, doctor, caretaker_1, caretaker_2, caretaker_3, caretaker_4)
+                  VALUES ('$day', '$supervisor', '$doctor', '$caregiver1', '$caregiver2', '$caregiver3', '$caregiver4')";
 
           if (mysqli_query($db_link, $sql2)) echo "<p>Roster added successfully!</p>";
 

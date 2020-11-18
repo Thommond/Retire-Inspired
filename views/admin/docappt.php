@@ -32,7 +32,7 @@
         </label>
 
         <label>Date:
-          <input type="date" name="the_date">
+          <input type="date" name="day">
         </label>
 
         <input type="submit" name="submit" value="Submit">
@@ -44,7 +44,7 @@
       if(isset($_POST['submit'])) {
 
         $patient = $_POST['patient_id'];
-        $the_date = $_POST['the_date'];
+        $day = $_POST['day'];
 
         $db_link = mysqli_connect("localhost", "root", "", "retire");
 
@@ -83,7 +83,7 @@
         if(isset($_POST['submit'])) {
 
           $sql = "SELECT id FROM rosters
-                  WHERE the_date LIKE '$the_date'";
+                  WHERE day LIKE '$day'";
 
 
           if(mysqli_query($db_link, $sql)) {
@@ -119,7 +119,7 @@
            echo "</select>";
            echo "</label>";
            echo "<input type='text' name='patient' value=" .  $patient .  ">";
-           echo "<input type='text' name='date' value=" . $the_date . ">";
+           echo "<input type='text' name='date' value=" . $day . ">";
            echo "<input type='text' name='doc' value=" . $id . ">";
            echo "<input type='submit' name='press' value='Submit'>";
            echo "</form>";
@@ -137,7 +137,7 @@
 
           $patient = $_POST['patient'];
           $id = $_POST['doc'];
-          $the_date = $_POST['date'];
+          $day = $_POST['date'];
 
           $db_link = mysqli_connect("localhost", "root", "", "retire");
 
@@ -145,8 +145,8 @@
             die("ERROR: Could not connect. " . mysqli_connect_error());
           }
 
-          $sql = "INSERT INTO appointments (patient_id, doctor_id, the_date)
-                  VALUES ('$patient', '$id', '$the_date')";
+          $sql = "INSERT INTO appointments (patient_id, doctor_id, day)
+                  VALUES ('$patient', '$id', '$day')";
 
 
           if(mysqli_query($db_link, $sql)) {

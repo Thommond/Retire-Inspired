@@ -95,7 +95,7 @@
           #get today's schedule
           $sql = "SELECT morning_med, afternoon_med, night_med, breakfast, lunch, dinner
           FROM schedules
-          WHERE user_id = '$id' AND the_date = '$date'";
+          WHERE user_id = '$id' AND day = '$date'";
 
           $result = mysqli_query($link, $sql);
           if ($result) $schedule = $result->fetch_assoc();
@@ -111,7 +111,7 @@
             #get the appropriate caregiver from the roster if there is a roster
             $sql = "SELECT doctor, caretaker_1, caretaker_2, caretaker_3, caretaker_4
             FROM rosters
-            WHERE the_date = '$date'";
+            WHERE day = '$date'";
 
             $result = mysqli_query($link, $sql);
 
@@ -180,7 +180,7 @@
 
           #check if there is an appointment today
           $sql = "SELECT * FROM appointments
-          WHERE the_date = '$date' AND patient_id = '$id'";
+          WHERE day = '$date' AND patient_id = '$id'";
 
           $result = mysqli_query($link, $sql);
           if ($result->fetch_assoc()) $appointment = true;
