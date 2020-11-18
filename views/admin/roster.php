@@ -50,13 +50,14 @@
                 WHERE the_date = '$date'";
 
         if(mysqli_query($db_link, $sql)) {
+          
+          $result = mysqli_query($db_link, $sql);
 
           if (empty($result)) {
             echo "<p class='error'>No Roster for today yet!</p>";
           }
 
           else {
-          $result = mysqli_query($db_link, $sql);
 
           $row = $result->fetch_assoc();
 
