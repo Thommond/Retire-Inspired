@@ -159,7 +159,7 @@
 
                       else {
 
-                        echo '<p class="error">You have no fields field out. Please fill in one field.</p>';
+                        echo '<p class="error">You have no fields filled out. Please fill in one field.</p>';
 
                     }
                   }
@@ -169,11 +169,13 @@
           }
         }
 
+        // TODO: Make sure to get only unique prescriptions may require adding day to
+        // prescriptions table.
          $sql = "SELECT  a.day, p.morning_med, p.afternoon_med, p.night_med,
                 p.comment, u.Fname, u.Lname
                 FROM appointments as a JOIN prescriptions as p on (a.patient_id = p.patient_id)
                 JOIN users as u ON (a.patient_id=u.id)
-                WHERE doctor_id LIKE $id AND $column LIKE '$filter' ";
+                WHERE doctor_id LIKE $id AND $column LIKE '$filter' AND day < '2020-11-19%'";
 
          $result = mysqli_query($db_link, $sql);
 
@@ -198,7 +200,8 @@
 
          // Every result row displayed in table
          while ($row = $result->fetch_assoc()) {
-
+           // TODO: Create patient_of_doctor.php linked by patient_id only accessble by proper doctor.
+           // TODO: Next to each patients name add link to patient_of_doctor.php
            echo '<tr>';
            echo '<td>' . $row['day'] . '</td>';
            echo '<td>' . $row['Fname'] . '</td>';
@@ -215,11 +218,6 @@
 
         }
       }
-
-      // Get all previous appts from the schedules table
-        // display name, date, morning_med, afternoon_med, and night_med
-        // Have option from each attribute that user can search data to find
-          // specific row.
 
       // label which has appointments
         // input which date can be entered

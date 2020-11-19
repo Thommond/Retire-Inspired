@@ -27,6 +27,7 @@ VALUES (5, '123456', 'Same Hassan', 'son', '2020-11-06', 1, 1000);
 
 INSERT INTO appointments (patient_id, doctor_id, day)
 VALUES (9, 3, '2020-11-19'),
+       (9, 3, '2020-10-10'),
        (10, 4, '2020-11-19');
 
 INSERT INTO prescriptions (patient_id, `comment`, morning_med, afternoon_med, night_med)
