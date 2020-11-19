@@ -36,14 +36,14 @@
 
     <section class="schedule">
 
-      <div class="info">
-        <?php
-        echo "<p>Patient Name: " . $_SESSION['first_name'] . " " . $_SESSION['last_name'] . "</p>";
-        echo "<p>Patient ID: " . $_SESSION['id'] . "</p>";
-        ?>
-      </div>
-
       <form class="date" action="patientHome.php" method="post">
+
+        <label>Family Code:
+          <input type="text" name="code" required>
+        </label>
+
+        <label>Patient ID:
+          <input type="number" name="id" required>
 
         <label>Date:
           <input type="date" name="date" value="<?php if (isset($_POST)) echo $_POST['date']; else echo date('Y-m-d'); ?>">
@@ -68,18 +68,18 @@
         <tr>
 
           <?php
-          #establish some variables so that they exist without a POST
-          $schedule = [];
-          $caretaker_name = '';
-          $doctor_name = '';
-          $appointment = false;
-
-          #use the submitted date or default to today
           if (isset($_POST['search'])) {
 
-            $date = $_POST['date'];
+            #establish some variables so that they exist without a POST
+            $schedule = [];
+            $caretaker_name = '';
+            $doctor_name = '';
+            $appointment = false;
 
-            $id = $_SESSION['id'];
+            #Retrieve necessary variables from the form
+            $date = $_POST['date'];
+            $code = $_POST['code'];
+            $id = $_POST['id'];
 
             $link = mysqli_connect("localhost", "root", "", "retire");
 
