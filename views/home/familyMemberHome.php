@@ -96,10 +96,23 @@
             if ($result) $row = $result->fetch_assoc();
 
             if (!$row) {
-              die("Could not find user.");
+              die("Incorrect family code or ID.");
             }
 
             $patient_name = $row['Fname'] . ' ' . $row['Lname'];
+
+            $sql = "SELECT family_code FROM patients_info
+            WHERE user_id = '$id'";
+
+            $result = mysqli_query($link, $sql);
+            if ($result) $row = $result->fetch_assoc();
+
+            if (!$row) {
+              die("Incorrect family code or ID.");
+            }
+            if ($row['family_code'] != $code) {
+              die("Incorrect family code or ID")
+            }
 
             echo "<p>$patient_name's schedule</p>";
 
