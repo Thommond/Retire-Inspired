@@ -48,7 +48,7 @@
       <form class="date" action="patientHome.php" method="post">
 
         <label>Date:
-          <input type="date" name="date" value="<?php if (isset($_POST)) echo $_POST['date']; else echo date('Y-m-d'); ?>">
+          <input type="date" name="date" value="<?php if ($_SERVER['REQUEST_METHOD'] == 'POST') echo $_POST['date']; else echo date('Y-m-d'); ?>">
         </label>
 
         <input type="submit" name="search" value="Load Date">

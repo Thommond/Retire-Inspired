@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Family Home</title>
-    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../../static/style.css">
   </head>
   <body>
 
@@ -36,7 +36,7 @@
 
     <section class="schedule">
 
-      <form class="date" action="patientHome.php" method="post">
+      <form class="family" action="familyMemberHome.php" method="post">
 
         <label>Family Code:
           <input type="text" name="code" required>
@@ -44,9 +44,10 @@
 
         <label>Patient ID:
           <input type="number" name="id" required>
+        </label>
 
         <label>Date:
-          <input type="date" name="date" value="<?php if (isset($_POST)) echo $_POST['date']; else echo date('Y-m-d'); ?>">
+          <input type="date" name="date" value="<?php if ($_SERVER['REQUEST_METHOD'] == 'POST') echo $_POST['date']; else echo date('Y-m-d'); ?>">
         </label>
 
         <input type="submit" name="search" value="Load Date">
@@ -68,9 +69,9 @@
         <tr>
 
           <?php
-          if (isset($_POST['search'])) {
+          if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            #establish some variables so that they exist without a POST
+            #establish some variables so they exist if the database connection fails
             $schedule = [];
             $caretaker_name = '';
             $doctor_name = '';
@@ -86,6 +87,21 @@
             if ($link == false) {
               die("ERROR: Could not connect. " . mysqli_connect_error());
             }
+
+            #Verify that the family code and id are correct
+            $sql = "SELECT Fname, Lname FROM users
+            WHERE id = '$id'";
+
+            $result = mysqli_query($link, $sql);
+            if ($result) $row = $result->fetch_assoc();
+
+            if (!$row) {
+              die("Could not find user.");
+            }
+
+            $patient_name = $row['Fname'] . ' ' . $row['Lname'];
+
+            echo "<p>$patient_name's schedule</p>";
 
             #get today's schedule
             $sql = "SELECT morning_med, afternoon_med, night_med, breakfast, lunch, dinner
