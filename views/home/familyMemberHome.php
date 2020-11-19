@@ -39,18 +39,18 @@
       <form class="family" action="familyMemberHome.php" method="post">
 
         <label>Family Code:
-          <input type="text" name="code" required>
+          <input type="text" name="code" required value="<?php if ($_SERVER['REQUEST_METHOD'] == 'POST') echo $_POST['code']; ?>">
         </label>
 
         <label>Patient ID:
-          <input type="number" name="id" required>
+          <input type="number" name="id" required value="<?php if ($_SERVER['REQUEST_METHOD'] == 'POST') echo $_POST['id']; ?>">
         </label>
 
         <label>Date:
-          <input type="date" name="date" value="<?php if ($_SERVER['REQUEST_METHOD'] == 'POST') echo $_POST['date']; else echo date('Y-m-d'); ?>">
+          <input type="date" name="date" required value="<?php if ($_SERVER['REQUEST_METHOD'] == 'POST') echo $_POST['date']; else echo date('Y-m-d'); ?>">
         </label>
 
-        <input type="submit" name="search" value="Load Date">
+        <input type="submit" name="search" value="Load Schedule">
 
       </form>
 
