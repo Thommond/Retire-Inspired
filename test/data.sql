@@ -18,8 +18,17 @@ VALUES ('Thomas', 'Smith', 1, 'example@gmail.com', '(717)-345-3455', '1988-01-07
        ('Cammy', 'Price', 4, 'cameron@aol.com', '(616)-233-9889', '1999-07-17', 'whatshesaid', true),
        ('Brian', 'dogood', 4, 'dogood@yahoo.com', '(612)-273-3289', '1994-12-11', 'whatitsaid', true),
        ('Arafat', 'Hassan', 5, 'hassan@gmail.com', '(717)-347-2222', '1968-05-25', 'aswdf6', true),
+       ('Smith', 'Jimmy', 5, 'jimmy@gmail.com', '(312)-400-1123', '1949-08-21', 'whatdoesthefox', true),
        ('Sam', 'Hassan', 6, 'sam@gmail.com', '(717)-355-2312', '1988-02-11', 'cooldude', true),
        ('bob', 'Hassan', 6, 'bob@gmail.com', '(717)-355-2312', '1988-02-11', 'okaybro', false);
 
 INSERT INTO patients_info (user_id, family_code, emergency_contact, Relation_Contact, admission_date, patient_group, balance_due)
-VALUES (5, '123456', 'Same Hassan', 'son', '2020-11-06', 1, 1000)
+VALUES (5, '123456', 'Same Hassan', 'son', '2020-11-06', 1, 1000);
+
+INSERT INTO appointments (patient_id, doctor_id, day)
+VALUES (9, 3, '2020-11-19'),
+       (10, 4, '2020-11-19');
+
+INSERT INTO prescriptions (patient_id, `comment`, morning_med, afternoon_med, night_med)
+VALUES (9, 'Great patient', 'Vicodin', 'Asprin', 'Vicodin'),
+       (10, 'Horrible patient', 'Vodka', 'Vodka', 'Vodka');

@@ -36,13 +36,14 @@ CREATE TABLE appointments (
   id integer NOT NULL AUTO_INCREMENT,
   patient_id integer REFERENCES user (id),
   doctor_id integer REFERENCES user (id),
-  the_date datetime NOT NULL,
+  day datetime NOT NULL,
   PRIMARY KEY (id)
 );
 
 CREATE TABLE prescriptions (
   id integer NOT NULL AUTO_INCREMENT,
   patient_id integer REFERENCES user (id),
+  comment varchar(100),
   morning_med varchar(100),
   afternoon_med varchar(100),
   night_med varchar(100),
@@ -51,7 +52,7 @@ CREATE TABLE prescriptions (
 
 CREATE TABLE rosters (
   id integer NOT NULL AUTO_INCREMENT,
-  the_date date NOT NULL,
+  day date NOT NULL,
   supervisor integer REFERENCES user (id),
   doctor integer REFERENCES user (id),
   caretaker_1 integer REFERENCES user (id),
@@ -67,7 +68,7 @@ CREATE TABLE schedules (
   morning_med boolean,
   afternoon_med boolean,
   night_med boolean,
-  the_date date NOT NULL,
+  day date NOT NULL,
   comment varchar(100),
   breakfast boolean,
   lunch boolean,
