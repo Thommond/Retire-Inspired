@@ -50,50 +50,52 @@
                 WHERE day = '$date'";
 
         if(mysqli_query($db_link, $sql)) {
-          
+
           $result = mysqli_query($db_link, $sql);
 
-          if (empty($result)) {
+          $row = [];
+
+          if ($result) $row = $result->fetch_assoc();
+
+          if (empty($row)) {
             echo "<p class='error'>No Roster for today yet!</p>";
           }
 
           else {
 
-          $row = $result->fetch_assoc();
+            $ids = [$row['supervisor'],
+                    $row['doctor'],
+                    $row['caretaker_1'],
+                    $row['caretaker_2'],
+                    $row['caretaker_3'],
+                    $row['caretaker_4']
+                  ];
 
-          $ids = [$row['supervisor'],
-                  $row['doctor'],
-                  $row['caretaker_1'],
-                  $row['caretaker_2'],
-                  $row['caretaker_3'],
-                  $row['caretaker_4']
-                ];
+            $display = [$row['day']];
 
-          $display = [$row['day']];
+            foreach ($ids as $id) {
 
-          foreach ($ids as $id) {
+              $sql = "SELECT Fname, Lname FROM users
+                      WHERE id LIKE $id";
 
-            $sql = "SELECT Fname, Lname FROM users
-                    WHERE id LIKE $id";
+              $result = mysqli_query($db_link, $sql);
 
-            $result = mysqli_query($db_link, $sql);
+              if ($result) {
+                $row = $result->fetch_assoc();
+                $query = $row['Fname'] . ' ' . $row['Lname'];
+                array_push($display, $query);
+              }
 
-            if ($result) {
-              $row = $result->fetch_assoc();
-              $query = $row['Fname'] . ' ' . $row['Lname'];
-              array_push($display, $query);
             }
 
-          }
+            echo '<tr>';
 
-          echo '<tr>';
+            foreach($display as $row) {
 
-          foreach($display as $row) {
+              echo '<td>' . $row . '</td>';
+            }
 
-            echo '<td>' . $row . '</td>';
-          }
-
-          echo '</tr>';
+            echo '</tr>';
 
           }
         }
