@@ -196,6 +196,7 @@
          echo '<th>Morning Med</th>';
          echo '<th>Afternoon Med</th>';
          echo '<th>Night Med</th>';
+         echo '<th>Patient Page</th>';
          echo '</tr>';
 
          if ($result->fetch_assoc()) {
@@ -212,6 +213,7 @@
              echo '<td>' . $row['morning_med'] . '</td>';
              echo '<td>' . $row['afternoon_med'] . '</td>';
              echo '<td>' . $row['night_med'] . '</td>';
+            echo '<td>' . "<a class='table_link' href='#'>Patient Page</a>" . '</td>';
              echo '</tr>';
 
            }
@@ -270,24 +272,26 @@
          echo '<tr>';
          echo '<th>Name</th>';
          echo '<th>Date</th>';
+         echo '<th>Patient Page</th>';
          echo '</tr>';
 
 
-           // Get all rows if result not empty
-           while($row = $result->fetch_assoc()) {
-             echo '<tr>';
-             echo "<td>" .  $row['Fname'] .  ' ' . $row['Lname'] . "</td>";
-             echo "<td>" . $row['day'] . "</td>";
-             echo '</tr>';
-           }
-
-           echo '</tbody>';
-           echo '</table>';
-
+         // Get all rows if result not empty
+         while($row = $result->fetch_assoc()) {
+           echo '<tr>';
+           echo "<td>" .  $row['Fname'] .  ' ' . $row['Lname'] . "</td>";
+           echo "<td>" . $row['day'] . "</td>";
+           echo '<td>' . "<a class='table_link' href='#'>Patient Page</a>" . '</td>';
+           echo '</tr>';
          }
-        }
-       mysqli_close($db_link);
-       ?>
+
+         echo '</tbody>';
+         echo '</table>';
+
+       }
+      }
+      mysqli_close($db_link);
+    ?>
 
     </section>
 
