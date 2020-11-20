@@ -49,4 +49,11 @@ VALUES (9, 'Great patient', 'Vicodin', 'Asprin', 'Vicodin'),
        (10, 'Horrible patient', 'Vodka', 'Vodka', 'Vodka'),
        (11, 'He is okay', 'Asprin', 'Asprin', 'Asprin'),
        (11, 'Placebo he is fine', 'Placebo', 'Placebo', 'Placebo'),
-       (11, 'Okay, not cool', 'Oxicotin', 'Oxicotin', 'Oxicotin')
+       (11, 'Okay, not cool', 'Oxicotin', 'Oxicotin', 'Oxicotin'),
+       (12, 'Not so good', 'Dremamine', 'Dremamine', 'Dremamine'),
+       (12, 'Same deal', 'Dremamine', 'Dremamine', 'Dremamine'),
+       (13, 'Okay he is fine', 'Placebo', 'Asprin', 'Placebo'),
+       (13, 'Still fine', 'Asprin', 'Placebo', 'Asprin'),
+       (14, 'Eh', NULL, NULL, NULL),
+       (14, 'Okay he needs milk', 'Milk', 'Milk', 'Milk'),
+       (14, 'Wow, he needs asprin', 'Asprin', 'Asprin', 'Asprin');

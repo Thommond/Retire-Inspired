@@ -180,12 +180,12 @@
          $result = mysqli_query($db_link, $sql);
 
          if (empty($result)) {
+           die("<p class='error'>The field you entered has no results</p>");
+         }
 
-           echo "<p class='error'>The field you entered has no results</p>";
+         else {
 
-         } else {
-
-          // If result is not empty then display table
+           // If result is not empty then display table
          echo '<table>';
          echo '<tbody>';
          echo '<tr>';
@@ -198,24 +198,31 @@
          echo '<th>Night Med</th>';
          echo '</tr>';
 
-         // Every result row displayed in table
-         while ($row = $result->fetch_assoc()) {
-           // TODO: Create patient_of_doctor.php linked by patient_id only accessble by proper doctor.
-           // TODO: Next to each patients name add link to patient_of_doctor.php
-           echo '<tr>';
-           echo '<td>' . $row['day'] . '</td>';
-           echo '<td>' . $row['Fname'] . '</td>';
-           echo '<td>' . $row['Lname'] . '</td>';
-           echo '<td>' . $row['comment'] . '</td>';
-           echo '<td>' . $row['morning_med'] . '</td>';
-           echo '<td>' . $row['afternoon_med'] . '</td>';
-           echo '<td>' . $row['night_med'] . '</td>';
-           echo '</tr>';
+         if ($result->fetch_assoc()) {
+
+            // Every result row displayed in table if there is any
+           while ($row = $result->fetch_assoc()) {
+             // TODO: Create patient_of_doctor.php linked by patient_id only accessble by proper doctor.
+             // TODO: Next to each patients name add link to patient_of_doctor.php
+             echo '<tr>';
+             echo '<td>' . $row['day'] . '</td>';
+             echo '<td>' . $row['Fname'] . '</td>';
+             echo '<td>' . $row['Lname'] . '</td>';
+             echo '<td>' . $row['comment'] . '</td>';
+             echo '<td>' . $row['morning_med'] . '</td>';
+             echo '<td>' . $row['afternoon_med'] . '</td>';
+             echo '<td>' . $row['night_med'] . '</td>';
+             echo '</tr>';
+
+           }
+           echo '</tbody>';
+           echo '</table>';
 
          }
-         echo '</tbody>';
-         echo '</table>';
 
+         else {
+           die("<p class='error'>The field you entered has no results</p>");
+         }
         }
       }
        ?>
@@ -230,14 +237,14 @@
           <input type="text" name="till_date">
         </label>
 
-        <input type="submit" name="Submit" value="Submit">
+        <input type="submit" name="press" value="Submit">
 
       </form>
 
     </section>
 
     <?php
-    if (isset($_POST['Submit'])) {
+    if (isset($_POST['press'])) {
 
       $date = $_POST['till_date'];
       $today = date('Y-m-d');
@@ -253,9 +260,9 @@
              FROM appointments as a JOIN users as u on (a.patient_id = u.id)
              WHERE doctor_id LIKE $id AND day BETWEEN '$today%' AND '$date%'";
 
-     $result = mysqli_query($db_link);
+     $result = mysqli_query($db_link, $sql);
 
-     if (empty($result)) echo "<p class='error'>The field you entered has no results.</p>";
+     if (empty($result)) die("<p class='error'>The field you entered has no results.</p>");
      else {
 
        echo '<table>';
@@ -266,21 +273,27 @@
        echo '</tr>';
 
 
-       while($row = $result->fetch_assoc()) {
+       // Get all rows if result not empty
+       if ($result->fetch_assoc()) {
 
+         while($row = $result->fetch_assoc()) {
+           echo '<tr>';
+           echo "<td>" .  $row['Fname'] .  ' ' . $row['Lname'] . "</td>";
+           echo "<td>" . $row['day'] . "</td>";
+           echo '</tr>';
+         }
 
-         echo '<tr>';
-         echo "<td>" .  $row['Fname'] .  ' ' . $row['Lname'] . "</td>";
-         echo "<td>$row['day']</td>";
-         echo '</tr>';
-
+         echo '</tbody>';
+         echo '</table>';
        }
 
-
-       echo '</tbody>';
-       echo '</table>';
+       else {
+         die("<p class='error'>The field you entered has no results.</p>");
+       }
 
      }
+
+     mysqli_close($db_link);
 
     }
      ?>
