@@ -30,7 +30,7 @@
       <p>Welcome home <?php echo $_SESSION['first_name'] . ' ' . $_SESSION['last_name']?>!</p>
 
       <a href="../admin/roster.php">Look at todays Roster</a>
-
+  
     </section>
 
 
@@ -294,6 +294,7 @@
     ?>
 
     </section>
+
 
   </body>
 </html>

@@ -51,44 +51,55 @@
 
         if(mysqli_query($db_link, $sql)) {
 
-
           $result = mysqli_query($db_link, $sql);
 
-          $row = $result->fetch_assoc();
+          $row = [];
 
-          $ids = [$row['supervisor'],
-                  $row['doctor'],
-                  $row['caretaker_1'],
-                  $row['caretaker_2'],
-                  $row['caretaker_3'],
-                  $row['caretaker_4']
-                ];
+          if ($result) $row = $result->fetch_assoc();
 
-          $display = [$row['day']];
 
-          foreach ($ids as $id) {
+          if (empty($row)) {
+            echo "<p class='error'>No Roster for today yet!</p>";
+          }
+          
+          else {
 
-            $sql = "SELECT Fname, Lname FROM users
-                    WHERE id LIKE $id";
+            $ids = [$row['supervisor'],
+                    $row['doctor'],
+                    $row['caretaker_1'],
+                    $row['caretaker_2'],
+                    $row['caretaker_3'],
+                    $row['caretaker_4']
+                  ];
 
-            $result = mysqli_query($db_link, $sql);
-            $row = $result->fetch_assoc();
-            $query = $row['Fname'] . ' ' . $row['Lname'];
-            array_push($display, $query);
+            $display = [$row['day']];
+
+            foreach ($ids as $id) {
+
+              $sql = "SELECT Fname, Lname FROM users
+                      WHERE id LIKE $id";
+
+              $result = mysqli_query($db_link, $sql);
+
+              if ($result) {
+                $row = $result->fetch_assoc();
+                $query = $row['Fname'] . ' ' . $row['Lname'];
+                array_push($display, $query);
+              }
+
+            }
+
+            echo '<tr>';
+
+            foreach($display as $row) {
+
+              echo '<td>' . $row . '</td>';
+            }
+
+            echo '</tr>';
 
           }
-
-          echo '<tr>';
-
-          foreach($display as $row) {
-
-            echo '<td>' . $row . '</td>';
-          }
-
-          echo '</tr>';
-
-
-          }
+        }
 
         else echo "<p class='error'>No Roster for today yet!</p>";
 

@@ -45,6 +45,8 @@
 
         $day = $_POST['day'];
         $patient = $_POST['patient_id'];
+        $day = $_POST['day'];
+
 
         $db_link = mysqli_connect("localhost", "root", "", "retire");
 
@@ -124,7 +126,7 @@
            echo "</select>";
            echo "</label>";
            echo "<input type='text' name='patient' value=" .  $patient .  ">";
-           echo "<input type='text' name='day' value=" . $day . ">";
+           echo "<input type='text' name='date' value=" . $day . ">";
            echo "<input type='text' name='doc' value=" . $id . ">";
            echo "<input type='submit' name='press' value='Submit'>";
            echo "</form>";
@@ -147,6 +149,7 @@
           $day = $_POST['day'];
           $patient = $_POST['patient'];
           $id = $_POST['doc'];
+          $day = $_POST['date'];
 
           $db_link = mysqli_connect("localhost", "root", "", "retire");
 
