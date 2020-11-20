@@ -32,7 +32,7 @@
         </label>
 
         <label>Date:
-          <input type="date" name="the_date">
+          <input type="date" name="day">
         </label>
 
         <input type="submit" name="submit" value="Submit">
@@ -43,8 +43,8 @@
 
       if(isset($_POST['submit'])) {
 
+        $day = $_POST['day'];
         $patient = $_POST['patient_id'];
-        $the_date = $_POST['the_date'];
 
         $db_link = mysqli_connect("localhost", "root", "", "retire");
 
@@ -85,7 +85,7 @@
           $id = 0 ;
 
           $sql = "SELECT id FROM rosters
-                  WHERE the_date LIKE '$the_date'";
+                  WHERE day LIKE '$day'";
 
 
           if(mysqli_query($db_link, $sql)) {
@@ -124,27 +124,29 @@
            echo "</select>";
            echo "</label>";
            echo "<input type='text' name='patient' value=" .  $patient .  ">";
-           echo "<input type='text' name='date' value=" . $the_date . ">";
+           echo "<input type='text' name='day' value=" . $day . ">";
            echo "<input type='text' name='doc' value=" . $id . ">";
            echo "<input type='submit' name='press' value='Submit'>";
            echo "</form>";
+
+
+           echo "<label for='patients_name' class='display_only'>Patient Name:";
+             echo "<p class='display_only' >" . $patient_name . "</p>";
+           echo "</label>";
          }
+
+
 
         }
         ?>
-
-
-      <label for="patients_name" class='display_only'>Patient Name:
-        <p class='display_only' ><?php if(isset($_POST['submit'])) echo $patient_name ?></p>
-      </label>
 
       <?php
 
         if(isset($_POST['press'])) {
 
+          $day = $_POST['day'];
           $patient = $_POST['patient'];
           $id = $_POST['doc'];
-          $the_date = $_POST['date'];
 
           $db_link = mysqli_connect("localhost", "root", "", "retire");
 
@@ -152,8 +154,8 @@
             die("ERROR: Could not connect. " . mysqli_connect_error());
           }
 
-          $sql = "INSERT INTO appointments (patient_id, doctor_id, the_date)
-                  VALUES ('$patient', '$id', '$the_date')";
+          $sql = "INSERT INTO appointments (patient_id, doctor_id, day)
+                  VALUES ('$patient', '$id', '$day')";
 
 
           if(mysqli_query($db_link, $sql)) {

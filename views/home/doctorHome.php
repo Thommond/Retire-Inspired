@@ -234,70 +234,62 @@
       <form class="" action="doctorHome.php" method="post">
 
         <label>Appointments:
-          <input type="text" name="till_date">
+          <input type="date" name="till_date">
         </label>
 
         <input type="submit" name="press" value="Submit">
 
       </form>
 
-    </section>
 
-    <?php
-    if (isset($_POST['press'])) {
+      <?php
+      if (isset($_POST['press'])) {
 
-      $date = $_POST['till_date'];
-      $today = date('Y-m-d');
-      $id = intval($_SESSION['id']);
+        $date = $_POST['till_date'];
+        $today = date('Y-m-d');
+        $id = intval($_SESSION['id']);
 
-      $db_link = mysqli_connect("localhost", "root", "", "retire");
+        $db_link = mysqli_connect("localhost", "root", "", "retire");
 
-      if ($db_link == false) {
-        die("ERROR: Could not connect. " . mysqli_connect_error());
-      }
+        if ($db_link == false) {
+          die("ERROR: Could not connect. " . mysqli_connect_error());
+        }
 
-      $sql = "SELECT  a.day, u.Fname, u.Lname
-             FROM appointments as a JOIN users as u on (a.patient_id = u.id)
-             WHERE doctor_id LIKE $id AND day BETWEEN '$today%' AND '$date%'";
+        // Get from database
+        $sql = "SELECT  a.day, u.Fname, u.Lname
+               FROM appointments as a JOIN users as u on (a.patient_id = u.id)
+               WHERE doctor_id LIKE $id AND day BETWEEN '$today%' AND '$date%'";
 
-     $result = mysqli_query($db_link, $sql);
+       $result = mysqli_query($db_link, $sql);
 
-     if (empty($result)) die("<p class='error'>The field you entered has no results.</p>");
-     else {
-
-       echo '<table>';
-       echo '<tbody>';
-       echo '<tr>';
-       echo '<th>Name</th>';
-       echo '<th>Date</th>';
-       echo '</tr>';
-
-
-       // Get all rows if result not empty
-       if ($result->fetch_assoc()) {
-
-         while($row = $result->fetch_assoc()) {
-           echo '<tr>';
-           echo "<td>" .  $row['Fname'] .  ' ' . $row['Lname'] . "</td>";
-           echo "<td>" . $row['day'] . "</td>";
-           echo '</tr>';
-         }
-
-         echo '</tbody>';
-         echo '</table>';
-       }
-
+       if (empty($result)) die("<p class='error'>The field you entered has no results.</p>");
        else {
-         die("<p class='error'>The field you entered has no results.</p>");
-       }
 
-     }
+         echo '<table>';
+         echo '<tbody>';
+         echo '<tr>';
+         echo '<th>Name</th>';
+         echo '<th>Date</th>';
+         echo '</tr>';
 
-     mysqli_close($db_link);
 
-    }
-     ?>
+           // Get all rows if result not empty
+           while($row = $result->fetch_assoc()) {
+             echo '<tr>';
+             echo "<td>" .  $row['Fname'] .  ' ' . $row['Lname'] . "</td>";
+             echo "<td>" . $row['day'] . "</td>";
+             echo '</tr>';
+           }
 
+           echo '</tbody>';
+           echo '</table>';
+
+         }
+        }
+       mysqli_close($db_link);
+       ?>
+
+    </section>
 
   </body>
 </html>

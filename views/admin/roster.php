@@ -47,7 +47,7 @@
         $date = date('Y-m-d');
 
         $sql = "SELECT * FROM rosters
-                WHERE the_date = '$date'";
+                WHERE day = '$date'";
 
         if(mysqli_query($db_link, $sql)) {
 
@@ -64,7 +64,7 @@
                   $row['caretaker_4']
                 ];
 
-          $display = [$row['the_date']];
+          $display = [$row['day']];
 
           foreach ($ids as $id) {
 
