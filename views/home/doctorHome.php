@@ -218,22 +218,72 @@
 
         }
       }
-
-      // label which has appointments
-        // input which date can be entered
-
-      // submit button
-
-
-      // Once submited
-        // then the new appointments will show up until submited date
        ?>
-
-
-
 
     </section>
 
+    <section>
+
+      <form class="" action="doctorHome.php" method="post">
+
+        <label>Appointments:
+          <input type="text" name="till_date">
+        </label>
+
+        <input type="submit" name="Submit" value="Submit">
+
+      </form>
+
+    </section>
+
+    <?php
+    if (isset($_POST['Submit'])) {
+
+      $date = $_POST['till_date'];
+      $today = date('Y-m-d');
+      $id = intval($_SESSION['id']);
+
+      $db_link = mysqli_connect("localhost", "root", "", "retire");
+
+      if ($db_link == false) {
+        die("ERROR: Could not connect. " . mysqli_connect_error());
+      }
+
+      $sql = "SELECT  a.day, u.Fname, u.Lname
+             FROM appointments as a JOIN users as u on (a.patient_id = u.id)
+             WHERE doctor_id LIKE $id AND day BETWEEN '$today%' AND '$date%'";
+
+     $result = mysqli_query($db_link);
+
+     if (empty($result)) echo "<p class='error'>The field you entered has no results.</p>";
+     else {
+
+       echo '<table>';
+       echo '<tbody>';
+       echo '<tr>';
+       echo '<th>Name</th>';
+       echo '<th>Date</th>';
+       echo '</tr>';
+
+
+       while($row = $result->fetch_assoc()) {
+
+
+         echo '<tr>';
+         echo "<td>" .  $row['Fname'] .  ' ' . $row['Lname'] . "</td>";
+         echo "<td>$row['day']</td>";
+         echo '</tr>';
+
+       }
+
+
+       echo '</tbody>';
+       echo '</table>';
+
+     }
+
+    }
+     ?>
 
 
   </body>

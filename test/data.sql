@@ -18,6 +18,10 @@ VALUES ('Thomas', 'Smith', 1, 'example@gmail.com', '(717)-345-3455', '1988-01-07
        ('Cammy', 'Price', 4, 'cameron@aol.com', '(616)-233-9889', '1999-07-17', 'whatshesaid', true),
        ('Brian', 'dogood', 4, 'dogood@yahoo.com', '(612)-273-3289', '1994-12-11', 'whatitsaid', true),
        ('Arafat', 'Hassan', 5, 'hassan@gmail.com', '(717)-347-2222', '1968-05-25', 'aswdf6', true),
+       ('Bob', 'Jones', 5, 'jones@yahoo.com', '(313)-331-3789', '1957-06-21', 'whymommy?', true),
+       ('John' 'Horton', 5, 'hort@gmail.com', '(216)-221-9090', '1948-02-13', 'whydaddy?', true),
+       ('Jim', 'Smith', 5, 'Smith@gmail.com', '(717)-575-5281', '1952-04-12', 'helloisitme', true),
+       ('Niomi', 'Kring', 5, 'Kring@aol.com', '(818)-442-5412', '1939-12-03', 'iamoldone', true),
        ('Smith', 'Jimmy', 5, 'jimmy@gmail.com', '(312)-400-1123', '1949-08-21', 'whatdoesthefox', true),
        ('Sam', 'Hassan', 6, 'sam@gmail.com', '(717)-355-2312', '1988-02-11', 'cooldude', true),
        ('bob', 'Hassan', 6, 'bob@gmail.com', '(717)-355-2312', '1988-02-11', 'okaybro', false);
@@ -28,8 +32,21 @@ VALUES (5, '123456', 'Same Hassan', 'son', '2020-11-06', 1, 1000);
 INSERT INTO appointments (patient_id, doctor_id, day)
 VALUES (9, 3, '2020-11-19'),
        (9, 3, '2020-10-10'),
-       (10, 4, '2020-11-19');
+       (10, 4, '2020-11-19')
+       (11, 3, '2020-11-07'),
+       (11, 3, '2020-11-20'),
+       (11, 4, '2020-11-13'),
+       (12, 3, '2020-11-20'),
+       (12, 4, '2020-11-20'),
+       (13, 3, '2020-11-01'),
+       (13, 4, '2020-10-28'),
+       (14, 3, '2020-10-27'),
+       (14, 4, '2020-12-01'),
+       (14, 3, '2020-12-03');
 
 INSERT INTO prescriptions (patient_id, `comment`, morning_med, afternoon_med, night_med)
 VALUES (9, 'Great patient', 'Vicodin', 'Asprin', 'Vicodin'),
-       (10, 'Horrible patient', 'Vodka', 'Vodka', 'Vodka');
+       (10, 'Horrible patient', 'Vodka', 'Vodka', 'Vodka'),
+       (11, 'He is okay', 'Asprin', 'Asprin', 'Asprin'),
+       (11, 'Placebo he is fine', 'Placebo', 'Placebo', 'Placebo'),
+       (11, 'Okay, not cool', 'Oxicotin', 'Oxicotin', 'Oxicotin')
