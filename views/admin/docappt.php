@@ -82,15 +82,18 @@
        <?php
         if(isset($_POST['submit'])) {
 
+          $id = 0 ;
+
           $sql = "SELECT id FROM rosters
                   WHERE the_date LIKE '$the_date'";
 
 
           if(mysqli_query($db_link, $sql)) {
+
             $result = mysqli_fetch_row(mysqli_query($db_link, $sql));
 
             if (empty($result)) {
-              echo "<p class='error'>There is no roster for selected date.</p>";
+              die("<p class='error'>There is no roster for selected date.</p>");
             }
 
             else {
@@ -100,6 +103,8 @@
           }
 
           else echo "<p class='error'>Could not get patient from database, check your values.</p>";
+
+          if ($id and $id != 0) {
 
           $sql = "SELECT Fname, Lname, id FROM users
                   WHERE id LIKE '$id'";
@@ -123,6 +128,8 @@
            echo "<input type='text' name='doc' value=" . $id . ">";
            echo "<input type='submit' name='press' value='Submit'>";
            echo "</form>";
+         }
+
         }
         ?>
 

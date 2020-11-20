@@ -42,6 +42,7 @@ CREATE TABLE appointments (
 
 CREATE TABLE prescriptions (
   id integer NOT NULL AUTO_INCREMENT,
+  appt_day datetime NOT NULL REFERENCES appointments (day),
   patient_id integer REFERENCES user (id),
   comment varchar(100),
   morning_med varchar(100),
