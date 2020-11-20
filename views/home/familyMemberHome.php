@@ -108,13 +108,13 @@
             if ($result) $row = $result->fetch_assoc();
 
             if (!$row) {
-              die("Incorrect family code or ID.");
+              die("<p class='error'>Incorrect family code or ID.</p>");
             }
             if ($row['family_code'] != $code) {
-              die("Incorrect family code or ID")
+              die("<p class='error'>Incorrect family code or ID</p>");
             }
 
-            echo "<p>$patient_name's schedule</p>";
+            echo "<h2>$patient_name's Schedule</h2>";
 
             #get today's schedule
             $sql = "SELECT morning_med, afternoon_med, night_med, breakfast, lunch, dinner
