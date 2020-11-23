@@ -45,8 +45,6 @@
 
         $day = $_POST['day'];
         $patient = $_POST['patient_id'];
-        $day = $_POST['day'];
-
 
         $db_link = mysqli_connect("localhost", "root", "", "retire");
 
@@ -141,7 +139,6 @@
           $day = $_POST['day'];
           $patient = $_POST['patient'];
           $id = $_POST['doc'];
-          $day = $_POST['date'];
 
           $db_link = mysqli_connect("localhost", "root", "", "retire");
 
