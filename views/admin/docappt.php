@@ -136,7 +136,7 @@
 
       if(isset($_POST['press'])) {
 
-          $day = $_POST['day'];
+          $day = $_POST['date'];
           $patient = $_POST['patient'];
           $id = $_POST['doc'];
 
