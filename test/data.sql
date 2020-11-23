@@ -25,7 +25,7 @@ INSERT INTO patients_info (user_id, family_code, emergency_contact, Relation_Con
 VALUES (9, '123456', 'Same Hassan', 'son', '2020-11-06', 1, 1000);
 
 INSERT INTO rosters (day, supervisor, doctor, caretaker_1, caretaker_2, caretaker_3, caretaker_4)
-VALUES ('2020-11-17', 2, 3, 4, 5, 6, 7);
+VALUES ('2020-11-23', 2, 3, 5, 6, 7, 8);
 
 INSERT INTO appointments (patient_id, doctor_id, day)
 VALUES (9, 3, '2020-11-17');

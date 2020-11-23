@@ -71,7 +71,7 @@ CREATE TABLE schedules (
   comment varchar(100),
   breakfast boolean,
   lunch boolean,
-  diner boolean,
+  dinner boolean,
   PRIMARY KEY (id)
 );
 

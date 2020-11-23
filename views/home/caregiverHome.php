@@ -51,9 +51,6 @@
           <tr>
 
             <?php
-            #establish some variables
-            $schedule = [];
-            $patient_name = '';
 
             #use the submitted date or default to today
             if (isset($_POST['search'])) {
@@ -72,10 +69,92 @@
             }
 
             #Check which group the caregiver is assigned to
+            $sql = "SELECT caretaker_1, caretaker_2, caretaker_3, caretaker_4
+            FROM rosters
+            WHERE day = CURRENT_DATE()";
 
-            #Get all of the patients in that group
+            $result = mysqli_query($link, $sql);
 
-            #Display the schedule for each patient
+            $row = [];
+
+            if ($result) $row = $result->fetch_assoc();
+
+            if ($row) {
+
+              if (!in_array($id, $row)) {
+
+                echo "<p>You have no assignment today!</p>";
+              }
+              else {
+
+                if ($row['caretaker_1'] == $id) $group = 1;
+
+                elseif ($row['caretaker_2'] == $id) $group = 2;
+
+                elseif ($row['caretaker_3'] == $id) $group = 3;
+
+                else $group = 4;
+
+                #Get all of the patients in that group
+                $sql = "SELECT user_id FROM patients_info
+                WHERE patient_group = '$group'";
+
+                $result = mysqli_query($link, $sql);
+
+                $patient_list = [];
+
+                if ($result) $patient_list = $result->fetch_assoc();
+
+                #Display a row for each patient
+                foreach ($patient_list as $key => $user_id) {
+
+                  #Get and display the patient's name
+                  $sql = "SELECT Fname, Lname FROM users
+                  WHERE id = '$user_id'";
+
+                  $result = mysqli_query($link, $sql);
+
+                  $row = [];
+
+                  if ($result) $row = $result->fetch_assoc();
+
+                  if ($row) {
+                    $patient_name = $row['Fname'] . ' ' . $row['Lname'];
+                  }
+                  else {
+                    $patient_name = "Patient $user_id";
+                  }
+
+                  echo "<td>$patient_name</td>";
+
+                  #Get and display the patient's schedule
+                  $sql = "SELECT morning_med, afternoon_med, night_med, breakfast, lunch, dinner
+                  FROM schedules
+                  WHERE user_id = '$user_id'";
+
+                  $result = mysqli_query($link, $sql);
+
+                  $schedule = [];
+
+                  if ($result) $schedule = $result-> fetch_assoc();
+
+                  if ($schedule) {
+
+                    foreach ($schedule as $key => $value) {
+
+                      echo "<td>$value</td>";
+                    }
+                  }
+                  else {
+
+                    echo "<td></td><td></td><td></td><td></td><td></td><td></td>";
+                  }
+                }
+              }
+            }
+            else {
+              echo "<p class='error'>There is no roster set for today.</p>";
+            }
 
             mysqli_close($link);
             ?>
