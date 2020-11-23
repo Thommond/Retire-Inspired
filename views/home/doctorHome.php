@@ -83,14 +83,6 @@
         $Mmed = $_POST['mmed'];
         $Amed = $_POST['amed'];
         $Nmed = $_POST['nmed'];
-
-        $day = 'day';
-        $Last = 'Lname';
-        $first = 'Fname';
-        $com = 'Comment';
-        $morn = 'morning_med';
-        $aft = 'afternoon_med';
-        $night = 'night_med';
         $filter = '';
         $column = '';
 
@@ -105,75 +97,50 @@
         // Check only one field can be filled
         // then setting proper variables.
         if (!empty($date)) {
-          $filter = $date . '%';
-          $column = $day;
+            $filter = $date . '%';
+            $column = 'day';
+        }
+        else if (!empty($Fname)) {
+
+            $filter = $Fname . '%';
+            $column = 'Fname'
+        }
+        else if (!empty($Lname)){
+
+            $filter = $Lname . '%';
+            $column = 'Lname';
+        }
+        else if (!empty($Comment)) {
+
+            $filter = $Comment . '%';
+            $column = 'Comment';
+        }
+        else if (!empty($Mmed)) {
+
+            $filter = $Mmed . '%';
+            $column = 'morning_med';
+        }
+        else if (!empty($Amed)) {
+
+          $filter = $Amed . '%';
+          $column = 'afternoon_med';
+        }
+        else if (!empty($Nmed)) {
+
+          $filter = $Nmed . '%';
+          $column = 'night_med';
         }
         else {
 
-          if (!empty($Fname)) {
-            $filter = $Fname . '%';
-            $column = $first;
-          }
-
-          else {
-
-              if (!empty($Lname)) {
-                $filter = $Lname . '%';
-                $column = $Last;
-              }
-
-              else {
-
-                if (!empty($Comment)) {
-
-                  $filter = $Comment . '%';
-                  $column = $com;
-                }
-
-                else {
-
-                  if (!empty($Mmed)) {
-
-                    $filter = $Mmed . '%';
-                    $column = $morn;
-
-                  }
-
-                  else {
-
-                    if (!empty($Amed)) {
-
-                      $filter = $Amed . '%';
-                      $column = $aft;
-
-                    }
-
-                    else {
-
-                      if (!empty($Nmed)) {
-
-                        $filter = $Nmed . '%';
-                        $column = $night;
-
-                      }
-
-                      else {
-
-                        echo '<p class="error">You have no fields filled out. Please fill in one field.</p>';
-
-                    }
-                  }
-                }
-              }
-            }
-          }
+          echo '<p class="error">You have no fields filled out. Please fill in one field.</p>';
         }
+      }
 
         // TODO: Make sure to get only unique prescriptions may require adding day to
         // prescriptions table.
          $sql = "SELECT  a.day, p.morning_med, p.afternoon_med, p.night_med,
                 p.comment, u.Fname, u.Lname
-                FROM appointments as a JOIN prescriptions as p on (a.patient_id = p.patient_id)
+                FROM appointments as a JOIN prescriptions as p on (a.patient_id = p.patient_id) AND (a.day = p.apptday)
                 JOIN users as u ON (a.patient_id=u.id)
                 WHERE doctor_id LIKE $id AND $column LIKE '$filter' AND day < '2020-11-19%'";
 
@@ -186,47 +153,43 @@
          else {
 
            // If result is not empty then display table
-         echo '<table>';
-         echo '<tbody>';
-         echo '<tr>';
-         echo '<th>Date</th>';
-         echo '<th>First Name</th>';
-         echo '<th>Last Name</th>';
-         echo '<th>Comment</th>';
-         echo '<th>Morning Med</th>';
-         echo '<th>Afternoon Med</th>';
-         echo '<th>Night Med</th>';
-         echo '<th>Patient Page</th>';
-         echo '</tr>';
+           echo '<table>';
+           echo '<tbody>';
+           echo '<tr>';
+           echo '<th>Date</th>';
+           echo '<th>First Name</th>';
+           echo '<th>Last Name</th>';
+           echo '<th>Comment</th>';
+           echo '<th>Morning Med</th>';
+           echo '<th>Afternoon Med</th>';
+           echo '<th>Night Med</th>';
+           echo '<th>Patient Page</th>';
+           echo '</tr>';
 
-         if ($result->fetch_assoc()) {
+           if ($result->fetch_assoc()) {
+               // Every result row displayed in table if there is any
+               while ($row = $result->fetch_assoc()) {
+                 // TODO: Next to each patients name add link to patient_of_doctor.php
+                 echo '<tr>';
+                 echo '<td>' . $row['day'] . '</td>';
+                 echo '<td>' . $row['Fname'] . '</td>';
+                 echo '<td>' . $row['Lname'] . '</td>';
+                 echo '<td>' . $row['comment'] . '</td>';
+                 echo '<td>' . $row['morning_med'] . '</td>';
+                 echo '<td>' . $row['afternoon_med'] . '</td>';
+                 echo '<td>' . $row['night_med'] . '</td>';
+                 echo '<td>' . "<a class='table_link' href='#'>Patient Page</a>" . '</td>';
+                 echo '</tr>';
 
-            // Every result row displayed in table if there is any
-           while ($row = $result->fetch_assoc()) {
-             // TODO: Create patient_of_doctor.php linked by patient_id only accessble by proper doctor.
-             // TODO: Next to each patients name add link to patient_of_doctor.php
-             echo '<tr>';
-             echo '<td>' . $row['day'] . '</td>';
-             echo '<td>' . $row['Fname'] . '</td>';
-             echo '<td>' . $row['Lname'] . '</td>';
-             echo '<td>' . $row['comment'] . '</td>';
-             echo '<td>' . $row['morning_med'] . '</td>';
-             echo '<td>' . $row['afternoon_med'] . '</td>';
-             echo '<td>' . $row['night_med'] . '</td>';
-            echo '<td>' . "<a class='table_link' href='#'>Patient Page</a>" . '</td>';
-             echo '</tr>';
-
+               }
+               echo '</tbody>';
+               echo '</table>';
            }
-           echo '</tbody>';
-           echo '</table>';
 
-         }
-
-         else {
-           die("<p class='error'>The field you entered has no results</p>");
-         }
+           else {
+             die("<p class='error'>The field you entered has no results</p>");
+           }
         }
-      }
        ?>
 
     </section>
