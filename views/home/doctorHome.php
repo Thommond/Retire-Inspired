@@ -83,6 +83,7 @@
         $Mmed = $_POST['mmed'];
         $Amed = $_POST['amed'];
         $Nmed = $_POST['nmed'];
+        $date = date('Y-m-d');
         $filter = '';
         $column = '';
 
@@ -103,7 +104,7 @@
         else if (!empty($Fname)) {
 
             $filter = $Fname . '%';
-            $column = 'Fname'
+            $column = 'Fname';
         }
         else if (!empty($Lname)){
 
@@ -140,9 +141,9 @@
         // prescriptions table.
          $sql = "SELECT  a.day, p.morning_med, p.afternoon_med, p.night_med,
                 p.comment, u.Fname, u.Lname
-                FROM appointments as a JOIN prescriptions as p on (a.patient_id = p.patient_id) AND (a.day = p.apptday)
+                FROM appointments as a JOIN prescriptions as p on (a.patient_id = p.patient_id) AND (a.day = p.appt_day)
                 JOIN users as u ON (a.patient_id=u.id)
-                WHERE doctor_id LIKE $id AND $column LIKE '$filter' AND day < '2020-11-19%'";
+                WHERE doctor_id LIKE $id AND $column LIKE '$filter' AND day < '$date'";
 
          $result = mysqli_query($db_link, $sql);
 
@@ -166,9 +167,15 @@
            echo '<th>Patient Page</th>';
            echo '</tr>';
 
-           if ($result->fetch_assoc()) {
-               // Every result row displayed in table if there is any
-               while ($row = $result->fetch_assoc()) {
+
+           // Every result row displayed in table if there is any
+           while ($row = $result->fetch_assoc()) {
+
+             if (empty($row)){
+               die("<p class='error'>The field you entered has no results</p>");
+             }
+
+             else {
                  // TODO: Next to each patients name add link to patient_of_doctor.php
                  echo '<tr>';
                  echo '<td>' . $row['day'] . '</td>';
@@ -181,14 +188,12 @@
                  echo '<td>' . "<a class='table_link' href='#'>Patient Page</a>" . '</td>';
                  echo '</tr>';
 
-               }
-               echo '</tbody>';
-               echo '</table>';
-           }
+            }
+          }
 
-           else {
-             die("<p class='error'>The field you entered has no results</p>");
-           }
+          echo '</tbody>';
+          echo '</table>';
+
         }
        ?>
 
