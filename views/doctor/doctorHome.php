@@ -30,7 +30,7 @@
       <p>Welcome home <?php echo $_SESSION['first_name'] . ' ' . $_SESSION['last_name']?>!</p>
 
       <a href="../admin/roster.php">Look at todays Roster</a>
-  
+
     </section>
 
 
@@ -136,10 +136,8 @@
           echo '<p class="error">You have no fields filled out. Please fill in one field.</p>';
         }
 
-          // TODO: Make sure to get only unique prescriptions may require adding day to
-          // prescriptions table.
          $sql = "SELECT  a.day, p.morning_med, p.afternoon_med, p.night_med,
-                p.comment, u.Fname, u.Lname
+                p.comment, u.Fname, u.Lname, a.patient_id
                 FROM appointments as a JOIN prescriptions as p on (a.patient_id = p.patient_id) AND (a.day = p.appt_day)
                 JOIN users as u ON (a.patient_id=u.id)
                 WHERE doctor_id LIKE $id AND $column LIKE '$filter' AND day < '$day'";
@@ -184,7 +182,7 @@
              echo '<td>' . $row['morning_med'] . '</td>';
              echo '<td>' . $row['afternoon_med'] . '</td>';
              echo '<td>' . $row['night_med'] . '</td>';
-             echo '<td>' . "<a class='table_link' href='#'>Patient Page</a>" . '</td>';
+             echo '<td>' . "<a class='table_link' href='http://localhost/Retire-Inspired/views/doctor/patientOfDoctor.php?patient_id_num=" . $row['patient_id'] . "' >Patient Page</a> " . '</td>';
              echo '</tr>';
 
           }
