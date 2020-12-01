@@ -140,14 +140,30 @@
 
                   if ($schedule) {
 
-                    foreach ($schedule as $key => $value) {
+                    foreach ($schedule as $activity => $value) {
 
-                      echo "<td>$value</td>";
+                      $name = $user_id . $activity;
+
+                      #Each data in the table will be a checkbox
+                      if ($value) {
+                        echo "<td class='check'><input name=$name type='checkbox' checked></td>";
+                      }
+                      else {
+                        echo "<td class='check'><input name=$name type='checkbox'></td>";
+                      }
                     }
                   }
                   else {
 
-                    echo "<td></td><td></td><td></td><td></td><td></td><td></td>";
+                    $activities = ['morning_med', 'afternoon_med', 'night_med', 'breakfast', 'lunch', 'dinner'];
+
+                    #Display the checkboxes even if the patient's schedule does not yet exist
+                    foreach ($activities as $k => $activity) {
+
+                      $name = $user_id . $activity;
+
+                      echo "<td class='check'><input name=$name type='checkbox'></td>";
+                    }
                   }
                 }
               }
