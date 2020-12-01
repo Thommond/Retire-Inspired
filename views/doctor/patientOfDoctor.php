@@ -91,9 +91,9 @@
 
           }
 
-        $sql = "SELECT patient_id, appt_day
-                FROM prescriptions
-                WHERE patient_id LIKE '$patient' AND appt_day LIKE '$day'";
+        $sql = "SELECT patient_id, day
+                FROM appointments
+                WHERE patient_id LIKE '$patient' AND day LIKE '$day%'";
 
 
         $result = mysqli_fetch_row(mysqli_query($db_link, $sql));
@@ -132,8 +132,20 @@
           $Amed = $_POST['afternoon'];
           $Nmed = $_POST['night'];
 
+          $sql = "INSERT INTO prescriptions (appt_day, patient_id, comment, morning_med, afternoon_med, night_med)
+                  VALUES ('$day', $patient, '$Comment', '$Mmed', '$Amed', '$Nmed')";
+
+
+          if (mysqli_query($db_link, $sql)) echo "<p class='success'>Prescription added successfully!</p>";
+
+          else echo "<p class='error'>Could not add roster check values!</p> " . mysqli_error($db_link);
+
         }
 
+      }
+
+      else {
+        echo"<h4>Today is not an appointment day for this patient, so no new prescriptions will be created.</h4>";
       }
 
      ?>
