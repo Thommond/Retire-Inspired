@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <title>Patient Of Doctor</title>
     <link rel="stylesheet" href="../../static/style.css">
+    <script type="text/javascript" href="../../static/register.js">
+    </script>
   </head>
   <body>
 
@@ -100,49 +102,61 @@
 
         if (!empty($result)) {
 
-        echo "<h3>New Prescription</h3>";
+          $sql = "SELECT patient_id, appt_day
+                  FROM prescriptions
+                  WHERE patient_id LIKE '$patient' AND appt_day LIKE '$day%'";
 
-        echo '<form action="patientOfDoctor.php" method="post">';
+          $result = mysqli_fetch_row(mysqli_query($db_link, $sql));
 
-        echo '<label>Comment:';
-        echo '<input type="text" name="comment">';
-        echo '</label>';
+          if (!empty($result)) {
+            echo "<h4 class='error'>No new prescriptions can be added there is already one for todays appointment</h4>";
+          }
 
-        echo '<label>Morning Medication:';
-        echo '<input type="text" name="morning">';
-        echo '</label>';
-
-        echo '<label>Afternoon Medication:';
-        echo '<input type="text" name="afternoon">';
-        echo '</label>';
-
-        echo '<label>Night Medication:';
-        echo '<input type="text" name="night">';
-        echo '</label>';
-
-        echo '<input type="submit" name="submit" value="Submit">';
-
-        echo '</form>';
-
-        if (isset($_POST['submit'])) {
-
-          $day = date('Y-m-d');
-          $Comment = $_POST['comment'];
-          $Mmed = $_POST['morning'];
-          $Amed = $_POST['afternoon'];
-          $Nmed = $_POST['night'];
-
-          $sql = "INSERT INTO prescriptions (appt_day, patient_id, comment, morning_med, afternoon_med, night_med)
-                  VALUES ('$day', $patient, '$Comment', '$Mmed', '$Amed', '$Nmed')";
+          else {
 
 
-          if (mysqli_query($db_link, $sql)) echo "<p class='success'>Prescription added successfully!</p>";
+            echo "<h3>New Prescription</h3>";
 
-          else echo "<p class='error'>Could not add roster check values!</p> " . mysqli_error($db_link);
+            echo '<form onSubmit="handleForm();return false action="patientOfDoctor.php" method="post">';
 
+            echo '<label>Comment:';
+            echo '<input type="text" name="comment">';
+            echo '</label>';
+
+            echo '<label>Morning Medication:';
+            echo '<input type="text" name="morning">';
+            echo '</label>';
+
+            echo '<label>Afternoon Medication:';
+            echo '<input type="text" name="afternoon">';
+            echo '</label>';
+
+            echo '<label>Night Medication:';
+            echo '<input type="text" name="night">';
+            echo '</label>';
+
+            echo '<input type="submit" name="submit" value="Submit">';
+
+            echo '</form>';
+
+            if (isset($_POST['submit'])) {
+
+              $day = date('Y-m-d');
+              $Comment = $_POST['comment'];
+              $Mmed = $_POST['morning'];
+              $Amed = $_POST['afternoon'];
+              $Nmed = $_POST['night'];
+
+              $sql = "INSERT INTO prescriptions (appt_day, patient_id, comment, morning_med, afternoon_med, night_med)
+                      VALUES ('$day', $patient, '$Comment', '$Mmed', '$Amed', '$Nmed')";
+
+
+              if (mysqli_query($db_link, $sql)) echo "<p class='success'>Prescription added successfully!</p>";
+
+              else echo "<p class='error'>Could not add prescription check values!</p> " . mysqli_error($db_link);
+            }
+          }
         }
-
-      }
 
       else {
         echo"<h4>Today is not an appointment day for this patient, so no new prescriptions will be created.</h4>";
