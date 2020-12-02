@@ -84,7 +84,7 @@
 
           $id = 0 ;
 
-          $sql = "SELECT id FROM rosters
+          $sql = "SELECT id, doctor FROM rosters
                   WHERE day LIKE '$day'";
 
           if(mysqli_query($db_link, $sql)) {
@@ -97,6 +97,7 @@
 
             else {
               $id = $result[0];
+              $doctor = $result[1];
             }
 
           }
@@ -106,15 +107,16 @@
           if ($id and $id != 0) {
 
              $sql = "SELECT Fname, Lname, id FROM users
-                     WHERE id LIKE '$id'";
+                     WHERE id LIKE '$doctor'";
 
              echo "<form  action='docappt.php' method='post'>";
              echo "<label for='Doctor'>Doctor:";
              echo "<select  name='Doctor'>";
 
              if(mysqli_query($db_link, $sql)) {
-                $result2 = mysqli_fetch_row(mysqli_query($db_link, $sql));
-                echo "<option value=" . $result2[2] . " " . ">" . $result2[0] . ' ' . $result2[1] . "</option>";
+                $result = mysqli_query($db_link, $sql);
+                $row = mysqli_fetch_row($result);
+                echo "<option value=" . $row[2] . " " . ">" . $row[0] . ' ' . $row[1] . "</option>";
              }
 
              else echo "<p class='error'>Could not get doctor from database, check your values.</p>";
@@ -123,7 +125,7 @@
            echo "</label>";
            echo "<input type='text' name='patient' value=" .  $patient .  ">";
            echo "<input type='text' name='date' value=" . $day . ">";
-           echo "<input type='text' name='doc' value=" . $id . ">";
+           echo "<input type='text' name='doc' value=" . $doctor . ">";
            echo "<input type='submit' name='press' value='Submit'>";
            echo "</form>";
 

@@ -89,7 +89,7 @@
                   break;
 
                 case '3':
-                  header('Location: http://localhost/Retire-Inspired/views/home/doctorHome.php ');
+                  header('Location: http://localhost/Retire-Inspired/views/doctor/doctorHome.php ');
                   break;
 
                 case '4':
