@@ -13,10 +13,10 @@
       include ('../common-functions.php');
       check_session(3);
 
-      if ($_SESSION['Role_id'] == 1) echo '<a href=' . "adminHome.php" . '>' . 'Back' . '</a>';
-      if ($_SESSION['Role_id'] == 2) echo '<a href=' . "../home/supervisorHome.php" . '>' . 'Back' . '</a>';
-      if ($_SESSION['Role_id'] == 3) echo '<a href=' . "../home/doctorHome.php" . '>' . 'Back' . '</a>';
-      if ($_SESSION['Role_id'] == 4) echo '<a href=' . "../home/caregiverHome.php" . '>' . 'Back' . '</a>';
+      if ($_SESSION['Role_id'] == 1) echo '<a href=' . "admin/adminHome.php" . '>' . 'Back' . '</a>';
+      if ($_SESSION['Role_id'] == 2) echo '<a href=' . "home/supervisorHome.php" . '>' . 'Back' . '</a>';
+      if ($_SESSION['Role_id'] == 3) echo '<a href=' . "doctor/doctorHome.php" . '>' . 'Back' . '</a>';
+      if ($_SESSION['Role_id'] == 4) echo '<a href=' . "home/caregiverHome.php" . '>' . 'Back' . '</a>';
       ?>
 
       <h1>Patients List</h1>
@@ -79,12 +79,12 @@
         }
 
         if (!empty($id)) {
-            $filter = $id . '%';
+            $filter = $id;
             $column = 'u.id';
         }
         else if (!empty($fname)) {
 
-            $filter = $Fname . '%';
+            $filter = $fname . '%';
             $column = 'Fname';
         }
         else if (!empty($lname)){
@@ -119,15 +119,16 @@
 
       }
 
-      $sql = "SELECT u.id, p.emergency_contact, p.Relation_Contact,
-             ,u.Fname, p.admission_date,
-             DATEDIFF(CURRENT_DATE, STR_TO_DATE(u.Birth_date, '%Y-%m-%d'))/365 AS age
-             FROM patients_info as p JOIN users as u ON (p.user_id=u.id)
+      $sql = "SELECT u.id,u.Fname, u.Lname, p.admission_date,
+             DATEDIFF(CURRENT_DATE, STR_TO_DATE(u.Birth_date, '%Y-%m-%d'))/365 AS age,
+             p.Relation_Contact, p.emergency_contact
+             FROM users as u JOIN patients_info as p ON (u.id=p.user_id)
              WHERE $column LIKE '$filter'";
 
       $result = mysqli_query($db_link, $sql);
 
       if (empty($result)) {
+        echo 'good';
         die("<p class='error'>The field you entered has no results</p>");
       }
 
@@ -140,6 +141,7 @@
         echo '<th>First Name</th>';
         echo '<th>Last Name</th>';
         echo '<th>Age</th>';
+        echo '<th>Admission Date</th>';
         echo '<th>Emergency Contact</th>';
         echo '<th>Emergency Contact Name</th>';
         echo '</tr>';
@@ -155,6 +157,7 @@
           echo '<td>' . $row['Fname'] . '</td>';
           echo '<td>' . $row['Lname'] . '</td>';
           echo '<td>' . $row['age'] . '</td>';
+          echo '<td>' . $row['admission_date'] . '</td>';
           echo '<td>' . $row['Relation_Contact'] . '</td>';
           echo '<td>' . $row['emergency_contact'] . '</td>';
 
