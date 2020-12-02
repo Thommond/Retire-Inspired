@@ -8,8 +8,9 @@
   <body>
 
     <section>
+
       <?php
-      include ('../../common-functions.php');
+      include ('../common-functions.php');
       check_session(3);
 
       if ($_SESSION['Role_id'] == 1) echo '<a href=' . "adminHome.php" . '>' . 'Back' . '</a>';
@@ -18,7 +19,7 @@
       if ($_SESSION['Role_id'] == 4) echo '<a href=' . "../home/caregiverHome.php" . '>' . 'Back' . '</a>';
       ?>
 
-
+      <h1>Patients List</h1>
 
       <p>If you would like to filter the results fill in a field only one field at a time.</p>
 
@@ -66,6 +67,7 @@
         $age = $_POST['age'];
         $contact1 = $_POST['contact1'];
         $contact2 = $_POST['contact2'];
+        $adddate = $_POST['adddate'];
         $day = date('Y-m-d');
         $filter = '';
         $column = '';
@@ -78,7 +80,7 @@
 
         if (!empty($id)) {
             $filter = $id . '%';
-            $column = 'id';
+            $column = 'u.id';
         }
         else if (!empty($fname)) {
 
@@ -105,6 +107,11 @@
           $filter = $contact2 . '%';
           $column = 'emergency_contact';
         }
+
+        else if (!empty($adddate)) {
+          $filter = $adddate . '%';
+          $column = 'admission_date';
+        }
         else {
 
           echo '<p class="error">You have no fields filled out. Please fill in one field.</p>';
@@ -112,10 +119,11 @@
 
       }
 
-      $sql = "SELECT p.id, p.emergency_contact, p.Relation_Contact,
-             ,u.Fname, u.Lname, ABS(u.Birth_date - $day) as  `age`
+      $sql = "SELECT u.id, p.emergency_contact, p.Relation_Contact,
+             ,u.Fname, p.admission_date,
+             DATEDIFF(CURRENT_DATE, STR_TO_DATE(u.Birth_date, '%Y-%m-%d'))/365 AS age
              FROM patients_info as p JOIN users as u ON (p.user_id=u.id)
-             WHERE $column LIKE '$filter'"
+             WHERE $column LIKE '$filter'";
 
       $result = mysqli_query($db_link, $sql);
 
@@ -142,7 +150,7 @@
             die("<p class='error'>The field you entered has no results</p>");
           }
 
-          echo '<tr>'
+          echo '<tr>';
           echo '<td>' . $row['id'] . '</td>';
           echo '<td>' . $row['Fname'] . '</td>';
           echo '<td>' . $row['Lname'] . '</td>';
