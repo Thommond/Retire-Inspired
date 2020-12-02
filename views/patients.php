@@ -60,14 +60,105 @@
 
       if (isset($_POST['Submit'])) {
 
-        
+        $id = $_POST['id'];
+        $fname = $_POST['Fname'];
+        $lnname = $_POST['Lname'];
+        $age = $_POST['age'];
+        $contact1 = $_POST['contact1'];
+        $contact2 = $_POST['contact2'];
+        $day = date('Y-m-d');
+        $filter = '';
+        $column = '';
+
+        $db_link = mysqli_connect("localhost", "root", "", "retire");
+
+        if ($db_link == false) {
+          die("ERROR: Could not connect. " . mysqli_connect_error());
+        }
+
+        if (!empty($id)) {
+            $filter = $id . '%';
+            $column = 'id';
+        }
+        else if (!empty($fname)) {
+
+            $filter = $Fname . '%';
+            $column = 'Fname';
+        }
+        else if (!empty($lname)){
+
+            $filter = $lname . '%';
+            $column = 'Lname';
+        }
+        else if (!empty($age)) {
+
+            $filter = $age . '%';
+            $column = 'age';
+        }
+        else if (!empty($contact1)) {
+
+          $filter = $contact1 . '%';
+          $column = 'Relation_Contact';
+        }
+        else if (!empty($contact2)) {
+
+          $filter = $contact2 . '%';
+          $column = 'emergency_contact';
+        }
+        else {
+
+          echo '<p class="error">You have no fields filled out. Please fill in one field.</p>';
+        }
 
       }
 
+      $sql = "SELECT p.id, p.emergency_contact, p.Relation_Contact,
+             ,u.Fname, u.Lname, ABS(u.Birth_date - $day) as  `age`
+             FROM patients_info as p JOIN users as u ON (p.user_id=u.id)
+             WHERE $column LIKE '$filter'"
 
-       ?>
+      $result = mysqli_query($db_link, $sql);
+
+      if (empty($result)) {
+        die("<p class='error'>The field you entered has no results</p>");
+      }
+
+      else {
+
+        echo '<table>';
+        echo '<tbody>';
+        echo '<tr>';
+        echo '<th>Id</th>';
+        echo '<th>First Name</th>';
+        echo '<th>Last Name</th>';
+        echo '<th>Age</th>';
+        echo '<th>Emergency Contact</th>';
+        echo '<th>Emergency Contact Name</th>';
+        echo '</tr>';
+
+        while ($row = $result->fetch_assoc()) {
+
+          if (empty($row)) {
+            die("<p class='error'>The field you entered has no results</p>");
+          }
+
+          echo '<tr>'
+          echo '<td>' . $row['id'] . '</td>';
+          echo '<td>' . $row['Fname'] . '</td>';
+          echo '<td>' . $row['Lname'] . '</td>';
+          echo '<td>' . $row['age'] . '</td>';
+          echo '<td>' . $row['Relation_Contact'] . '</td>';
+          echo '<td>' . $row['emergency_contact'] . '</td>';
 
 
+        echo '</tbody>';
+        echo '</table>';
+
+        }
+
+      }
+
+      ?>
 
     </section>
 
