@@ -38,6 +38,8 @@
 
       <a href="../admin/docappt.php">Doctor Appts</a>
 
+      <a href="../patients.php">Look at List of Patients</a>
+
     </section>
 
 

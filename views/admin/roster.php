@@ -15,9 +15,7 @@
       <?php
       include ('../../common-functions.php');
       check_session(6);
-      ?>
-
-      <?php
+      
       if ($_SESSION['Role_id'] == 1) echo '<a href=' . "adminHome.php" . '>' . 'Back' . '</a>';
       if ($_SESSION['Role_id'] == 2) echo '<a href=' . "../home/supervisorHome.php" . '>' . 'Back' . '</a>';
       if ($_SESSION['Role_id'] == 3) echo '<a href=' . "../home/doctorHome.php" . '>' . 'Back' . '</a>';
@@ -61,7 +59,7 @@
           if (empty($row)) {
             echo "<p class='error'>No Roster for today yet!</p>";
           }
-          
+
           else {
 
             $ids = [$row['supervisor'],
