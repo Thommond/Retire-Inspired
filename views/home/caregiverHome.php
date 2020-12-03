@@ -55,6 +55,7 @@
 
             $id = $_SESSION['id'];
             $group = 0;
+            $error = false; #This is just for the update/insertion success message, not all errors
 
             $link = mysqli_connect("localhost", "root", "", "retire");
 
@@ -179,8 +180,10 @@
 
                       $result = mysqli_query($link, $sql);
 
-                      if (!$result) echo "ERROR: Update failed: " . mysqli_error($link);
-                      else echo "<p class='success'>Schedule updated successfully!</p>";
+                      if (!$result) {
+                        echo "ERROR: Update failed: " . mysqli_error($link);
+                        $error = true;
+                      }
                     }
                     else {
 
@@ -190,8 +193,10 @@
 
                       $result = mysqli_query($link, $sql);
 
-                      if (!$result) echo "ERROR: Insertion failed: " . mysqli_error($link);
-                      else echo "<p class='success'>Schedule updated successfully!</p>";
+                      if (!$result) {
+                        echo "ERROR: Insertion failed: " . mysqli_error($link);
+                        $error = true;
+                      }
                     }
                   }
                   else {
@@ -199,6 +204,9 @@
                   }
 
                 }
+              }
+              if (!$error) {
+                echo "<p class='success'>Schedule updated successfully!</p>";
               }
             }
             #END OF POST REQUEST SECTION
@@ -208,74 +216,76 @@
             $sql = "SELECT user_id FROM patients_info
                     WHERE patient_group = '$group'";
 
-            $result = mysqli_query($link, $sql);
+            $patient_list = mysqli_query($link, $sql);
 
-            $patient_list = [];
+            $patient = [];
 
-            if ($result) $patient_list = $result->fetch_assoc();
-
+            if ($result) {
             #Display a row for each patient
-            foreach ($patient_list as $key => $user_id) {
+              while ($patient = $patient_list->fetch_assoc()) {
 
-              #Get and display the patient's name
-              $sql = "SELECT Fname, Lname FROM users
-                      WHERE id = '$user_id'";
+                $user_id = $patient['user_id'];
 
-              $result = mysqli_query($link, $sql);
+                #Get and display the patient's name
+                $sql = "SELECT Fname, Lname FROM users
+                        WHERE id = '$user_id'";
 
-              $row = [];
+                $result = mysqli_query($link, $sql);
 
-              if ($result) $row = $result->fetch_assoc();
+                $row = [];
 
-              if ($row) {
-                $patient_name = $row['Fname'] . ' ' . $row['Lname'];
-              }
-              else {
-                $patient_name = "Patient $user_id";
-              }
+                if ($result) $row = $result->fetch_assoc();
 
-              echo "<tr>"
-              echo "<td>$patient_name</td>";
+                if ($row) {
+                  $patient_name = $row['Fname'] . ' ' . $row['Lname'];
+                }
+                else {
+                  $patient_name = "Patient $user_id";
+                }
 
-              #Get and display the patient's schedule
-              $sql = "SELECT morning_med, afternoon_med, night_med, breakfast, lunch, dinner
-                      FROM schedules
-                      WHERE user_id = '$user_id'";
+                echo "<tr>";
+                echo "<td>$patient_name</td>";
 
-              $result = mysqli_query($link, $sql);
+                #Get and display the patient's schedule
+                $sql = "SELECT morning_med, afternoon_med, night_med, breakfast, lunch, dinner
+                        FROM schedules
+                        WHERE user_id = '$user_id'";
 
-              $schedule = [];
+                $result = mysqli_query($link, $sql);
 
-              if ($result) $schedule = $result-> fetch_assoc();
+                $schedule = [];
 
-              if ($schedule) {
+                if ($result) $schedule = $result-> fetch_assoc();
 
-                foreach ($schedule as $activity => $value) {
+                if ($schedule) {
 
-                  $name = $user_id . $activity;
+                  foreach ($schedule as $activity => $value) {
 
-                  #Each data in the table will be a checkbox
-                  if ($value) {
-                    echo "<td class='check'><input name=$name type='checkbox' checked></td>";
+                    $name = $user_id . $activity;
+
+                    #Each data in the table will be a checkbox
+                    if ($value) {
+                      echo "<td class='check'><input name=$name type='checkbox' checked></td>";
+                    }
+                    else {
+                      echo "<td class='check'><input name=$name type='checkbox'></td>";
+                    }
                   }
-                  else {
+                }
+                else {
+
+                  $activities = ['morning_med', 'afternoon_med', 'night_med', 'breakfast', 'lunch', 'dinner'];
+
+                  #Display the checkboxes even if the patient's schedule does not yet exist
+                  foreach ($activities as $k => $activity) {
+
+                    $name = $user_id . $activity;
+
                     echo "<td class='check'><input name=$name type='checkbox'></td>";
                   }
                 }
+                echo "</td>";
               }
-              else {
-
-                $activities = ['morning_med', 'afternoon_med', 'night_med', 'breakfast', 'lunch', 'dinner'];
-
-                #Display the checkboxes even if the patient's schedule does not yet exist
-                foreach ($activities as $k => $activity) {
-
-                  $name = $user_id . $activity;
-
-                  echo "<td class='check'><input name=$name type='checkbox'></td>";
-                }
-              }
-              echo "</td>"
             }
 
             mysqli_close($link);
