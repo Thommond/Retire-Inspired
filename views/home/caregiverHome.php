@@ -61,6 +61,7 @@
             }
 
             $id = $_SESSION['id'];
+            $group = 0;
 
             $link = mysqli_connect("localhost", "root", "", "retire");
 
@@ -176,8 +177,119 @@
             ?>
           </tr>
         </table>
-      </form>
-    </section>
 
+        <input type="submit" name="submit" value="Save Changes">
+      </form>
+
+      <?php
+
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+        $link = mysqli_connect("localhost", "root", "", "retire");
+
+        if ($link == false) {
+          die("ERROR: Could not connect. " . mysqli_connect_error());
+        }
+
+        #Get list of caregiver's patients
+        $sql = "SELECT user_id FROM patients_info
+          WHERE patient_group = '$group'";
+
+        $patients_result = mysqli_query($link, $sql);
+
+        $row = [];
+        if ($patients_result) {
+
+          #Check checkbox status for each patient
+          while($row = $patients_result->fetch_assoc()){
+
+            $patient_id = $row['user_id'];
+
+            $m_med = 0;
+            $a_med = 0;
+            $n_med = 0;
+            $breakfast = 0;
+            $lunch = 0;
+            $dinner = 0;
+
+            if (isset($_POST[$patient_id . 'morning_med'])) {
+              if ($_POST[$patient_id . 'morning_med'] == 'on') {
+                $m_med = 1;
+              }
+            }
+            if (isset($_POST[$patient_id . 'afternoon_med'])) {
+              if ($_POST[$patient_id . 'afternoon_med'] == 'on') {
+                $a_med = 1;
+              }
+            }
+            if (isset($_POST[$patient_id . 'night_med'])) {
+              if ($_POST[$patient_id . 'night_med'] == 'on') {
+                $n_med = 1;
+              }
+            }
+            if (isset($_POST[$patient_id . 'breakfast'])) {
+              if ($_POST[$patient_id . 'breakfast'] == 'on') {
+                $breakfast = 1;
+              }
+            }
+            if (isset($_POST[$patient_id . 'lunch'])) {
+              if ($_POST[$patient_id . 'lunch'] == 'on') {
+                $lunch = 1;
+              }
+            }
+            if (isset($_POST[$patient_id . 'dinner'])) {
+              if ($_POST[$patient_id . 'dinner'] == 'on') {
+                $dinner = 1;
+              }
+            }
+
+            #Check if the patient has a schedule for today
+            $sql = "SELECT * FROM schedules
+            WHERE user_id = '$patient_id'";
+
+            $result = mysqli_query($link, $sql);
+
+            if ($result) {
+
+              $row = $result->fetch_assoc();
+
+              if ($row) {
+
+                #If they have a schedule, update it with new information
+                $sql = "UPDATE schedules
+                SET morning_med = '$m_med',
+                    afternoon_med = '$a_med',
+                    night_med = '$n_med',
+                    breakfast = '$breakfast',
+                    lunch = '$lunch',
+                    dinner = '$dinner'
+                WHERE user_id = '$patient_id'";
+
+                $result = mysqli_query($link, $sql);
+
+                if (!$result) echo "ERROR: Update failed: " . mysqli_error($link);
+              }
+              else {
+
+                #If they do not have a schedule, create one for today
+                $sql = "INSERT INTO schedules (user_id, morning_med, afternoon_med, night_med, day, breakfast, lunch, dinner)
+                VALUES ($patient_id, '$m_med', '$a_med', '$n_med', CURRENT_DATE(), '$breakfast', '$lunch', '$dinner')";
+
+                $result = mysqli_query($link, $sql);
+
+                if (!$result) echo "ERROR: Insertion failed: " . mysqli_error($link);
+              }
+            }
+            else {
+              echo "ERROR: Unable to establish connection to database";
+            }
+
+          }
+        }
+
+        mysqli_close($link);
+      }
+       ?>
+    </section>
   </body>
 </html>
