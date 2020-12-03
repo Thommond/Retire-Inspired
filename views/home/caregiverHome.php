@@ -93,7 +93,7 @@
               echo "<p class='error'>There is no roster set for today.</p>";
             }
 
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 
               $link = mysqli_connect("localhost", "root", "", "retire");
 
