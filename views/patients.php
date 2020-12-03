@@ -77,7 +77,8 @@
         if ($db_link == false) {
           die("ERROR: Could not connect. " . mysqli_connect_error());
         }
-
+        // Check if one is filled if not
+        // keep checking until end of list.
         if (!empty($id)) {
             $filter = $id;
             $column = 'u.id';
@@ -133,7 +134,7 @@
       }
 
       else {
-
+        // Print table to page
         echo '<table>';
         echo '<tbody>';
         echo '<tr>';
@@ -152,6 +153,7 @@
             die("<p class='error'>The field you entered has no results</p>");
           }
 
+          // Add result row to table
           echo '<tr>';
           echo '<td>' . $row['id'] . '</td>';
           echo '<td>' . $row['Fname'] . '</td>';
