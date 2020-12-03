@@ -48,7 +48,6 @@
             <th>Lunch</th>
             <th>Dinner</th>
           </tr>
-          <tr>
 
           <?php
 
@@ -233,6 +232,7 @@
                 $patient_name = "Patient $user_id";
               }
 
+              echo "<tr>"
               echo "<td>$patient_name</td>";
 
               #Get and display the patient's schedule
@@ -273,6 +273,7 @@
                   echo "<td class='check'><input name=$name type='checkbox'></td>";
                 }
               }
+              echo "</td>"
             }
 
             mysqli_close($link);
