@@ -61,6 +61,38 @@
               die("ERROR: Could not connect. " . mysqli_connect_error());
             }
 
+            #Check which group the caregiver is assigned to
+            $sql = "SELECT caretaker_1, caretaker_2, caretaker_3, caretaker_4
+                    FROM rosters
+                    WHERE day = CURRENT_DATE()";
+
+            $result = mysqli_query($link, $sql);
+
+            $row = [];
+
+            if ($result) $row = $result->fetch_assoc();
+
+            if ($row) {
+
+              if (!in_array($id, $row)) {
+
+                echo "<p>You have no assignment today!</p>";
+              }
+              else {
+
+                if ($row['caretaker_1'] == $id) $group = 1;
+
+                elseif ($row['caretaker_2'] == $id) $group = 2;
+
+                elseif ($row['caretaker_3'] == $id) $group = 3;
+
+                else $group = 4;
+              }
+            }
+            else {
+              echo "<p class='error'>There is no roster set for today.</p>";
+            }
+
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
               $link = mysqli_connect("localhost", "root", "", "retire");
@@ -71,7 +103,7 @@
 
               #Get list of caregiver's patients
               $sql = "SELECT user_id FROM patients_info
-                WHERE patient_group = '$group'";
+                      WHERE patient_group = '$group'";
 
               $patients_result = mysqli_query($link, $sql);
 
@@ -124,7 +156,7 @@
 
                   #Check if the patient has a schedule for today
                   $sql = "SELECT * FROM schedules
-                  WHERE user_id = '$patient_id'";
+                          WHERE user_id = '$patient_id'";
 
                   $result = mysqli_query($link, $sql);
 
@@ -136,27 +168,29 @@
 
                       #If they have a schedule, update it with new information
                       $sql = "UPDATE schedules
-                      SET morning_med = '$m_med',
-                          afternoon_med = '$a_med',
-                          night_med = '$n_med',
-                          breakfast = '$breakfast',
-                          lunch = '$lunch',
-                          dinner = '$dinner'
-                      WHERE user_id = '$patient_id'";
+                              SET morning_med = '$m_med',
+                                  afternoon_med = '$a_med',
+                                  night_med = '$n_med',
+                                  breakfast = '$breakfast',
+                                  lunch = '$lunch',
+                                  dinner = '$dinner'
+                              WHERE user_id = '$patient_id'";
 
                       $result = mysqli_query($link, $sql);
 
                       if (!$result) echo "ERROR: Update failed: " . mysqli_error($link);
+                      else echo "<p class='success'>Schedule updated successfully!</p>";
                     }
                     else {
 
                       #If they do not have a schedule, create one for today
                       $sql = "INSERT INTO schedules (user_id, morning_med, afternoon_med, night_med, day, breakfast, lunch, dinner)
-                      VALUES ($patient_id, '$m_med', '$a_med', '$n_med', CURRENT_DATE(), '$breakfast', '$lunch', '$dinner')";
+                              VALUES ($patient_id, '$m_med', '$a_med', '$n_med', CURRENT_DATE(), '$breakfast', '$lunch', '$dinner')";
 
                       $result = mysqli_query($link, $sql);
 
                       if (!$result) echo "ERROR: Insertion failed: " . mysqli_error($link);
+                      else echo "<p class='success'>Schedule updated successfully!</p>";
                     }
                   }
                   else {
@@ -168,108 +202,77 @@
             }
             #END OF POST REQUEST SECTION
 
-            #Check which group the caregiver is assigned to
-            $sql = "SELECT caretaker_1, caretaker_2, caretaker_3, caretaker_4
-            FROM rosters
-            WHERE day = CURRENT_DATE()";
+
+            #Get all of the patients in the caretaker's group
+            $sql = "SELECT user_id FROM patients_info
+                    WHERE patient_group = '$group'";
 
             $result = mysqli_query($link, $sql);
 
-            $row = [];
+            $patient_list = [];
 
-            if ($result) $row = $result->fetch_assoc();
+            if ($result) $patient_list = $result->fetch_assoc();
 
-            if ($row) {
+            #Display a row for each patient
+            foreach ($patient_list as $key => $user_id) {
 
-              if (!in_array($id, $row)) {
+              #Get and display the patient's name
+              $sql = "SELECT Fname, Lname FROM users
+                      WHERE id = '$user_id'";
 
-                echo "<p>You have no assignment today!</p>";
+              $result = mysqli_query($link, $sql);
+
+              $row = [];
+
+              if ($result) $row = $result->fetch_assoc();
+
+              if ($row) {
+                $patient_name = $row['Fname'] . ' ' . $row['Lname'];
               }
               else {
+                $patient_name = "Patient $user_id";
+              }
 
-                if ($row['caretaker_1'] == $id) $group = 1;
+              echo "<td>$patient_name</td>";
 
-                elseif ($row['caretaker_2'] == $id) $group = 2;
+              #Get and display the patient's schedule
+              $sql = "SELECT morning_med, afternoon_med, night_med, breakfast, lunch, dinner
+                      FROM schedules
+                      WHERE user_id = '$user_id'";
 
-                elseif ($row['caretaker_3'] == $id) $group = 3;
+              $result = mysqli_query($link, $sql);
 
-                else $group = 4;
+              $schedule = [];
 
-                #Get all of the patients in that group
-                $sql = "SELECT user_id FROM patients_info
-                WHERE patient_group = '$group'";
+              if ($result) $schedule = $result-> fetch_assoc();
 
-                $result = mysqli_query($link, $sql);
+              if ($schedule) {
 
-                $patient_list = [];
+                foreach ($schedule as $activity => $value) {
 
-                if ($result) $patient_list = $result->fetch_assoc();
+                  $name = $user_id . $activity;
 
-                #Display a row for each patient
-                foreach ($patient_list as $key => $user_id) {
-
-                  #Get and display the patient's name
-                  $sql = "SELECT Fname, Lname FROM users
-                  WHERE id = '$user_id'";
-
-                  $result = mysqli_query($link, $sql);
-
-                  $row = [];
-
-                  if ($result) $row = $result->fetch_assoc();
-
-                  if ($row) {
-                    $patient_name = $row['Fname'] . ' ' . $row['Lname'];
+                  #Each data in the table will be a checkbox
+                  if ($value) {
+                    echo "<td class='check'><input name=$name type='checkbox' checked></td>";
                   }
                   else {
-                    $patient_name = "Patient $user_id";
-                  }
-
-                  echo "<td>$patient_name</td>";
-
-                  #Get and display the patient's schedule
-                  $sql = "SELECT morning_med, afternoon_med, night_med, breakfast, lunch, dinner
-                  FROM schedules
-                  WHERE user_id = '$user_id'";
-
-                  $result = mysqli_query($link, $sql);
-
-                  $schedule = [];
-
-                  if ($result) $schedule = $result-> fetch_assoc();
-
-                  if ($schedule) {
-
-                    foreach ($schedule as $activity => $value) {
-
-                      $name = $user_id . $activity;
-
-                      #Each data in the table will be a checkbox
-                      if ($value) {
-                        echo "<td class='check'><input name=$name type='checkbox' checked></td>";
-                      }
-                      else {
-                        echo "<td class='check'><input name=$name type='checkbox'></td>";
-                      }
-                    }
-                  }
-                  else {
-
-                    $activities = ['morning_med', 'afternoon_med', 'night_med', 'breakfast', 'lunch', 'dinner'];
-
-                    #Display the checkboxes even if the patient's schedule does not yet exist
-                    foreach ($activities as $k => $activity) {
-
-                      $name = $user_id . $activity;
-
-                      echo "<td class='check'><input name=$name type='checkbox'></td>";
-                    }
+                    echo "<td class='check'><input name=$name type='checkbox'></td>";
                   }
                 }
               }
-            }
-            else {
-              echo "<p class='error'>There is no roster set for today.</p>";
+              else {
+
+                $activities = ['morning_med', 'afternoon_med', 'night_med', 'breakfast', 'lunch', 'dinner'];
+
+                #Display the checkboxes even if the patient's schedule does not yet exist
+                foreach ($activities as $k => $activity) {
+
+                  $name = $user_id . $activity;
+
+                  echo "<td class='check'><input name=$name type='checkbox'></td>";
+                }
+              }
             }
 
             mysqli_close($link);
@@ -278,7 +281,7 @@
         </table>
 
         <input type="submit" name="submit" value="Save Changes">
-        
+
       </form>
 
     </section>

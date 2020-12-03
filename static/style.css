@@ -32,6 +32,10 @@ form {
   background: tan;
 }
 
+form.manageSchedules {
+  align-items: center;
+}
+
 input, select {
   margin: 5px;
   border: 3px solid black;
