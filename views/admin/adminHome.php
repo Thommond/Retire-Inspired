@@ -41,6 +41,10 @@
 
       <a href="docappt.php">Doctor Appts</a>
 
+      <a href="../patients.php">Look at List of Patients</a>
+
+      <a href="adminReport.php">Missed Activity</a>
+
     </section>
 
   </body>

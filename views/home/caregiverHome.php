@@ -32,6 +32,8 @@
 
       <a href="../admin/roster.php">Look at todays Roster</a>
 
+      <a href="../patients.php">Look at List of Patients</a>
+
     </section>
 
     <section class="schedule">
