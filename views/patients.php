@@ -129,7 +129,6 @@
       $result = mysqli_query($db_link, $sql);
 
       if (empty($result)) {
-        echo 'good';
         die("<p class='error'>The field you entered has no results</p>");
       }
 
@@ -162,7 +161,7 @@
           echo '<td>' . $row['admission_date'] . '</td>';
           echo '<td>' . $row['Relation_Contact'] . '</td>';
           echo '<td>' . $row['emergency_contact'] . '</td>';
-
+          echo '</tr>';
 
         echo '</tbody>';
         echo '</table>';

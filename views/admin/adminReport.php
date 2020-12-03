@@ -51,11 +51,8 @@
           }
 
           // This sql gets user info and checks if date is an appointment day
-          $sql = ""
 
           // Gets caregiver info and checks schedules
-          $sql = "SELECT u.Fname, u.Lname, s.morning_med, s.afternoon_med,
-                  s.night_med, s.lunch, s.breakfast, s.diner, "
 
 
         }
