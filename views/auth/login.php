@@ -57,57 +57,59 @@
 
       if (mysqli_query($db_link, $sql)) {
 
-        $result = mysqli_fetch_row(mysqli_query($db_link, $sql));
+          $result = mysqli_fetch_row(mysqli_query($db_link, $sql));
 
-        session_id();
-        session_start();
+          session_id();
+          session_start();
 
-        $_SESSION['email'] = $email;
-        $_SESSION['pass'] = $password;
-        $_SESSION['Role_id'] = $result[0];
-        $_SESSION['first_name'] = $result[1];
-        $_SESSION['last_name'] = $result[2];
-        $_SESSION['id'] = $result[3];
-        $_SESSION['approved'] = $result[4];
+          $_SESSION['email'] = $email;
+          $_SESSION['pass'] = $password;
+          $_SESSION['Role_id'] = $result[0];
+          $_SESSION['first_name'] = $result[1];
+          $_SESSION['last_name'] = $result[2];
+          $_SESSION['id'] = $result[3];
+          $_SESSION['approved'] = $result[4];
 
-        if ($_SESSION['approved'] != 1) {
-          header("Location: http://localhost/Retire-Inspired/views/errors/notYetApproved.php");
-        }
+          // TODO: Make so checks database to see if email or password exists then if one does
+          // but the other does not throw email password error.
 
-        else {
+          if ($_SESSION['approved'] == 0) {
+            header("Location: http://localhost/Retire-Inspired/views/errors/notYetApproved.php");
+          }
 
-        switch ($result[0]) {
-          case '1':
-            header('Location: http://localhost/Retire-Inspired/views/admin/adminHome.php ');
-            break;
+          else {
 
-          case '2':
-            header('Location: http://localhost/Retire-Inspired/views/home/supervisorHome.php');
-            break;
+              switch ($result[0]) {
+                case '1':
+                  header('Location: http://localhost/Retire-Inspired/views/admin/adminHome.php ');
+                  break;
 
-          case '3':
-            header('Location: http://localhost/Retire-Inspired/views/home/doctorHome.php ');
-            break;
+                case '2':
+                  header('Location: http://localhost/Retire-Inspired/views/home/supervisorHome.php');
+                  break;
 
-          case '4':
-            header('Location: http://localhost/Retire-Inspired/views/home/caregiverHome.php ');
-            break;
+                case '3':
+                  header('Location: http://localhost/Retire-Inspired/views/doctor/doctorHome.php ');
+                  break;
 
-          case '5':
-            header('Location: http://localhost/Retire-Inspired/views/home/patientHome.php ');
-            break;
+                case '4':
+                  header('Location: http://localhost/Retire-Inspired/views/home/caregiverHome.php ');
+                  break;
 
-          case '6':
-            header('Location: http://localhost/Retire-Inspired/views/home/familyMemberHome.php ');
-            break;
-        }
+                case '5':
+                  header('Location: http://localhost/Retire-Inspired/views/home/patientHome.php ');
+                  break;
 
-      }
+                case '6':
+                  header('Location: http://localhost/Retire-Inspired/views/home/familyMemberHome.php ');
+                  break;
+              }
 
-        }
+            }
 
+          }
 
-      else echo "ERROR: Could not execute" . mysqli_error($db_link);
+      else echo "Wrong Email or Password";
 
       mysqli_close($db_link);
 
@@ -117,6 +119,7 @@
 
       header('Location: http://localhost/Retire-Inspired/views/landing.php');
     }
+
     ?>
 
   </body>

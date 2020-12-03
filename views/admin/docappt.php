@@ -43,8 +43,8 @@
 
       if(isset($_POST['submit'])) {
 
-        $patient = $_POST['patient_id'];
         $day = $_POST['day'];
+        $patient = $_POST['patient_id'];
 
         $db_link = mysqli_connect("localhost", "root", "", "retire");
 
@@ -82,62 +82,65 @@
        <?php
         if(isset($_POST['submit'])) {
 
-          $sql = "SELECT id FROM rosters
+          $id = 0 ;
+
+          $sql = "SELECT id, doctor FROM rosters
                   WHERE day LIKE '$day'";
 
-
           if(mysqli_query($db_link, $sql)) {
+
             $result = mysqli_fetch_row(mysqli_query($db_link, $sql));
 
             if (empty($result)) {
-              echo "<p class='error'>There is no roster for selected date.</p>";
+              die("<p class='error'>There is no roster for selected date.</p>");
             }
 
             else {
               $id = $result[0];
+              $doctor = $result[1];
             }
 
           }
 
           else echo "<p class='error'>Could not get patient from database, check your values.</p>";
 
-          $sql = "SELECT Fname, Lname, id FROM users
-                  WHERE id LIKE '$id'";
+          if ($id and $id != 0) {
 
-          echo "<form  action='docappt.php' method='post'>";
-          echo "<label for='Doctor'>Doctor:";
-          echo "<select  name='Doctor'>";
+             $sql = "SELECT Fname, Lname, id FROM users
+                     WHERE id LIKE '$doctor'";
 
-          if(mysqli_query($db_link, $sql)) {
-            $result2 = mysqli_fetch_row(mysqli_query($db_link, $sql));
+             echo "<form  action='docappt.php' method='post'>";
+             echo "<label for='Doctor'>Doctor:";
+             echo "<select  name='Doctor'>";
 
-            echo "<option value=" . $result2[2] . " " . ">" . $result2[0] . ' ' . $result2[1] . "</option>";
-          }
+             if(mysqli_query($db_link, $sql)) {
+                $result = mysqli_query($db_link, $sql);
+                $row = mysqli_fetch_row($result);
+                echo "<option value=" . $row[2] . " " . ">" . $row[0] . ' ' . $row[1] . "</option>";
+             }
 
-          else echo "<p class='error'>Could not get doctor from database, check your values.</p>";
+             else echo "<p class='error'>Could not get doctor from database, check your values.</p>";
 
            echo "</select>";
            echo "</label>";
            echo "<input type='text' name='patient' value=" .  $patient .  ">";
            echo "<input type='text' name='date' value=" . $day . ">";
-           echo "<input type='text' name='doc' value=" . $id . ">";
+           echo "<input type='text' name='doc' value=" . $doctor . ">";
            echo "<input type='submit' name='press' value='Submit'>";
            echo "</form>";
-        }
-        ?>
 
 
-      <label for="patients_name" class='display_only'>Patient Name:
-        <p class='display_only' ><?php if(isset($_POST['submit'])) echo $patient_name ?></p>
-      </label>
+             echo "<label for='patients_name' class='display_only'>Patient Name:";
+             echo "<p class='display_only' >" . $patient_name . "</p>";
+             echo "</label>";
+         }
+      }
 
-      <?php
+      if(isset($_POST['press'])) {
 
-        if(isset($_POST['press'])) {
-
+          $day = $_POST['date'];
           $patient = $_POST['patient'];
           $id = $_POST['doc'];
-          $day = $_POST['date'];
 
           $db_link = mysqli_connect("localhost", "root", "", "retire");
 
@@ -148,13 +151,11 @@
           $sql = "INSERT INTO appointments (patient_id, doctor_id, day)
                   VALUES ('$patient', '$id', '$day')";
 
-
           if(mysqli_query($db_link, $sql)) {
             echo "<p class='success'>Added appointment to the database successfully!</p>";
           }
 
           else echo "<p class='error'>Could not add appointment to database, check your values.</p>";
-
         }
        ?>
 

@@ -23,6 +23,15 @@ a:hover {
   color: purple;
 }
 
+.table_link {
+  color:black;
+  text-decoration: underline;
+}
+
+.table_link:hover {
+  color: green;f
+}
+
 form {
   align-items: flex-end;
   display: flex;

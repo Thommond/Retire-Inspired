@@ -57,10 +57,11 @@
 
           if ($result) $row = $result->fetch_assoc();
 
+
           if (empty($row)) {
             echo "<p class='error'>No Roster for today yet!</p>";
           }
-
+          
           else {
 
             $ids = [$row['supervisor'],
