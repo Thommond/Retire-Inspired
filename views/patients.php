@@ -11,7 +11,7 @@
 
       <?php
       include ('../common-functions.php');
-      check_session(3);
+      check_session(4);
 
       if ($_SESSION['Role_id'] == 1) echo '<a href=' . "admin/adminHome.php" . '>' . 'Back' . '</a>';
       if ($_SESSION['Role_id'] == 2) echo '<a href=' . "home/supervisorHome.php" . '>' . 'Back' . '</a>';
@@ -59,6 +59,15 @@
 
       <?php
 
+      $filter = '';
+      $column = '';
+
+      $db_link = mysqli_connect("localhost", "root", "", "retire");
+
+      if ($db_link == false) {
+        die("ERROR: Could not connect. " . mysqli_connect_error());
+      }
+
       if (isset($_POST['Submit'])) {
 
         $id = $_POST['id'];
@@ -69,14 +78,7 @@
         $contact2 = $_POST['contact2'];
         $adddate = $_POST['adddate'];
         $day = date('Y-m-d');
-        $filter = '';
-        $column = '';
 
-        $db_link = mysqli_connect("localhost", "root", "", "retire");
-
-        if ($db_link == false) {
-          die("ERROR: Could not connect. " . mysqli_connect_error());
-        }
         // Check if one is filled if not
         // keep checking until end of list.
         if (!empty($id)) {
@@ -123,10 +125,24 @@
       $sql = "SELECT u.id,u.Fname, u.Lname, p.admission_date,
              DATEDIFF(CURRENT_DATE, STR_TO_DATE(u.Birth_date, '%Y-%m-%d'))/365 AS age,
              p.Relation_Contact, p.emergency_contact
+<<<<<<< HEAD
              FROM users as u JOIN patients_info as p ON (u.id=p.user_id)
              WHERE '$column' LIKE '$filter'";
+=======
+             FROM users as u JOIN patients_info as p ON (u.id=p.user_id)";
+
+      if ($column == 'age') {
+        $sql = $sql . "WHERE FLOOR(DATEDIFF(CURRENT_DATE, STR_TO_DATE(u.Birth_date, '%Y-%m-%d'))/365) LIKE '$filter'";
+      }
+      elseif ($column && $filter) {
+        $sql = $sql . "WHERE '$column' LIKE '$filter'";
+      }
+
+>>>>>>> 865c1d5894b20b680a8fca9acad22f0d149b0f67
 
       $result = mysqli_query($db_link, $sql);
+
+      mysqli_close($db_link);
 
       if (empty($result)) {
         die("<p class='error'>The field you entered has no results</p>");
@@ -157,16 +173,16 @@
           echo '<td>' . $row['id'] . '</td>';
           echo '<td>' . $row['Fname'] . '</td>';
           echo '<td>' . $row['Lname'] . '</td>';
-          echo '<td>' . $row['age'] . '</td>';
+          echo '<td>' . floor($row['age']) . '</td>';
           echo '<td>' . $row['admission_date'] . '</td>';
           echo '<td>' . $row['Relation_Contact'] . '</td>';
           echo '<td>' . $row['emergency_contact'] . '</td>';
           echo '</tr>';
 
+        }
+
         echo '</tbody>';
         echo '</table>';
-
-        }
 
       }
 

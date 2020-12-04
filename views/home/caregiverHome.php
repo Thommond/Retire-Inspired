@@ -79,6 +79,7 @@
               if (!in_array($id, $row)) {
 
                 echo "<p>You have no assignment today!</p>";
+                $error = true;
               }
               else {
 
@@ -93,6 +94,7 @@
             }
             else {
               echo "<p class='error'>There is no roster set for today.</p>";
+              $error = true;
             }
 
             if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
