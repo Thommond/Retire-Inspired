@@ -66,7 +66,7 @@ VALUES (9, '2020-11-19', 'Great patient', 'Vicodin', 'Asprin', 'Vicodin'),
 
 
 INSERT INTO rosters (day, supervisor, doctor, caretaker_1, caretaker_2, caretaker_3, caretaker_4)
-VALUES ('2020-11-19', 2, 3, 5, 6, 7, 8)
+VALUES ('2020-11-19', 2, 3, 5, 6, 7, 8),
        ('2020-11-17', 2, 3, 5, 6, 7, 8),
        ('2020-10-10', 2, 3, 8, 7, 6, 5),
        ('2020-11-07', 2, 3, 7, 6, 5, 8),
