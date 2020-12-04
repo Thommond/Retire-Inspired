@@ -122,19 +122,18 @@
 
       }
 
-      if ($column && $filter) {
-        $sql = "SELECT u.id,u.Fname, u.Lname, p.admission_date,
-               DATEDIFF(CURRENT_DATE, STR_TO_DATE(u.Birth_date, '%Y-%m-%d'))/365 AS age,
-               p.Relation_Contact, p.emergency_contact
-               FROM users as u JOIN patients_info as p ON (u.id=p.user_id)
-               WHERE $column LIKE '$filter'";
+      $sql = "SELECT u.id,u.Fname, u.Lname, p.admission_date,
+             DATEDIFF(CURRENT_DATE, STR_TO_DATE(u.Birth_date, '%Y-%m-%d'))/365 AS age,
+             p.Relation_Contact, p.emergency_contact
+             FROM users as u JOIN patients_info as p ON (u.id=p.user_id)";
+
+      if ($column == 'age') {
+        $sql = $sql . "WHERE FLOOR(DATEDIFF(CURRENT_DATE, STR_TO_DATE(u.Birth_date, '%Y-%m-%d'))/365) LIKE '$filter'";
       }
-      else {
-        $sql = "SELECT u.id,u.Fname, u.Lname, p.admission_date,
-               DATEDIFF(CURRENT_DATE, STR_TO_DATE(u.Birth_date, '%Y-%m-%d'))/365 AS age,
-               p.Relation_Contact, p.emergency_contact
-               FROM users as u JOIN patients_info as p ON (u.id=p.user_id)";
+      elseif ($column && $filter) {
+        $sql = $sql . "WHERE '$column' LIKE '$filter'";
       }
+
 
       $result = mysqli_query($db_link, $sql);
 
