@@ -11,7 +11,7 @@
 
       <?php
       include ('../common-functions.php');
-      check_session(3);
+      check_session(4);
 
       if ($_SESSION['Role_id'] == 1) echo '<a href=' . "admin/adminHome.php" . '>' . 'Back' . '</a>';
       if ($_SESSION['Role_id'] == 2) echo '<a href=' . "home/supervisorHome.php" . '>' . 'Back' . '</a>';
