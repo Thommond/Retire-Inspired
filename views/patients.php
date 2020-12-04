@@ -124,7 +124,7 @@
              DATEDIFF(CURRENT_DATE, STR_TO_DATE(u.Birth_date, '%Y-%m-%d'))/365 AS age,
              p.Relation_Contact, p.emergency_contact
              FROM users as u JOIN patients_info as p ON (u.id=p.user_id)
-             WHERE $column LIKE '$filter'";
+             WHERE '$column' LIKE '$filter'";
 
       $result = mysqli_query($db_link, $sql);
 
