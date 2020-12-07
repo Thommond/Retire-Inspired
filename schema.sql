@@ -88,3 +88,5 @@ patient_group integer NOT NULL,
 balance_due integer NOT NULL,
 PRIMARY KEY (id)
 );
+
+SELECT u.Lname, u.Fname, u.id, p.patient_group, s.morning_med, s.afternoon_med, s.night_med, s.breakfast, s.lunch, s.dinner, a.day FROM users as u JOIN patients_info as p ON (u.id=p.user_id) JOIN schedules as s ON (u.id=s.user_id) JOIN appointments as a ON (u.id=a.patient_id) WHERE 0 IN (morning_med, afternoon_med, night_med, breakfast, lunch, dinner) AND s.day LIKE '2020-12-07'

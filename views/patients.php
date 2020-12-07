@@ -72,7 +72,7 @@
 
         $id = $_POST['id'];
         $fname = $_POST['Fname'];
-        $lnname = $_POST['Lname'];
+        $lname = $_POST['Lname'];
         $age = $_POST['age'];
         $contact1 = $_POST['contact1'];
         $contact2 = $_POST['contact2'];
@@ -125,20 +125,15 @@
       $sql = "SELECT u.id,u.Fname, u.Lname, p.admission_date,
              DATEDIFF(CURRENT_DATE, STR_TO_DATE(u.Birth_date, '%Y-%m-%d'))/365 AS age,
              p.Relation_Contact, p.emergency_contact
-<<<<<<< HEAD
-             FROM users as u JOIN patients_info as p ON (u.id=p.user_id)
-             WHERE '$column' LIKE '$filter'";
-=======
              FROM users as u JOIN patients_info as p ON (u.id=p.user_id)";
 
       if ($column == 'age') {
         $sql = $sql . "WHERE FLOOR(DATEDIFF(CURRENT_DATE, STR_TO_DATE(u.Birth_date, '%Y-%m-%d'))/365) LIKE '$filter'";
       }
-      elseif ($column && $filter) {
-        $sql = $sql . "WHERE '$column' LIKE '$filter'";
-      }
 
->>>>>>> 865c1d5894b20b680a8fca9acad22f0d149b0f67
+      else if ($column && $filter) {
+        $sql = $sql . "WHERE $column LIKE '$filter'";
+      }
 
       $result = mysqli_query($db_link, $sql);
 
