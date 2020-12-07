@@ -53,8 +53,6 @@
 
       <h3>Missed Activity</h3>
 
-      <form action="adminReport.php" method="post">
-
       <table>
         <tr>
           <th>Patient Name</th>
@@ -91,7 +89,7 @@
                         JOIN appointments as a ON (u.id=a.patient_id)
                         WHERE 0 IN (morning_med, afternoon_med, night_med,
                                     breakfast, lunch, dinner) AND
-                                    s.day LIKE '$day'
+                                    s.day = '$day'
                         ORDER BY u.id ASC";
 
                 $result = mysqli_query($db_link, $sql);
@@ -102,11 +100,11 @@
 
                   while ($row = $result->fetch_assoc()) {
 
-                      $patient_id = $row['u.id'];
+                      $patient_id = $row['id'];
                       $patient_name = $row['Fname'] . ' ' . $row['Lname'];
                       $patient_group = $row['patient_group'];
                       // Later on checking if this equals today
-                      $appt_day = $row['a.day'];
+                      $appt_day = $row['day'];
 
                       echo '<tr>';
                       echo "<td>$patient_name</td>";
@@ -117,7 +115,7 @@
 
                         $sql = "SELECT Fname, Lname FROM users as u
                                 JOIN rosters as r ON (u.id=r.doctor)
-                                WHERE day LIKE '$day'";
+                                WHERE day = '$day%'";
 
                         $result = mysqli_fetch_row(mysqli_query($db_link, $sql));
 
@@ -126,14 +124,15 @@
                           $doctor_name = $result['Fname'] . ' ' . $result['Lname'];
 
                           echo "<td>$doctor_name</td>";
-                          echo "<td>Yes</td>";
+                          echo "<td>&#10003;</td>";
+
                         }  else {
-                          echo "ERROR: Unable to get doctor name"
+                          echo "ERROR: Unable to get doctor name";
                         }
 
                       } else {
                         echo "<td>No doc</td>";
-                        echo "<td>No</td>";
+                        echo "<td></td>";
                       }
 
                       $group = 0;
@@ -145,8 +144,8 @@
 
                       # Get all patients care_giver_name via patient_group
                       $sql = "SELECT Fname, Lname FROM users as u
-                              JOIN rosters as r ON (u.id = '$group')
-                              WHERE r.day LIKE '$day'
+                              JOIN rosters as r ON (u.id = $group)
+                              WHERE r.day = '$day%'
                               ";
 
                       $result = mysqli_query($db_link, $sql);
@@ -158,17 +157,33 @@
                       if ($row) $care_name = $row['Fname'] . ' ' . $row['Lname'];
                       else $care_name = "Unknown";
 
-                      $sql = "SELECT * FROM schedules
-                              WHERE user_id = '$patient_id' AND day LIKE '$day'";
+                      echo "<td>$care_name</td>";
+
+                      $sql = "SELECT morning_med, afternoon_med, night_med, breakfast,
+                              lunch, dinner FROM schedules
+                              WHERE user_id = '$patient_id' AND day LIKE '$day'
+                              AND 0 IN (morning_med, afternoon_med, night_med,
+                              breakfast, lunch, dinner)";
 
                       $result = mysqli_query($db_link, $sql);
 
-                      if ($result) {
-                        $row = $result->fecth_assoc();
-                    }
-                    else {
-                      echo "ERROR: Unable to establish connection to database";
-                    }
+                      $row = $result->fetch_assoc();
+
+
+                      // Checking if user should see check or no check for each field
+                      if ($row['morning_med'] == 1)  echo "<td class='check'>&#10003;</td>";
+                      else echo "<td></td>";
+                      if ($row['afternoon_med'] == 1)  echo "<td class='check'>&#10003;</td>";
+                      else echo "<td></td>";
+                      if ($row['night_med'] == 1)  echo "<td class='check'>&#10003;</td>";
+                      else echo "<td></td>";
+                      if ($row['breakfast'] == 1)  echo "<td class='check'>&#10003;</td>";
+                      else echo "<td></td>";
+                      if ($row['lunch'] == 1)  echo "<td class='check'>&#10003;</td>";
+                      else echo "<td></td>";
+                      if ($row['dinner'] == 1)  echo "<td class='check'>&#10003;</td>";
+                      else echo "<td></td>";
+
                   }
                 }
               }
@@ -177,9 +192,6 @@
             </tr>
           </table>
 
-          <input type="submit" name="submit" value="Save Changes">
-
-       </form>
 
 
     </section>
