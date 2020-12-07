@@ -53,15 +53,15 @@
         if (isset($_POST['search'])) {
 
           #Save the submitted attribute and value
-          if ($_POST['attribute'] = 'id') $attribute = 'u.id';
+          if ($_POST['attribute'] == 'id') $attribute = 'u.id';
 
-          elseif ($_POST['attribute'] = 'name') $attribute = 'Fname';
+          elseif ($_POST['attribute'] == 'name') $attribute = 'Fname';
 
-          elseif ($_POST['attribute'] = 'role') $attribute = 'role_name';
+          elseif ($_POST['attribute'] == 'role') $attribute = 'role_name';
 
-          elseif ($_POST['attribute'] = 'salary') $attribute = 'salary';
+          elseif ($_POST['attribute'] == 'salary') $attribute = 'salary';
 
-          $value = $_POST['value'];
+          $value = $_POST['value'] . '%';
         }
 
         $link = mysqli_connect("localhost", "root", "", "retire");
@@ -74,6 +74,11 @@
         $sql = "SELECT u.id, Fname, Lname, role_name, salary
                 FROM  users u JOIN roles r ON Role_id = r.id
                 WHERE Role_id <= 4";
+
+        if ($attribute && $value) {
+
+          $sql = $sql . " AND $attribute LIKE '$value'";
+        }
 
         $result = mysqli_query($link, $sql);
 
