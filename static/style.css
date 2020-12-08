@@ -58,6 +58,10 @@ input[type="submit"] {
   width: 100%;
 }
 
+#cancel {
+  margin-bottom: 1rem;
+}
+
 label {
   color: black;
   font-weight: bold;

@@ -45,6 +45,8 @@
 
       <a href="adminReport.php">Missed Activity</a>
 
+      <a href="payment.php">Patient Payment</a>
+
     </section>
 
   </body>
