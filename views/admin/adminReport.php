@@ -101,93 +101,96 @@
                   echo "<p>There is no results or missed activity so far today.</p>";
                 }
 
-                while ($row = $result->fetch_assoc()) {
+                else {
 
-                    $patient_id = $row['id'];
-                    $patient_name = $row['Fname'] . ' ' . $row['Lname'];
-                    $patient_group = $row['patient_group'];
+                  while ($row = $result->fetch_assoc()) {
 
-                    echo '<tr>';
-                    echo "<td>$patient_name</td>";
+                      $patient_id = $row['id'];
+                      $patient_name = $row['Fname'] . ' ' . $row['Lname'];
+                      $patient_group = $row['patient_group'];
 
-                    // Checks appt_day see if today
-                    $sql_2 = "SELECT day FROM appointments
-                            WHERE patient_id = '$patient_id' AND day = '$day%'";
+                      echo '<tr>';
+                      echo "<td>$patient_name</td>";
 
-                    $appt_result = mysqli_fetch_row(mysqli_query($db_link, $sql_2));
+                      // Checks appt_day see if today
+                      $sql_2 = "SELECT day FROM appointments
+                              WHERE patient_id = '$patient_id' AND day = '$day%'";
 
-                    if (!$appt_result[0]) {
-                      echo "<td>No doc</td>";
-                      echo "<td></td>";
-                    }
+                      $appt_result = mysqli_fetch_row(mysqli_query($db_link, $sql_2));
 
-                    else {
+                      if (!$appt_result[0]) {
+                        echo "<td>No doc</td>";
+                        echo "<td></td>";
+                      }
 
-                      // Add doctor and appt status
-                      $doctor_name = '';
+                      else {
 
-                      $sql_3 = "SELECT Fname, Lname FROM users as u
-                              JOIN rosters as r ON (u.id=r.doctor)
-                              WHERE day = '$day%'";
+                        // Add doctor and appt status
+                        $doctor_name = '';
 
-                      $doc_result = mysqli_fetch_row(mysqli_query($db_link, $sql_3));
+                        $sql_3 = "SELECT Fname, Lname FROM users as u
+                                JOIN rosters as r ON (u.id=r.doctor)
+                                WHERE day = '$day%'";
 
-                      $doctor_name = $doc_result[0] . ' ' . $doc_result[1];
+                        $doc_result = mysqli_fetch_row(mysqli_query($db_link, $sql_3));
 
-                      echo "<td>$doctor_name</td>";
-                      echo "<td>&#10003;</td>";
-                    }
+                        $doctor_name = $doc_result[0] . ' ' . $doc_result[1];
 
-                    // Get group and match caregiver
+                        echo "<td>$doctor_name</td>";
+                        echo "<td>&#10003;</td>";
+                      }
 
-                    $group = 0;
+                      // Get group and match caregiver
 
-                    if ($patient_group == 1) $group = 'r.caretaker_1';
-                    elseif ($patient_group == 2) $group = 'r.caretaker_2';
-                    elseif ($patient_group == 3) $group = 'r.caretaker_3';
-                    else $group = 'r.caretaker_4';
+                      $group = 0;
 
-                    # Get all patients care_giver_name via patient_group
-                    $sql_4 = "SELECT Fname, Lname FROM users as u
-                            JOIN rosters as r ON (u.id = $group)
-                            WHERE r.day = '$day%'";
+                      if ($patient_group == 1) $group = 'r.caretaker_1';
+                      elseif ($patient_group == 2) $group = 'r.caretaker_2';
+                      elseif ($patient_group == 3) $group = 'r.caretaker_3';
+                      else $group = 'r.caretaker_4';
 
-                    $row_2 = mysqli_fetch_row(mysqli_query($db_link, $sql_4));
+                      # Get all patients care_giver_name via patient_group
+                      $sql_4 = "SELECT Fname, Lname FROM users as u
+                              JOIN rosters as r ON (u.id = $group)
+                              WHERE r.day = '$day%'";
 
-                    if ($row_2) $care_name = $row_2[0] . ' ' . $row_2[1];
-                    else $care_name = "Unknown";
+                      $row_2 = mysqli_fetch_row(mysqli_query($db_link, $sql_4));
 
-                    echo "<td>$care_name</td>";
+                      if ($row_2) $care_name = $row_2[0] . ' ' . $row_2[1];
+                      else $care_name = "Unknown";
 
-                    // Get schedule and match to user
-                    $sql_5 = "SELECT morning_med, afternoon_med, night_med, breakfast,
-                            lunch, dinner FROM schedules
-                            WHERE user_id = '$patient_id' AND day LIKE '$day%'
-                            AND 0 IN (morning_med, afternoon_med, night_med,
-                            breakfast, lunch, dinner)";
+                      echo "<td>$care_name</td>";
 
-                    $row_3 = mysqli_fetch_row(mysqli_query($db_link, $sql_5));
+                      // Get schedule and match to user
+                      $sql_5 = "SELECT morning_med, afternoon_med, night_med, breakfast,
+                              lunch, dinner FROM schedules
+                              WHERE user_id = '$patient_id' AND day LIKE '$day%'
+                              AND 0 IN (morning_med, afternoon_med, night_med,
+                              breakfast, lunch, dinner)";
 
-                    // Checking if user should see check or no check for each field
-                    if ($row_3[0] == 1)  echo "<td class='check'>&#10003;</td>";
-                    else echo "<td></td>";
-                    if ($row_3[1] == 1)  echo "<td class='check'>&#10003;</td>";
-                    else echo "<td></td>";
-                    if ($row_3[2] == 1)  echo "<td class='check'>&#10003;</td>";
-                    else echo "<td></td>";
-                    if ($row_3[3] == 1)  echo "<td class='check'>&#10003;</td>";
-                    else echo "<td></td>";
-                    if ($row_3[4] == 1)  echo "<td class='check'>&#10003;</td>";
-                    else echo "<td></td>";
-                    if ($row_3[5] == 1)  echo "<td class='check'>&#10003;</td>";
-                    else echo "<td></td>";
+                      $row_3 = mysqli_fetch_row(mysqli_query($db_link, $sql_5));
 
+                      // Checking if user should see check or no check for each field
+                      if ($row_3[0] == 1)  echo "<td class='check'>&#10003;</td>";
+                      else echo "<td></td>";
+                      if ($row_3[1] == 1)  echo "<td class='check'>&#10003;</td>";
+                      else echo "<td></td>";
+                      if ($row_3[2] == 1)  echo "<td class='check'>&#10003;</td>";
+                      else echo "<td></td>";
+                      if ($row_3[3] == 1)  echo "<td class='check'>&#10003;</td>";
+                      else echo "<td></td>";
+                      if ($row_3[4] == 1)  echo "<td class='check'>&#10003;</td>";
+                      else echo "<td></td>";
+                      if ($row_3[5] == 1)  echo "<td class='check'>&#10003;</td>";
+                      else echo "<td></td>";
+
+                }
+
+                echo "</tr>";
               }
-
-              echo "</tr>";
+              mysqli_close($db_link);
             }
 
-            mysqli_close($db_link);
 
              ?>
           </table>
