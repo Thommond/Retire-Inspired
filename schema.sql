@@ -84,7 +84,7 @@ family_code varchar(100) NOT NULL,
 emergency_contact varchar(100) NOT NULL,
 Relation_Contact varchar(100) NOT NULL,
 admission_date date NOT NULL,
-patient_group integer NOT NULL,
-balance_due integer NOT NULL,
+patient_group float NOT NULL,
+balance_due  NOT NULL,
 PRIMARY KEY (id)
 );
