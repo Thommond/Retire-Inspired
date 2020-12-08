@@ -48,15 +48,43 @@
           die("ERROR: Could not connect. " . mysqli_connect_error());
         }
 
-        #Attempt to update the targeted user's salary
-        $sql = "UPDATE users
-                SET salary = '$salary'
+        #Fetch the user for the inputted id
+        $sql = "SELECT Role_id FROM users
                 WHERE id = '$id'";
 
         $result = mysqli_query($link, $sql);
 
-        if ($result == false) {
-          echo "<p class='error'>Update Failed</p>";
+        if ($result) {
+
+          $row = $result->fetch_assoc();
+
+          #Check if the id matched
+          if ($row) {
+            #Check if the role is an employee (5+ are patients and family members)
+            if ($row['Role_id'] <= 4) {
+
+              #Attempt to update the targeted user's salary
+              $sql = "UPDATE users
+                      SET salary = '$salary'
+                      WHERE id = '$id'";
+
+              $result = mysqli_query($link, $sql);
+
+              if ($result == false) {
+                echo "<p class='error'>Update Failed</p>";
+              }
+              
+            }
+            else {
+              echo "<p class='error'>Employee not found</p>";
+            }
+          }
+          else {
+            echo "<p class='error'>Employee not found</p>";
+          }
+        }
+        else {
+          echo "<p class='error'>Employee not found</p>";
         }
 
         mysqli_close($link);
