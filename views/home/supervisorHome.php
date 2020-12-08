@@ -40,7 +40,7 @@
 
       <a href="../patients.php">Look at List of Patients</a>
 
-      <a href="../admind/adminReport.php">Missed Activity</a>
+      <a href="../admin/adminReport.php">Missed Activity</a>
 
     </section>
 
