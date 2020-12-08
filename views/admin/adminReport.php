@@ -38,6 +38,8 @@
         die("ERROR: no roster for today make roster before checking missed activity for the day.");
       }
 
+      mysqli_close($db_link);
+
       ?>
 
       <p>Enter a date then missed activity for patients on that date.</p>
@@ -181,12 +183,13 @@
                     else echo "<td></td>";
 
               }
+
+              echo "</tr>";
             }
 
             mysqli_close($db_link);
 
              ?>
-            </tr>
           </table>
 
 
