@@ -14,6 +14,56 @@
 
     <h1>Employees</h1>
 
+    <section class="salary">
+
+      <form class="salary" action="employee.php" method="post">
+
+        <h2>Update Employee's Salary</h2>
+
+        <label>Employee ID:
+          <input type="text" name="id">
+        </label>
+
+        <label>New Salary:
+          <input type="number" name="salary">
+        </label>
+
+        <input type="submit" name="update_salary" value="Update">
+
+      </form>
+
+
+      <?php
+
+      if (isset($_POST['update_salary'])) {
+
+        #Retrieve the salary form data
+        $id = $_POST['id'];
+        $salary = $_POST['salary'];
+
+        #Establish the database connection
+        $link = mysqli_connect("localhost", "root", "", "retire");
+
+        if ($link == false) {
+          die("ERROR: Could not connect. " . mysqli_connect_error());
+        }
+
+        #Attempt to update the targeted user's salary
+        $sql = "UPDATE users
+                SET salary = '$salary'
+                WHERE id = '$id'";
+
+        $result = mysqli_query($link, $sql);
+
+        if ($result == false) {
+          echo "<p class='error'>Update Failed</p>";
+        }
+
+        mysqli_close($link);
+      }
+      ?>
+    </section>
+
     <section class="employees">
 
       <form class="employees" action="employee.php" method="post">
@@ -64,6 +114,7 @@
           $value = $_POST['value'] . '%';
         }
 
+        #Establish the database connection
         $link = mysqli_connect("localhost", "root", "", "retire");
 
         if ($link == false) {
@@ -113,8 +164,6 @@
         ?>
       </table>
     </section>
-
-
 
   </body>
 </html>
