@@ -2,7 +2,7 @@ html {
   box-sizing: border-box;
 }
 
-*, *::before *::after {
+*, *::before, *::after {
  box-sizing: inherit;
 }
 
@@ -63,9 +63,20 @@ label {
   font-weight: bold;
 }
 
+label.vertical {
+  display: flex;
+  flex-direction: column;
+}
+
 section {
   display: flex;
   align-items: center;
+  flex-direction: column;
+}
+
+header {
+  align-items: center;
+  display: flex;
   flex-direction: column;
 }
 
@@ -114,4 +125,29 @@ div.info {
 .check {
   color: darkgreen;
   text-align: center;
+}
+
+div.employees {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+}
+
+section.employees {
+  width: fit-content;
+}
+
+form.employees,
+table.employees {
+  margin: 0;
+  width: 100%;
+}
+
+form.employees div {
+  display: flex;
+  flex-direction: row;
+}
+
+form.salary {
+  margin-top: 0;
 }
