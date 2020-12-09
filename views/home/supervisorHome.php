@@ -42,7 +42,7 @@
 
       <a href="../admin/employee.php">Look at list of Employees</a>
 
-      <a href="../admind/adminReport.php">Missed Activity</a>
+      <a href="../admin/adminReport.php">Missed Activity</a>
 
     </section>
 

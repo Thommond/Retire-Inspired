@@ -159,8 +159,10 @@
                   }
 
                   #Check if the patient has a schedule for today
+
+
                   $sql = "SELECT * FROM schedules
-                          WHERE user_id = '$patient_id'";
+                          WHERE user_id = '$patient_id' AND day = CURRENT_DATE() ";
 
                   $result = mysqli_query($link, $sql);
 
@@ -178,7 +180,7 @@
                                   breakfast = '$breakfast',
                                   lunch = '$lunch',
                                   dinner = '$dinner'
-                              WHERE user_id = '$patient_id'";
+                              WHERE user_id = '$patient_id' AND day = CURRENT_DATE()";
 
                       $result = mysqli_query($link, $sql);
 
@@ -251,7 +253,7 @@
                 #Get and display the patient's schedule
                 $sql = "SELECT morning_med, afternoon_med, night_med, breakfast, lunch, dinner
                         FROM schedules
-                        WHERE user_id = '$user_id'";
+                        WHERE user_id = '$user_id' AND day = CURRENT_DATE()";
 
                 $result = mysqli_query($link, $sql);
 

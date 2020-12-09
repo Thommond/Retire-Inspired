@@ -72,7 +72,7 @@
 
         $id = $_POST['id'];
         $fname = $_POST['Fname'];
-        $lnname = $_POST['Lname'];
+        $lname = $_POST['Lname'];
         $age = $_POST['age'];
         $contact1 = $_POST['contact1'];
         $contact2 = $_POST['contact2'];
@@ -130,10 +130,10 @@
       if ($column == 'age') {
         $sql = $sql . "WHERE FLOOR(DATEDIFF(CURRENT_DATE, STR_TO_DATE(u.Birth_date, '%Y-%m-%d'))/365) LIKE '$filter'";
       }
-      elseif ($column && $filter) {
-        $sql = $sql . "WHERE '$column' LIKE '$filter'";
-      }
 
+      else if ($column && $filter) {
+        $sql = $sql . "WHERE $column LIKE '$filter'";
+      }
 
       $result = mysqli_query($db_link, $sql);
 
