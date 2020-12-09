@@ -155,6 +155,7 @@
             elseif ($_POST['attribute'] == 'salary') $attribute = 'salary';
 
             $value = $_POST['value'] . '%';
+
           }
 
           #Establish the database connection
@@ -169,9 +170,19 @@
                   FROM  users u JOIN roles r ON Role_id = r.id
                   WHERE Role_id <= 4";
 
-          if ($attribute && $value) {
+          if ($attribute != '' && $value != '%') {
 
-            $sql = $sql . " AND $attribute LIKE '$value'";
+            #If the user searches for salaries of null, provide a unique query
+            if ($attribute == 'salary' && strtolower($value) == 'null%') {
+
+              $sql = $sql . " AND salary IS NULL";
+
+            }
+            else {
+
+              $sql = $sql . " AND $attribute LIKE '$value'";
+
+            }
           }
 
           $result = mysqli_query($link, $sql);
@@ -193,7 +204,6 @@
               echo "<td>$role</td>";
 
               $salary = $row['salary'];
-              if (!$salary) $salary = 0;
               echo "<td>$salary</td>";
 
               echo "</tr>";
