@@ -29,6 +29,7 @@ CREATE TABLE users (
   Birth_date date NOT NULL,
   Password varchar(100) NOT NULL,
   approved boolean NOT NULL,
+  salary integer,
   PRIMARY KEY (id)
 );
 
