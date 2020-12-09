@@ -21,66 +21,73 @@
     </header>
 
     <div class="employees">
-      <section class="salary">
 
-        <form class="salary" action="employee.php" method="post">
+      <?php if ($_SESSION['Role_id'] == 1): ?>
 
-          <h2>Update Employee's Salary</h2>
+        <section class="salary">
 
-          <label>Employee ID:
-            <input type="text" name="id">
-          </label>
+          <form class="salary" action="employee.php" method="post">
 
-          <label>New Salary:
-            <input type="number" name="salary">
-          </label>
+            <h2>Update Employee's Salary</h2>
 
-          <input type="submit" name="update_salary" value="Update">
+            <label>Employee ID:
+              <input type="text" name="id">
+            </label>
 
-        </form>
+            <label>New Salary:
+              <input type="number" name="salary">
+            </label>
+
+            <input type="submit" name="update_salary" value="Update">
+
+          </form>
 
 
-        <?php
+          <?php
 
-        if (isset($_POST['update_salary'])) {
+          if (isset($_POST['update_salary'])) {
 
-          #Retrieve the salary form data
-          $id = $_POST['id'];
-          $salary = $_POST['salary'];
+            #Retrieve the salary form data
+            $id = $_POST['id'];
+            $salary = $_POST['salary'];
 
-          #Establish the database connection
-          $link = mysqli_connect("localhost", "root", "", "retire");
+            #Establish the database connection
+            $link = mysqli_connect("localhost", "root", "", "retire");
 
-          if ($link == false) {
-            die("ERROR: Could not connect. " . mysqli_connect_error());
-          }
+            if ($link == false) {
+              die("ERROR: Could not connect. " . mysqli_connect_error());
+            }
 
-          #Fetch the user for the inputted id
-          $sql = "SELECT Role_id FROM users
-                  WHERE id = '$id'";
+            #Fetch the user for the inputted id
+            $sql = "SELECT Role_id FROM users
+                    WHERE id = '$id'";
 
-          $result = mysqli_query($link, $sql);
+            $result = mysqli_query($link, $sql);
 
-          if ($result) {
+            if ($result) {
 
-            $row = $result->fetch_assoc();
+              $row = $result->fetch_assoc();
 
-            #Check if the id matched
-            if ($row) {
-              #Check if the role is an employee (5+ are patients and family members)
-              if ($row['Role_id'] <= 4) {
+              #Check if the id matched
+              if ($row) {
+                #Check if the role is an employee (5+ are patients and family members)
+                if ($row['Role_id'] <= 4) {
 
-                #Attempt to update the targeted user's salary
-                $sql = "UPDATE users
-                        SET salary = '$salary'
-                        WHERE id = '$id'";
+                  #Attempt to update the targeted user's salary
+                  $sql = "UPDATE users
+                          SET salary = '$salary'
+                          WHERE id = '$id'";
 
-                $result = mysqli_query($link, $sql);
+                  $result = mysqli_query($link, $sql);
 
-                if ($result == false) {
-                  echo "<p class='error'>Update Failed</p>";
+                  if ($result == false) {
+                    echo "<p class='error'>Update Failed</p>";
+                  }
+
                 }
-
+                else {
+                  echo "<p class='error'>Employee not found</p>";
+                }
               }
               else {
                 echo "<p class='error'>Employee not found</p>";
@@ -89,15 +96,13 @@
             else {
               echo "<p class='error'>Employee not found</p>";
             }
-          }
-          else {
-            echo "<p class='error'>Employee not found</p>";
-          }
 
-          mysqli_close($link);
-        }
-        ?>
-      </section>
+            mysqli_close($link);
+          }
+          ?>
+        </section>
+        
+      <?php endif; ?>
 
       <section class="employees">
 
