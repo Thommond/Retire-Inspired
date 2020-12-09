@@ -18,8 +18,6 @@
 
       <h2>Payment</h2>
 
-
-
       <a href="adminHome.php">Back</a>
 
       <h4>Update button, updates all patients from previous update to todays date.</h4>
@@ -51,8 +49,16 @@
 
       <?php
 
+        $day = date('Y-m-d');
+
+        $db_link = mysqli_connect("localhost", "root", "", "retire");
+
+        if ($db_link == false) {
+          die("ERROR: Could not connect. " . mysqli_connect_error());
+        }
+
         if (isset($_POST['ok'])) {
-          
+
 
         }
 
@@ -64,7 +70,11 @@
         if (isset($_POST['update'])) {
 
 
+
+
         }
+
+        mysqli_close($db_link);
 
        ?>
 
