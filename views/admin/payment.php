@@ -70,6 +70,50 @@
         if (isset($_POST['update'])) {
 
 
+          // Get all patients
+          $sql = "SELECT u.id, FROM users as u
+                  WHERE Role_id = 5"
+
+          $patient_result = mysqli_query($db_link, $sql);
+
+          // For each patient get
+          while ($row = $patient_result->fetch_assoc()) {
+
+            $patent_id = $row['id'];
+
+            $update_sql = "SELECT recent_update FROM payments
+                            WHERE user_id = '$patient_id'";
+
+            $update_result = mysqli_fetch_row(mysqli_query($db_link, $payment_sql));
+
+            if ($update_result) {
+              $recent_update = $update_result[0];
+            }
+
+            else {
+
+              // If they don't have a previous update make one their admission.
+              $admission_sql = "SELECT admission_date FROM patients_info
+                              WHERE user_id = '$patient_id'";
+
+              $admission_result = mysqli_fetch_row(mysqli_query($db_link, $admission_sql));
+
+              $recent_update = $admission_result[0];
+
+            }
+
+            // number of appointments since last update. ($50)
+            $appt_sql = "SELECT day FROM appointments
+                         WHERE "
+
+            // number of prescriptions since last update. ($5)
+            $med_sql = "";
+
+            // Days since last update. ($10)
+            $payment_sql = "";
+
+
+          }
 
 
         }
