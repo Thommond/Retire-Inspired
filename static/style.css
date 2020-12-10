@@ -80,6 +80,26 @@ header {
   flex-direction: column;
 }
 
+div.header {
+  align-items: center;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  width: 100%;
+}
+
+div.logout {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+nav {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
 table {
   color: black;
   background-color: tan;

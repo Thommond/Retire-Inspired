@@ -10,6 +10,7 @@
     <?php
     include ('../../common-functions.php');
     check_session(2);
+    include ('../nav.php');
     ?>
 
     <form class="exit" action="supervisorHome.php" method="post">
