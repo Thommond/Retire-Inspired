@@ -59,11 +59,35 @@
 
         if (isset($_POST['ok'])) {
 
+          $patient_id = $_POST['patient_id'];
+          $total_due = $_POST['total'];
+          $new_payment = $_POST['new_payment'];
 
-        }
+          // Checking if they have info
+          $check_patient_sql = "SELECT user_id FROM payments
+                            WHERE user_id = '$patient_id'";
 
-        if (isset($_POST['cancel'])) {
+          $checkp_result_1 = mysqli_fetch_row(mysqli_query($db_link, $check_patient_sql));
 
+          if ($checkp_result_1[0]) {
+
+            $update_payment_sql = "UPDATE payments
+                                   SET balance_due = '$total_due',
+                                       recent_update = '$day'
+                                   WHERE user_id = '$patient_id'";
+
+           $update_payment_result = mysqli_query($db_link, $update_payment_sql);
+
+          }
+
+          else {
+            $payment_sql = "INSERT INTO payments (user_id, balance_due, recent_update)
+                            VALUES ($patient_id, $total_due, '$day')";
+
+            $add_payment_result = mysqli_query($db_link, $payment_sql);
+          }
+
+          echo "<p class='success'> Updated patient payment with id, $patient_id successfully!";
 
         }
 
@@ -123,18 +147,39 @@
             // Days subtracted to get # of days since last update
             $start = date_create("$day");
             $end = date_create("$recent_update");
-            $days = date_diff($start, $end);
-            
-            $day_cost = intval($days->format('%a')) * 10;
+            $day_diff = date_diff($start, $end);
+            $days = intval($day_diff->format('%a'));
 
+            $day_cost = $days * 10;
 
             // Final balance
             $balance = $appt_cost + $med_cost + $day_cost;
 
-            $payment_sql = "INSERT INTO payments (user_id, balance_due, recent_update)
-                            VALUES ($patient_id, $balance, '$day')";
+            $check_patient = "SELECT user_id FROM payments
+                              WHERE user_id = '$patient_id'";
 
-            $add_payment_result = mysqli_query($db_link, $payment_sql);
+            $checkp_result_2 = mysqli_fetch_row(mysqli_query($db_link, $sql));
+
+            // Update if exists
+            if ($checkp_result_2[0]) {
+
+              $update_payment_sql = "UPDATE payments
+                                     SET balance_due = '$balance',
+                                         recent_update = '$day'
+                                     WHERE user_id = '$patient_id'";
+
+             $update_payment_result = mysqli_query($db_link, $update_payment_sql);
+
+            }
+
+            // Insert if not
+            else {
+              $payment_sql = "INSERT INTO payments (user_id, balance_due, recent_update)
+                              VALUES ($patient_id, $balance, '$day')";
+
+              $add_payment_result = mysqli_query($db_link, $payment_sql);
+            }
+
           }
 
           echo "<p class='success'>Balance update successful!</p>";
