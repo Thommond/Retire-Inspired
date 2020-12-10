@@ -71,20 +71,20 @@
 
 
           // Get all patients
-          $sql = "SELECT u.id, FROM users as u
-                  WHERE Role_id = 5"
+          $sql = "SELECT id FROM users
+                  WHERE Role_id = 5";
 
           $patient_result = mysqli_query($db_link, $sql);
 
           // For each patient get
           while ($row = $patient_result->fetch_assoc()) {
 
-            $patent_id = $row['id'];
+            $patient_id = $row['id'];
 
             $update_sql = "SELECT recent_update FROM payments
-                            WHERE user_id = '$patient_id'";
+                           WHERE user_id = '$patient_id'";
 
-            $update_result = mysqli_fetch_row(mysqli_query($db_link, $payment_sql));
+            $update_result = mysqli_fetch_row(mysqli_query($db_link, $update_sql));
 
             if ($update_result) {
               $recent_update = $update_result[0];
@@ -104,18 +104,40 @@
 
             // number of appointments since last update. ($50)
             $appt_sql = "SELECT day FROM appointments
-                         WHERE "
+                         WHERE patient_id = '$patient_id'";
+
+            $appt_result = mysqli_query($db_link, $appt_sql);
+
+            $count_appt = 0;
+
+            while ($row_2 = $appt_result->fetch_assoc()) {
+              $count_appt += 1;
+            }
+
+            $appt_cost = $count_appt * 50;
 
             // number of prescriptions since last update. ($5)
-            $med_sql = "";
-
-            // Days since last update. ($10)
-            $payment_sql = "";
+            $med_cost = $count_appt * 5;
 
 
+            // Days subtracted to get # of days since last update
+            $start = date_create("$day");
+            $end = date_create("$recent_update");
+            $days = date_diff($start, $end);
+            
+            $day_cost = intval($days->format('%a')) * 10;
+
+
+            // Final balance
+            $balance = $appt_cost + $med_cost + $day_cost;
+
+            $payment_sql = "INSERT INTO payments (user_id, balance_due, recent_update)
+                            VALUES ($patient_id, $balance, '$day')";
+
+            $add_payment_result = mysqli_query($db_link, $payment_sql);
           }
 
-
+          echo "<p class='success'>Balance update successful!</p>";
         }
 
         mysqli_close($db_link);
