@@ -87,7 +87,7 @@
             $add_payment_result = mysqli_query($db_link, $payment_sql);
           }
 
-          echo "<p class='success'> Updated patient payment with id, $patient_id successfully!";
+          echo "<p class='success'> Updated patient payment with id, $patient_id successfully!</p>";
 
         }
 
