@@ -26,13 +26,13 @@ VALUES ('Thomas', 'Smith', 1, 'example@gmail.com', '(717)-345-3455', '1988-01-07
        ('Sam', 'Hassan', 6, 'sam@gmail.com', '(717)-355-2312', '1988-02-11', 'cooldude', true),
        ('bob', 'Hassan', 6, 'bob@gmail.com', '(717)-355-2312', '1988-02-11', 'okaybro', false);
 
-INSERT INTO patients_info (user_id, family_code, emergency_contact, Relation_Contact, admission_date, patient_group, balance_due)
-VALUES (9, '123456', 'Same Hassan', 'Son', '2020-11-06', 1, 1000),
-       (10, '717333', 'Bobby Jones', 'Brother', '2020-11-08', 2, 200),
-       (11, '888888', 'Samantha Horton', 'Daughter', '2019-12-07', 3, 0),
-       (12, '987654', 'Jose Smith', 'Son', '2020-04-20', 4, 2189),
-       (13, '111222', 'Mr.Kring', 'Husband', '2020-07-12', 1, 330),
-       (14, '000000', 'Gabby Jimmy', 'Wife', '2020-02-21', 2, 233);
+INSERT INTO patients_info (user_id, family_code, emergency_contact, Relation_Contact, admission_date, patient_group)
+VALUES (9, '123456', 'Same Hassan', 'Son', '2020-11-06', 1),
+       (10, '717333', 'Bobby Jones', 'Brother', '2020-11-08', 2),
+       (11, '888888', 'Samantha Horton', 'Daughter', '2019-12-07', 3),
+       (12, '987654', 'Jose Smith', 'Son', '2020-04-20', 4),
+       (13, '111222', 'Mr.Kring', 'Husband', '2020-07-12', 1),
+       (14, '000000', 'Gabby Jimmy', 'Wife', '2020-02-21', 2);
 
 INSERT INTO appointments (patient_id, doctor_id, day)
 VALUES (9, 3, '2020-11-19'),

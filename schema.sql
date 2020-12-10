@@ -86,6 +86,13 @@ emergency_contact varchar(100) NOT NULL,
 Relation_Contact varchar(100) NOT NULL,
 admission_date date NOT NULL,
 patient_group integer NOT NULL,
-balance_due integer NOT NULL,
 PRIMARY KEY (id)
 );
+
+CREATE TABLE payments (
+  id integer NOT NULL AUTO_INCREMENT,
+  user_id integer REFERENCES user (id),
+  balance_due float NOT NULL,
+  recent_update date NOT NULL,
+  PRIMARY KEY (id)
+)
