@@ -14,7 +14,7 @@
     include ('../nav.php');
     ?>
 
-    <h1>Employees</h1>
+    <h2>Employees</h2>
 
 
     <div class="employees">
@@ -25,7 +25,7 @@
 
           <form class="salary" action="employee.php" method="post">
 
-            <h2>Update Employee's Salary</h2>
+            <h3>Update Employee's Salary</h3>
 
             <label>Employee ID:
               <input type="text" name="id">

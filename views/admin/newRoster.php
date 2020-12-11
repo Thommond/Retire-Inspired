@@ -19,7 +19,7 @@
     <section>
 
 
-      <h1>New Roster</h1>
+      <h2>New Roster</h2>
 
 
       <form  action="newRoster.php" method="post">

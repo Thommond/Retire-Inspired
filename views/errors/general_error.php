@@ -11,7 +11,7 @@
 
     <section>
 
-      <h1>500</h1>
+      <h2>500</h2>
 
       <p>We had an issue loading or connecting to the page or data you
         would like to access, sorry for your inconvience press the left

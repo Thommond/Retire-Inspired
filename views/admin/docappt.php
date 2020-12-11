@@ -20,7 +20,7 @@
     <section>
 
 
-      <h1>Doctors Appointment</h1>
+      <h2>Doctors Appointment</h2>
 
       <form  action="docappt.php" method="post">
 

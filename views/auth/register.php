@@ -14,7 +14,7 @@
 
     <section>
 
-      <h1>Register</h1>
+      <h2>Register</h2>
 
       <form class="register" action="register.php" method="post">
 

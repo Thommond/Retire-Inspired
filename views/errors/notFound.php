@@ -11,7 +11,7 @@
 
     <section>
 
-      <h1>404</h1>
+      <h2>404</h2>
 
       <p>The page you attempted to access can not be found, sorry for
       your inconvience press the left arrow on the browser to go back to

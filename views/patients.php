@@ -16,7 +16,7 @@
 
     <section>
 
-      <h1>Patients List</h1>
+      <h2>Patients List</h2>
 
       <p>If you would like to filter the results fill in a field only one field at a time.</p>
 

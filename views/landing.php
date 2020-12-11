@@ -11,7 +11,7 @@
 
     <section>
 
-    <h1>Welcome to Retire Inspired!</h1>
+    <h2>Welcome to Retire Inspired!</h2>
 
     <a href="http://localhost/Retire-Inspired/views/auth/register.php">Register</a>
 

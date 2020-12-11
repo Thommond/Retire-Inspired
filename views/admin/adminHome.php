@@ -17,7 +17,7 @@
 
     <section class='links'>
 
-      <h1>Welcome Home Admin!</h1>
+      <h2>Welcome Home Admin!</h2>
 
       <a href="createRoles.php">Create Roles</a>
 

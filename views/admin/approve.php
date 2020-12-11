@@ -20,7 +20,7 @@
 
     <section>
 
-      <h1>Registration Approval</h1>
+      <h2>Registration Approval</h2>
       <p>Note: All registrations that are selected no will be Permanently deleted.</p>
       <form action="approve.php" method="post">
         <table>

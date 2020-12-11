@@ -13,7 +13,7 @@ if(isset($_POST['logout'])) {
 
 <header>
 
-  <h1>Retirement Home</h1>
+  <h1>Central Lancaster Mennonite Retirement Home</h1>
 
   <?php if (session_status() == PHP_SESSION_ACTIVE): ?>
 
