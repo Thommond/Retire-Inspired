@@ -59,6 +59,10 @@
 
           $result = mysqli_fetch_row(mysqli_query($db_link, $sql));
 
+          if (!$result[4]) {
+            die("<p class='error'>ERROR: Incorrect email or password");
+          }
+
           session_id();
           session_start();
 
@@ -70,8 +74,6 @@
           $_SESSION['id'] = $result[3];
           $_SESSION['approved'] = $result[4];
 
-          // TODO: Make so checks database to see if email or password exists then if one does
-          // but the other does not throw email password error.
 
           if ($_SESSION['approved'] == 0) {
             header("Location: http://localhost/Retire-Inspired/views/errors/notYetApproved.php");
