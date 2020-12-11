@@ -10,26 +10,14 @@
     <?php
     include ('../../common-functions.php');
     check_session(1);
+
+    include ('../nav.php');
     ?>
 
 
-    <form class="exit" action="adminHome.php" method="post">
-        <input type="submit" name="logout" value="Logout">
-    </form>
-
-    <?php
-
-    if(isset($_POST['logout'])) {
-      session_start();
-      session_destroy();
-      header('Location: http://localhost/Retire-Inspired/views/auth/login.php');
-      }
-
-     ?>
-
     <section class='links'>
 
-      <h1>Welcome Home Admin!</h1>
+      <h2>Welcome Home Admin!</h2>
 
       <a href="createRoles.php">Create Roles</a>
 

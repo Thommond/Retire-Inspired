@@ -7,9 +7,11 @@
   </head>
   <body>
 
+    <?php include('../nav.php'); ?>
+
     <section>
 
-      <h1>403</h1>
+      <h2>403</h2>
 
       <p>The page you attempted to access or the action you attempted
       to perform is forbidden. To go back to your most recent page press

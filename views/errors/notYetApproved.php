@@ -7,9 +7,11 @@
   </head>
   <body>
 
+    <?php include('../nav.php'); ?>
+
     <section>
 
-      <h1>Not Approved Yet</h1>
+      <h2>Not Approved Yet</h2>
 
       <p>You attempted to login with not approved data, please check back
       in later so a Admin has time to review your infromation.</p>

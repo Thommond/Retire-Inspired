@@ -7,18 +7,15 @@
   </head>
   <body>
 
-    <header>
-      <?php
-      include ('../../common-functions.php');
-      check_session(2);
+    <?php
+    include ('../../common-functions.php');
+    check_session(2);
 
-      if ($_SESSION['Role_id'] == 1) echo '<a href="adminHome.php">Back</a>';
-      if ($_SESSION['Role_id'] == 2) echo '<a href="../home/supervisorHome.php">Back</a>';
-      ?>
+    include ('../nav.php');
+    ?>
 
-      <h1>Employees</h1>
+    <h2>Employees</h2>
 
-    </header>
 
     <div class="employees">
 
@@ -28,7 +25,7 @@
 
           <form class="salary" action="employee.php" method="post">
 
-            <h2>Update Employee's Salary</h2>
+            <h3>Update Employee's Salary</h3>
 
             <label>Employee ID:
               <input type="text" name="id">
@@ -101,7 +98,7 @@
           }
           ?>
         </section>
-        
+
       <?php endif; ?>
 
       <section class="employees">

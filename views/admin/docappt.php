@@ -13,17 +13,14 @@
     // TODO: Add success messages to all needed places in project
     include ('../../common-functions.php');
     check_session(2);
+
+    include ('../nav.php');
     ?>
 
     <section>
 
-      <?php
-      if ($_SESSION['Role_id'] == 1) echo '<a href=' . "adminHome.php" . '>' . 'Back' . '</a>';
-      if ($_SESSION['Role_id'] == 2) echo '<a href=' . "../home/supervisorHome.php" . '>' . 'Back' . '</a>';
-      ?>
 
-
-      <h1>Doctors Appointment</h1>
+      <h2>Doctors Appointment</h2>
 
       <form  action="docappt.php" method="post">
 

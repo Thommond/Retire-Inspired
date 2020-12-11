@@ -10,9 +10,11 @@
 
   <body>
 
+    <?php include ('../nav.php'); ?>
+
     <section>
 
-      <h1>Login</h1>
+      <h2>Login</h2>
 
       <form class="" action="login.php" method="post">
 

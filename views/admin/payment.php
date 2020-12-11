@@ -12,6 +12,8 @@
     <?php
     include ('../../common-functions.php');
     check_session(1);
+
+    include ('../nav.php');
     ?>
 
     <section>

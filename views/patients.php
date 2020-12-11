@@ -7,19 +7,16 @@
   </head>
   <body>
 
+    <?php
+    include ('../common-functions.php');
+    check_session(4);
+
+    include ('nav.php');
+    ?>
+
     <section>
 
-      <?php
-      include ('../common-functions.php');
-      check_session(4);
-
-      if ($_SESSION['Role_id'] == 1) echo '<a href=' . "admin/adminHome.php" . '>' . 'Back' . '</a>';
-      if ($_SESSION['Role_id'] == 2) echo '<a href=' . "home/supervisorHome.php" . '>' . 'Back' . '</a>';
-      if ($_SESSION['Role_id'] == 3) echo '<a href=' . "doctor/doctorHome.php" . '>' . 'Back' . '</a>';
-      if ($_SESSION['Role_id'] == 4) echo '<a href=' . "home/caregiverHome.php" . '>' . 'Back' . '</a>';
-      ?>
-
-      <h1>Patients List</h1>
+      <h2>Patients List</h2>
 
       <p>If you would like to filter the results fill in a field only one field at a time.</p>
 
