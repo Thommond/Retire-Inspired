@@ -76,6 +76,8 @@ section {
 
 header {
   align-items: center;
+  background-color: tan;
+  color: black;
   display: flex;
   flex-direction: column;
 }
@@ -98,11 +100,17 @@ nav {
   align-items: center;
   display: flex;
   flex-direction: row;
+  margin: 0 2rem;
+}
+
+form.exit {
+  margin: 0;
 }
 
 table {
   color: black;
   background-color: tan;
+  margin-top: 1rem;
 }
 
 tr {
@@ -170,4 +178,8 @@ form.employees div {
 
 form.salary {
   margin-top: 0;
+}
+
+h1 {
+  text-align: center;
 }

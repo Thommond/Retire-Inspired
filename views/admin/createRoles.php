@@ -10,6 +10,8 @@
     <?php
     include ('../../common-functions.php');
     check_session(1);
+
+    include ('../nav.php');
     ?>
 
     <section>
@@ -45,7 +47,6 @@
 
     <section>
 
-      <a class='back' href="adminHome.php">Back</a>
 
       <form  action="createRoles.php" method="post">
 

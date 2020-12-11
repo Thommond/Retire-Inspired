@@ -7,6 +7,8 @@
   </head>
   <body>
 
+    <?php include('../nav.php'); ?>
+
     <section>
 
       <h1>404</h1>

@@ -10,6 +10,8 @@
   </head>
   <body>
 
+    <?php include('nav.php'); ?>
+
     <section>
 
       <h1>Register</h1>

@@ -7,18 +7,15 @@
   </head>
   <body>
 
-    <header>
-      <?php
-      include ('../../common-functions.php');
-      check_session(2);
+    <?php
+    include ('../../common-functions.php');
+    check_session(2);
 
-      if ($_SESSION['Role_id'] == 1) echo '<a href="adminHome.php">Back</a>';
-      if ($_SESSION['Role_id'] == 2) echo '<a href="../home/supervisorHome.php">Back</a>';
-      ?>
+    include ('../nav.php');
+    ?>
 
-      <h1>Employees</h1>
+    <h1>Employees</h1>
 
-    </header>
 
     <div class="employees">
 

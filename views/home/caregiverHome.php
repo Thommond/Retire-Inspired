@@ -10,21 +10,9 @@
     <?php
     include ('../../common-functions.php');
     check_session(4);
+
+    include ('../nav.php');
     ?>
-
-    <form class="exit" action="caregiverHome.php" method="post">
-        <input type="submit" name="logout" value="Logout">
-    </form>
-
-    <?php
-
-    if(isset($_POST['logout'])) {
-      session_start();
-      session_destroy();
-      header('Location: http://localhost/Retire-Inspired/views/auth/login.php');
-      }
-
-     ?>
 
     <section class='links'>
 

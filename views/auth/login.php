@@ -10,6 +10,8 @@
 
   <body>
 
+    <?php include ('../nav.php'); ?>
+
     <section>
 
       <h1>Login</h1>

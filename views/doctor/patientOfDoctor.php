@@ -9,11 +9,16 @@
   </head>
   <body>
 
-    <section>
     <?php
     include ('../../common-functions.php');
     check_session(3);
-    echo '<a href=' . "doctorHome.php" . '>' . 'Back' . '</a>';
+
+    include ('../nav.php');
+    ?>
+
+    <section>
+      
+    <?php
 
     $patient = $_GET['patient_id_num'];
 
