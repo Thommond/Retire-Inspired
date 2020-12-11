@@ -86,7 +86,7 @@
                      SET approved = 1
                      WHERE id LIKE $id";
 
-            $result = mysqli_query($db_link, $sql2);
+            $result2 = mysqli_query($db_link, $sql2);
           }
 
           else if ($_POST[$row['id']] == 'no') {
@@ -96,7 +96,7 @@
             $sql2 = "DELETE FROM users
                      WHERE id LIKE $id";
 
-            $result = mysqli_query($db_link, $sql2);
+            $result2 = mysqli_query($db_link, $sql2);
 
 
           }

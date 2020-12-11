@@ -27,7 +27,7 @@ VALUES ('Thomas', 'Smith', 1, 'example@gmail.com', '(717)-345-3455', '1988-01-07
        ('bob', 'Hassan', 6, 'bob@gmail.com', '(717)-355-2312', '1988-02-11', 'okaybro', false);
 
 INSERT INTO patients_info (user_id, family_code, emergency_contact, Relation_Contact, admission_date, patient_group)
-VALUES (9, '123456', 'Same Hassan', 'Son', '2020-11-06', 1),
+VALUES (9, '123456', 'Sam Hassan', 'Son', '2020-11-06', 1),
        (10, '717333', 'Bobby Jones', 'Brother', '2020-11-08', 2),
        (11, '888888', 'Samantha Horton', 'Daughter', '2019-12-07', 3),
        (12, '987654', 'Jose Smith', 'Son', '2020-04-20', 4),

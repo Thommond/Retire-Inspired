@@ -23,7 +23,7 @@ if(isset($_POST['logout'])) {
 
         <p><?php echo $_SESSION['first_name'] . ' ' . $_SESSION['last_name']; ?></p>
 
-        <form class="exit" action="http://localhost:8080/Retire-Inspired/views/nav.php" method="post">
+        <form class="exit" action="http://localhost/Retire-Inspired/views/nav.php" method="post">
             <input type="submit" name="logout" value="Log Out">
         </form>
 

@@ -187,6 +187,7 @@
             }
           }
 
+
           $result = mysqli_query($link, $sql);
 
           if ($result) {
@@ -212,7 +213,7 @@
             }
           }
           else {
-            echo "<p class='error'>Unable to retrieve data.</p>";
+            echo "<p class='error'>Unable to retrieve data." . mysqli_connect_error() . "</p>";
           }
 
           mysqli_close($link);

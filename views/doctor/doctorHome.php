@@ -206,7 +206,6 @@
       if (isset($_POST['press'])) {
 
         $date = $_POST['till_date'];
-        $today = date('Y-m-d');
         $id = intval($_SESSION['id']);
 
         $db_link = mysqli_connect("localhost", "root", "", "retire");
@@ -218,7 +217,7 @@
         // Get from database
         $sql = "SELECT  a.day, u.Fname, u.Lname
                FROM appointments as a JOIN users as u on (a.patient_id = u.id)
-               WHERE doctor_id LIKE $id AND day BETWEEN '$today%' AND '$date%'";
+               WHERE doctor_id LIKE $id AND day BETWEEN  '$date%' AND CURRENT_DATE()";
 
        $result = mysqli_query($db_link, $sql);
 
@@ -230,7 +229,6 @@
          echo '<tr>';
          echo '<th>Name</th>';
          echo '<th>Date</th>';
-         echo '<th>Patient Page</th>';
          echo '</tr>';
 
 
@@ -239,7 +237,6 @@
            echo '<tr>';
            echo "<td>" .  $row['Fname'] .  ' ' . $row['Lname'] . "</td>";
            echo "<td>" . $row['day'] . "</td>";
-           echo '<td>' . "<a class='table_link' href='#'>Patient Page</a>" . '</td>';
            echo '</tr>';
          }
 

@@ -160,7 +160,7 @@
             $check_patient = "SELECT user_id FROM payments
                               WHERE user_id = '$patient_id'";
 
-            $checkp_result_2 = mysqli_fetch_row(mysqli_query($db_link, $sql));
+            $checkp_result_2 = mysqli_fetch_row(mysqli_query($db_link, $check_patient));
 
             // Update if exists
             if ($checkp_result_2[0]) {

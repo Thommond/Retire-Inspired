@@ -9,6 +9,7 @@ DROP TABLE IF EXISTS prescriptions;
 DROP TABLE IF EXISTS rosters;
 DROP TABLE IF EXISTS schedules;
 DROP TABLE IF EXISTS patients_info;
+DROP TABLE IF EXISTS payments;
 
 
 
